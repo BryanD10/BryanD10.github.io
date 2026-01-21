@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Fumigaciones WD | Control Profesional de Plagas en San Salvador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1b5e20;
+            --primary-light: #388e3c;
+            --secondary: #f5f5f5;
+            --dark: #212121;
+            --gray: #616161;
+            --light: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --secondary: #121212;
+            --light: #1e1e1e;
+            --dark: #e0e0e0;
+            --gray: #bdbdbd;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--secondary);
+            color: var(--dark);
+            line-height: 1.7;
+            transition: all 0.4s ease;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://nexuspestsolutions.com/wp-content/uploads/2025/07/pest-control-racine-wi-spraying-insecticide-in-a-kitchen.webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 20px 120px;
+        }
+
+        header h1 { font-size: 4rem; font-weight: 800; text-shadow: 4px 4px 15px rgba(0,0,0,0.9); }
+
+        header p { font-size: 1.5rem; max-width: 800px; margin: 1rem auto; }
+
+        .cockroach-fun { font-size: 5rem; margin: 1.5rem 0; animation: shake 1.5s infinite; }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 1.5rem 0.5rem;
+            padding: 16px 40px;
+            background: var(--primary-light);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover { background: var(--primary); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.25); }
+
+        nav {
+            background: var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-light); }
+
+        .hamburger { display: none; color: white; font-size: 2rem; cursor: pointer; }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        h2 {
+            color: var(--primary);
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 120px;
+            height: 6px;
+            background: var(--primary-light);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .benefits-grid, .services-grid, .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+        }
+
+        .card:hover { transform: translateY(-12px); box-shadow: 0 20px 45px rgba(0,0,0,0.18); }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content { padding: 1.8rem; text-align: center; }
+
+        form {
+            background: var(--light);
+            padding: 3.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            max-width: 750px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .fun-cockroach {
+            position: absolute;
+            bottom: -80px;
+            right: 20px;
+            font-size: 6rem;
+            opacity: 0.7;
+            animation: shake 2s infinite;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        input:focus, textarea:focus { border-color: var(--primary-light); outline: none; }
+
+        .error { color: #c62828; font-size: 0.95rem; margin-top: 0.5rem; display: none; }
+
+        #map {
+            height: 450px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            font-size: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover { transform: scale(1.15); }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 4rem 20px 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; background: var(--dark); position: absolute; top: 100%; left: 0; width: 100%; padding: 1.5rem 0; }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            header { padding: 140px 15px 90px; }
+            header h1 { font-size: 3rem; }
+            .fun-cockroach { font-size: 4rem; bottom: -60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Master Fumigaciones WD</h1>
+        <p>Eliminamos plagas de forma segura, rápida y ecológica en San Salvador y alrededores.</p>
+        <div class="cockroach-fun">🪳😱</div> <!-- Cucaracha asustada emoji -->
+        <a href="#contacto" class="btn">Solicita Cotización Gratis</a>
+        <a href="https://wa.me/50371626850?text=Hola%20Master%20Fumigaciones%20WD..." class="btn" style="background:#25D366;">Chatea por WhatsApp</a>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+            <div class="nav-links" id="navLinks">
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#porque">¿Por qué nosotros?</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <section id="inicio">
+        <h2>Bienvenido a Master Fumigaciones WD</h2>
+        <p style="text-align:center; max-width:900px; margin:0 auto 3rem; font-size:1.2rem; color:var(--gray);">
+            Empresa 100% salvadoreña especializada en control de plagas con más de 10 años de experiencia. Usamos productos certificados y métodos que protegen tu salud y el medio ambiente.
+        </p>
+        <div style="text-align:center; font-size:4rem; margin:2rem 0;">🪳💨😭 <br><small>(¡Las plagas huyen llorando cuando llegamos!)</small></div>
+    </section>
+
+    <section id="porque" style="background:#e8f5e9;">
+        <h2>¿Por qué elegir Master Fumigaciones WD?</h2>
+        <div class="benefits-grid">
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Seguridad Garantizada</h3>
+                <p>Productos de baja toxicidad, seguros para niños, mascotas y familia.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-clock"></i>
+                <h3>Atención Rápida</h3>
+                <p>Respuesta en menos de 2 horas y visitas el mismo día en San Salvador.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-dollar-sign"></i>
+                <h3>Precios Justos</h3>
+                <p>Cotizaciones transparentes sin costos ocultos y planes accesibles.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Garantía</h3>
+                <p>Resultados garantizados o volvemos gratis a reaplicar.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="card">
+                <img src="https://honorguardpest.com/wp-content/uploads/2022/02/Honor-Guard-Infographic-5.png" alt="Infestación de cucarachas">
+                <div class="card-content">
+                    <h3>Fumigación Residencial</h3>
+                    <p>Control de cucarachas, hormigas, chinches, mosquitos y más en tu hogar.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://nexuspestsolutions.com/wp-content/uploads/2025/07/pest-control-racine-wi-spraying-insecticide-in-a-kitchen.webp" alt="Técnico fumigando cocina">
+                <div class="card-content">
+                    <h3>Fumigación Comercial</h3>
+                    <p>Protección para restaurantes, oficinas, bodegas y comercios.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://beegonepests.com/wp-content/uploads/rodent-control-3-960x540.jpg" alt="Control de roedores">
+                <div class="card-content">
+                    <h3>Control de Roedores</h3>
+                    <p>Eliminación efectiva de ratas y ratones con métodos discretos.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://static.homeguide.com/assets/images/content/homeguide-house-covered-in-a-tent-for-termite-fumigation.jpg" alt="Fumigación contra termitas">
+                <div class="card-content">
+                    <h3>Control de Termitas</h3>
+                    <p>Tratamientos especializados para prevenir daños en madera y estructuras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>Contáctanos Hoy</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" required>
+                <div class="error" id="nombreError">Ingresa tu nombre</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico *</label>
+                <input type="email" id="email" required>
+                <div class="error" id="emailError">Correo inválido</div>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono / WhatsApp *</label>
+                <input type="tel" id="telefono" required pattern="[0-9]{8}">
+                <div class="error" id="telError">8 dígitos requeridos</div>
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Tu consulta o problema *</label>
+                <textarea id="mensaje" rows="7" required></textarea>
+                <div class="error" id="msgError">Describe tu situación</div>
+            </div>
+            <button type="submit" class="btn" style="width:100%; border:none; font-size:1.3rem;">Enviar Solicitud</button>
+            <div id="successMessage" style="margin-top:1.5rem; padding:1.5rem; background:#e8f5e9; border-radius:12px; text-align:center; display:none; font-weight:bold;">¡Gracias! Abriendo tu correo para enviarnos la información...</div>
+            <div class="fun-cockroach">🪳😭</div>
+        </form>
+
+        <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.0!2d-89.23!3d13.69!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f632f!2sSan+Salvador!5e0!3m2!1ses!2ssv!4v1737400000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <a href="https://wa.me/50371626850?text=Hola%20Master%20Fumigaciones%20WD%2C%20quiero%20cotizar..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>© 2026 Master Fumigaciones WD • San Salvador • Todos los derechos reservados</p>
+        <p>Tel / WhatsApp: +503 7162-6850 | Email: <a href="mailto:masterfumigacionesw.d@gmail.com">masterfumigacionesw.d@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Hamburger
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? '' : 'dark';
+            document.getElementById('themeToggle').innerHTML = document.body.dataset.theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Form
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            let valid = true;
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+            if (!form.nombre.value.trim()) { document.getElementById('nombreError').style.display = 'block'; valid = false; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value)) { document.getElementById('emailError').style.display = 'block'; valid = false; }
+            if (!/^\d{8}$/.test(form.telefono.value)) { document.getElementById('telError').style.display = 'block'; valid = false; }
+            if (!form.mensaje.value.trim()) { document.getElementById('msgError').style.display = 'block'; valid = false; }
+
+            if (valid) {
+                const subject = encodeURIComponent(`Cotización - ${form.nombre.value}`);
+                const body = encodeURIComponent(`Nombre: ${form.nombre.value}\nEmail: ${form.email.value}\nTel: ${form.telefono.value}\n\nMensaje:\n${form.mensaje.value}`);
+                window.location.href = `mailto:masterfumigacionesw.d@gmail.com?subject=${subject}&body=${body}`;
+                document.getElementById('successMessage').style.display = 'block';
+                form.reset();
+                setTimeout(() => document.getElementById('successMessage').style.display = 'none', 7000);
+            }
+        });
+
+        // Fade-in sections
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    </script>
+
+</body>
+</html>
