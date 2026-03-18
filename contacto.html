@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Master Fumigaciones WD – Cotización Gratis</title>
+  <meta name="description" content="Contáctanos para cotización gratis de control de plagas en Soyapango y El Salvador. WhatsApp 7162-6850. Respondemos en menos de 24 horas.">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/contacto.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<script src="js/shared-html.js"></script>
+
+<section class="page-hero">
+  <div class="page-hero__inner">
+    <div class="page-hero__breadcrumb">
+      <a href="index.html">Inicio</a>
+      <i class="fas fa-chevron-right" style="font-size:.6rem;"></i>
+      <span>Contacto</span>
+    </div>
+    <h1 class="page-hero__title">CONTÁCTANOS<br><em>HOY</em></h1>
+    <p class="page-hero__desc">Inspección gratuita sin compromiso. Te respondemos en menos de 24 horas en días hábiles, o de inmediato por WhatsApp.</p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="sec">
+  <div class="container">
+    <div class="contact-layout reveal">
+
+      <!-- Contact info -->
+      <div class="contact-info">
+        <span class="tag tag--green">Datos de contacto</span>
+        <h2>Estamos para <em>servirte</em></h2>
+        <p>Comunícate con nosotros por el medio que prefieras. Nuestro equipo está listo para atenderte y resolver todas tus dudas.</p>
+
+        <div class="contact-channels">
+          <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="channel channel--wa">
+            <div class="channel__icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>7162-6850 · Respuesta inmediata</span>
+            </div>
+            <i class="fas fa-arrow-right channel__arrow"></i>
+          </a>
+          <a href="mailto:masterfumigacionesw.d@gmail.com" class="channel">
+            <div class="channel__icon" style="background:rgba(200,21,43,.1);color:var(--red)"><i class="fas fa-envelope"></i></div>
+            <div>
+              <strong>Email</strong>
+              <span>masterfumigacionesw.d@gmail.com</span>
+            </div>
+            <i class="fas fa-arrow-right channel__arrow"></i>
+          </a>
+          <div class="channel channel--no-link">
+            <div class="channel__icon" style="background:rgba(245,194,0,.1);color:var(--yellow-d)"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <strong>Ubicación</strong>
+              <span>Soyapango, El Salvador</span>
+            </div>
+          </div>
+          <div class="channel channel--no-link">
+            <div class="channel__icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <strong>Horario regular</strong>
+              <span>Lun–Vie 8am–6pm · Sáb 8am–12pm</span>
+            </div>
+          </div>
+          <div class="channel channel--emergency">
+            <div class="channel__icon" style="background:rgba(200,21,43,.15);color:var(--red)"><i class="fas fa-exclamation-triangle"></i></div>
+            <div>
+              <strong>Emergencias</strong>
+              <span>Disponible 24/7 · 365 días</span>
+            </div>
+            <span class="channel__live">EN VIVO</span>
+          </div>
+        </div>
+
+        <div class="faq-mini">
+          <h4><i class="fas fa-question-circle"></i> Preguntas frecuentes</h4>
+          <div class="faq-item">
+            <div class="faq-q">¿La inspección realmente es gratis? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>Sí, la visita de evaluación es completamente gratuita y sin compromiso. Solo pagas si decides contratar el servicio.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">¿Cuánto tiempo tarda en responderme? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>Por WhatsApp respondemos en minutos. Por formulario o email, en menos de 24 horas en días hábiles.</p></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">¿Hay cargo por desplazamiento? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>No cobramos cargo de desplazamiento dentro del área metropolitana de San Salvador.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-wrap">
+        <div class="contact-form-card">
+          <div class="contact-form-card__header">
+            <i class="fas fa-clipboard-check"></i>
+            <div>
+              <h3>Solicitar Cotización Gratis</h3>
+              <p>Completa el formulario y te contactamos pronto</p>
+            </div>
+          </div>
+          <form id="mainForm" action="https://formspree.io/f/mojnljnz" method="POST"
+                class="contact-form">
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="name">Nombre completo *</label>
+                <input type="text" id="name" name="name" required placeholder="Tu nombre">
+              </div>
+              <div class="form-field">
+                <label for="phone">Teléfono *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="7XXX-XXXX"
+                       pattern="[0-9\s\-]{7,15}">
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" placeholder="tu@correo.com">
+            </div>
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="zona">Municipio *</label>
+                <select id="zona" name="zona" required>
+                  <option value="">Seleccionar…</option>
+                  <option value="soyapango">Soyapango</option>
+                  <option value="san-salvador">San Salvador</option>
+                  <option value="mejicanos">Mejicanos</option>
+                  <option value="apopa">Apopa</option>
+                  <option value="ilopango">Ilopango</option>
+                  <option value="san-marcos">San Marcos</option>
+                  <option value="ciudad-delgado">Ciudad Delgado</option>
+                  <option value="santa-tecla">Santa Tecla</option>
+                  <option value="antiguo-cuscatlan">Antiguo Cuscatlán</option>
+                  <option value="otro">Otro municipio</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="tipo">Tipo de inmueble *</label>
+                <select id="tipo" name="tipo" required>
+                  <option value="">Seleccionar…</option>
+                  <option value="casa">Casa/Apartamento</option>
+                  <option value="restaurante">Restaurante</option>
+                  <option value="oficina">Oficina/Comercio</option>
+                  <option value="bodega">Bodega/Almacén</option>
+                  <option value="fabrica">Planta industrial</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="service">Servicio requerido *</label>
+              <select id="service" name="service" required>
+                <option value="">Seleccionar servicio…</option>
+                <option value="insectos">Control de Insectos (cucarachas, hormigas, etc.)</option>
+                <option value="roedores">Control de Roedores (ratas, ratones)</option>
+                <option value="termitas">Control de Termitas</option>
+                <option value="fumigacion">Fumigación General</option>
+                <option value="desinfeccion">Desinfección / Certificado MINSAL</option>
+                <option value="industrial">Control Industrial (BPM)</option>
+                <option value="plan">Plan de Mantenimiento</option>
+                <option value="otro">Otro / No sé qué tipo de plaga</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="urgency">Nivel de urgencia</label>
+              <select id="urgency" name="urgency">
+                <option value="normal">Normal (programar visita)</option>
+                <option value="urgente">Urgente (esta semana)</option>
+                <option value="emergencia">Emergencia (hoy o mañana)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="message">Descripción del problema</label>
+              <textarea id="message" name="message" rows="3"
+                        placeholder="Cuéntanos qué plagas ves, desde cuándo, en qué área de tu casa/negocio…"></textarea>
+            </div>
+            <div class="form-field form-field--check">
+              <label class="check-label">
+                <input type="checkbox" name="whatsapp_ok" value="si">
+                <span>Acepto recibir información y cotización por WhatsApp</span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full btn--lg">
+              <i class="fas fa-paper-plane"></i> Enviar solicitud
+            </button>
+            <div id="form-status" style="margin-top:.8rem;text-align:center;font-size:.9rem;font-weight:600;display:none;"></div>
+            <p style="text-align:center;font-size:.76rem;color:#aaa;margin-top:.6rem;">
+              <i class="fas fa-lock"></i> Tus datos son privados y no los compartiremos con terceros.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK CONTACT CARDS -->
+<section class="sec sec--charcoal">
+  <div class="container">
+    <div class="sec-head sec-head--center reveal">
+      <span class="tag tag--green">Contacto rápido</span>
+      <h2 class="sec-head__title sec-head__title--light">¿Prefieres <span>contacto directo?</span></h2>
+    </div>
+    <div class="quick-cards">
+      <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="quick-card quick-card--wa reveal">
+        <i class="fab fa-whatsapp"></i>
+        <h3>WhatsApp</h3>
+        <p>La forma más rápida. Respuesta en minutos.</p>
+        <span>7162-6850</span>
+      </a>
+      <a href="https://wa.me/50371626850?text=Hola,%20necesito%20una%20cotizacion%20de%20fumigacion%20de%20emergencia"
+         target="_blank" rel="noopener noreferrer" class="quick-card quick-card--emergency reveal">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Emergencia 24/7</h3>
+        <p>Atendemos en menos de 2 horas dentro del área metro.</p>
+        <span>Disponible ahora</span>
+      </a>
+      <a href="mailto:masterfumigacionesw.d@gmail.com" class="quick-card quick-card--email reveal">
+        <i class="fas fa-envelope"></i>
+        <h3>Email</h3>
+        <p>Para solicitudes detalladas y empresas.</p>
+        <span>masterfumigacionesw.d@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script src="js/shared-html.js" type="module"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
