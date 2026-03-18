@@ -1,47 +1,33 @@
-/* shared-html.js — inject header + footer into every page */
-(function(){
+/* shared-html.js — inject header + footer, fixed preloader */
+(function () {
   const WA = "50371626850";
 
-  /* ---- HEADER ---- */
   const headerHTML = `
   <div id="preloader">
     <div class="pl__scene">
-      <!-- Animated mouse running across the screen -->
       <div class="pl__mouse-wrap">
         <svg class="pl__mouse" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
-          <!-- Body -->
           <ellipse cx="60" cy="38" rx="32" ry="20" fill="#c8c0b8"/>
-          <!-- Head -->
           <ellipse cx="88" cy="32" rx="16" ry="13" fill="#c8c0b8"/>
-          <!-- Snout -->
           <ellipse cx="102" cy="36" rx="7" ry="5" fill="#b8a8a0"/>
-          <!-- Nose -->
           <ellipse cx="108" cy="35" rx="3" ry="2.5" fill="#e87a7a"/>
-          <!-- Eye -->
           <circle cx="98" cy="28" r="3" fill="#1a1a1a"/>
           <circle cx="99" cy="27" r="1" fill="white"/>
-          <!-- Ear left -->
           <ellipse cx="84" cy="20" rx="5" ry="7" fill="#c8c0b8"/>
           <ellipse cx="84" cy="20" rx="3" ry="5" fill="#f0a0a8"/>
-          <!-- Ear right -->
           <ellipse cx="94" cy="19" rx="5" ry="7" fill="#c8c0b8"/>
           <ellipse cx="94" cy="19" rx="3" ry="5" fill="#f0a0a8"/>
-          <!-- Tail (curved, wagging) -->
           <path class="pl__tail" d="M 30 40 Q 10 20 5 35 Q 0 50 15 45" stroke="#a89888" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-          <!-- Legs (animated) -->
           <line class="pl__leg pl__leg--1" x1="75" y1="54" x2="68" y2="66" stroke="#a89888" stroke-width="4" stroke-linecap="round"/>
           <line class="pl__leg pl__leg--2" x1="62" y1="57" x2="55" y2="68" stroke="#a89888" stroke-width="4" stroke-linecap="round"/>
           <line class="pl__leg pl__leg--3" x1="50" y1="55" x2="44" y2="67" stroke="#a89888" stroke-width="4" stroke-linecap="round"/>
           <line class="pl__leg pl__leg--4" x1="38" y1="53" x2="32" y2="65" stroke="#a89888" stroke-width="4" stroke-linecap="round"/>
-          <!-- Whiskers -->
           <line x1="103" y1="32" x2="118" y2="28" stroke="#888" stroke-width="1" stroke-linecap="round"/>
           <line x1="103" y1="35" x2="119" y2="34" stroke="#888" stroke-width="1" stroke-linecap="round"/>
           <line x1="103" y1="38" x2="118" y2="41" stroke="#888" stroke-width="1" stroke-linecap="round"/>
         </svg>
       </div>
-      <!-- Ground line -->
       <div class="pl__ground"></div>
-      <!-- Dust puffs -->
       <div class="pl__dust pl__dust--1"></div>
       <div class="pl__dust pl__dust--2"></div>
       <div class="pl__dust pl__dust--3"></div>
@@ -65,8 +51,7 @@
         <li><a href="blog.html">Consejos</a></li>
         <li><a href="contacto.html">Contacto</a></li>
         <li>
-          <a href="https://wa.me/${WA}" target="_blank" rel="noopener noreferrer"
-             class="btn btn--wa btn--sm">
+          <a href="https://wa.me/${WA}" target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--sm">
             <i class="fab fa-whatsapp" aria-hidden="true"></i> 7162-6850
           </a>
         </li>
@@ -77,12 +62,10 @@
     </nav>
   </header>
 
-  <a href="https://wa.me/${WA}" class="wa-float" target="_blank"
-     rel="noopener noreferrer" aria-label="Chat por WhatsApp">
+  <a href="https://wa.me/${WA}" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat por WhatsApp">
     <i class="fab fa-whatsapp" aria-hidden="true"></i>
   </a>`;
 
-  /* ---- FOOTER ---- */
   const footerHTML = `
   <footer class="site-footer">
     <div class="footer__grid">
@@ -99,7 +82,6 @@
           <a href="mailto:masterfumigacionesw.d@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
-
       <div class="footer__col">
         <h4>Servicios</h4>
         <ul>
@@ -111,7 +93,6 @@
           <li><a href="servicios.html#industrial">Control Industrial</a></li>
         </ul>
       </div>
-
       <div class="footer__col">
         <h4>Empresa</h4>
         <ul>
@@ -122,7 +103,6 @@
           <li><a href="contacto.html">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer__col">
         <h4>Contacto</h4>
         <div class="footer__contact-item"><i class="fas fa-map-marker-alt"></i><span>Soyapango, El Salvador</span></div>
@@ -131,7 +111,6 @@
         <div class="footer__contact-item"><i class="fas fa-clock"></i><span>Lun–Vie: 8am–6pm<br>Emergencias: 24/7</span></div>
       </div>
     </div>
-
     <div class="footer__bottom">
       <p>&copy; <span id="footerYear"></span> Master Fumigaciones WD. Todos los derechos reservados.</p>
       <div class="footer__certs">
@@ -142,7 +121,24 @@
     </div>
   </footer>`;
 
-  /* Inject before body content */
+  // Inject immediately (script runs synchronously in body)
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
   document.body.insertAdjacentHTML('beforeend', footerHTML);
+
+  // --- Preloader: hide after page fully loads (with 1.5s max fallback) ---
+  function hidePreloader() {
+    var pl = document.getElementById('preloader');
+    if (pl) pl.classList.add('gone');
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(hidePreloader, 600);
+  } else {
+    window.addEventListener('load', function () {
+      setTimeout(hidePreloader, 600);
+    });
+    // Failsafe: never stay stuck longer than 2.5 seconds
+    setTimeout(hidePreloader, 2500);
+  }
+
 })();

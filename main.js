@@ -5,14 +5,6 @@
 const WA_NUMBER = "50371626850";
 const CURRENT_PAGE = window.location.pathname.split('/').pop() || 'index.html';
 
-/* ---- Preloader ---- */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const pl = document.getElementById('preloader');
-    if (pl) pl.classList.add('gone');
-  }, 600);
-});
-
 /* ---- Active nav link ---- */
 document.querySelectorAll('.nav__links a').forEach(a => {
   const href = a.getAttribute('href');
@@ -86,7 +78,7 @@ document.querySelectorAll('.faq-q').forEach(q => {
 });
 
 /* ---- Form submission (Formspree) ---- */
-const form   = document.getElementById('mainForm');
+const form    = document.getElementById('mainForm');
 const fStatus = document.getElementById('form-status');
 if (form) {
   form.addEventListener('submit', async (e) => {
