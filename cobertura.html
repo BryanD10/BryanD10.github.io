@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cobertura | Master Fumigaciones WD – Soyapango y área metropolitana</title>
   <meta name="description" content="Servicio de fumigación en Soyapango, San Salvador, Mejicanos, Apopa, Ilopango, Ciudad Delgado, Santa Tecla y toda el área metropolitana. ☎ 7162-6850">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/cobertura.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="cobertura.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<script src="js/shared-html.js"></script>
+<script src="shared-html.js"></script>
 
 <section class="page-hero">
   <div class="page-hero__inner">
@@ -28,7 +28,6 @@
 <section class="sec">
   <div class="container">
     <div class="coverage-layout reveal">
-      <!-- Animated map visual -->
       <div class="map-visual">
         <div class="map-visual__ring map-visual__ring--1"></div>
         <div class="map-visual__ring map-visual__ring--2"></div>
@@ -38,7 +37,6 @@
           <span>SOYAPANGO</span>
           <em>Sede principal</em>
         </div>
-        <!-- Satellite dots -->
         <div class="sat-dot" style="--a:30deg;--r:42%"><span>San Salvador</span></div>
         <div class="sat-dot" style="--a:100deg;--r:44%"><span>Mejicanos</span></div>
         <div class="sat-dot" style="--a:160deg;--r:46%"><span>Apopa</span></div>
@@ -54,10 +52,7 @@
         <div class="zones-grid">
           <div class="zone zone--primary">
             <i class="fas fa-star"></i>
-            <div>
-              <strong>Soyapango</strong>
-              <span>Sede principal · Sin cargo extra</span>
-            </div>
+            <div><strong>Soyapango</strong><span>Sede principal · Sin cargo extra</span></div>
           </div>
           <div class="zone"><i class="fas fa-check"></i><div><strong>San Salvador</strong><span>Sin cargo extra</span></div></div>
           <div class="zone"><i class="fas fa-check"></i><div><strong>Mejicanos</strong><span>Sin cargo extra</span></div></div>
@@ -80,6 +75,24 @@
   </div>
 </section>
 
+<!-- FOTO REPRESENTATIVA DEL ÁREA -->
+<section class="sec sec--charcoal" style="padding:0;">
+  <div style="width:100%;height:320px;overflow:hidden;position:relative;">
+    <!-- Vista aérea de San Salvador / área metropolitana -->
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80" 
+         alt="Área metropolitana de San Salvador" 
+         style="width:100%;height:100%;object-fit:cover;object-position:center 40%;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(6,77,138,.85),rgba(6,11,20,.5));display:flex;align-items:center;padding:0 8%;">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);color:#fff;letter-spacing:.04em;line-height:.9;margin-bottom:.8rem;">
+          TODO EL GRAN<br><span style="color:var(--yellow)">SAN SALVADOR</span>
+        </h2>
+        <p style="color:rgba(255,255,255,.75);font-size:1.05rem;max-width:420px;line-height:1.65;">Cubrimos los 11 municipios del área metropolitana sin cargo adicional de desplazamiento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- RESPONSE TIMES -->
 <section class="sec sec--charcoal">
   <div class="container">
@@ -89,6 +102,10 @@
     </div>
     <div class="response-grid">
       <div class="response-card reveal">
+        <!-- imagen: reloj / urgencia -->
+        <div style="width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:1.2rem;">
+          <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80" alt="Atención de emergencias" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="response-card__time">
           <i class="fas fa-exclamation-triangle"></i>
           <span>&lt;2 horas</span>
@@ -98,6 +115,10 @@
         <span class="tag tag--red">Disponible ahora</span>
       </div>
       <div class="response-card reveal">
+        <!-- imagen: día de trabajo / calendario -->
+        <div style="width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:1.2rem;">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Servicio mismo día" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="response-card__time">
           <i class="fas fa-calendar-day"></i>
           <span>Mismo día</span>
@@ -107,6 +128,10 @@
         <span class="tag tag--yellow">Lun–Sáb</span>
       </div>
       <div class="response-card reveal">
+        <!-- imagen: agenda / planificación -->
+        <div style="width:100%;height:140px;border-radius:10px;overflow:hidden;margin-bottom:1.2rem;">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Servicio programado" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="response-card__time">
           <i class="fas fa-calendar-alt"></i>
           <span>24–48 hrs</span>
@@ -119,7 +144,7 @@
   </div>
 </section>
 
-<!-- SERVICE BY ZONE -->
+<!-- SERVICE BY ZONE TABLE -->
 <section class="sec">
   <div class="container">
     <div class="sec-head sec-head--center reveal">
@@ -129,59 +154,42 @@
     </div>
     <div class="zone-table reveal">
       <div class="zone-table__head">
-        <span>Municipio</span>
-        <span>Insectos</span>
-        <span>Roedores</span>
-        <span>Termitas</span>
-        <span>Industrial</span>
-        <span>24/7</span>
+        <span>Municipio</span><span>Insectos</span><span>Roedores</span><span>Termitas</span><span>Industrial</span><span>24/7</span>
       </div>
       <div class="zone-table__row highlight">
         <span><i class="fas fa-star"></i> Soyapango</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
         <span class="ok"><i class="fas fa-check"></i></span>
       </div>
       <div class="zone-table__row">
         <span>San Salvador</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
         <span class="ok"><i class="fas fa-check"></i></span>
       </div>
       <div class="zone-table__row">
         <span>Mejicanos</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
         <span class="ok"><i class="fas fa-check"></i></span>
       </div>
       <div class="zone-table__row">
         <span>Apopa</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="partial"><i class="fas fa-minus"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="partial"><i class="fas fa-minus"></i></span>
         <span class="ok"><i class="fas fa-check"></i></span>
       </div>
       <div class="zone-table__row">
         <span>Ilopango</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
         <span class="partial"><i class="fas fa-minus"></i></span>
       </div>
       <div class="zone-table__row">
         <span>Santa Tecla</span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="ok"><i class="fas fa-check"></i></span>
-        <span class="partial"><i class="fas fa-minus"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="ok"><i class="fas fa-check"></i></span>
+        <span class="ok"><i class="fas fa-check"></i></span><span class="partial"><i class="fas fa-minus"></i></span>
         <span class="partial"><i class="fas fa-minus"></i></span>
       </div>
     </div>
@@ -192,7 +200,18 @@
   </div>
 </section>
 
-<script src="js/shared-html.js" type="module"></script>
-<script src="js/main.js"></script>
+<section class="cta-band">
+  <div class="cta-band__inner reveal">
+    <h2>¿ESTÁS EN NUESTRA ZONA?</h2>
+    <p>Confirma tu municipio y agenda tu inspección gratuita hoy mismo.</p>
+    <div class="cta-band__btns">
+      <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--lg"><i class="fab fa-whatsapp"></i> WhatsApp: 7162-6850</a>
+      <a href="contacto.html" class="btn btn--yellow btn--lg"><i class="fas fa-clipboard-check"></i> Solicitar servicio</a>
+    </div>
+  </div>
+</section>
+
+<script src="shared-html.js" type="module"></script>
+<script src="main.js"></script>
 </body>
 </html>

@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto | Master Fumigaciones WD – Cotización Gratis</title>
   <meta name="description" content="Contáctanos para cotización gratis de control de plagas en Soyapango y El Salvador. WhatsApp 7162-6850. Respondemos en menos de 24 horas.">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/contacto.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="contacto.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<script src="js/shared-html.js"></script>
+<script src="shared-html.js"></script>
 
 <section class="page-hero">
   <div class="page-hero__inner">
@@ -35,43 +35,34 @@
         <h2>Estamos para <em>servirte</em></h2>
         <p>Comunícate con nosotros por el medio que prefieras. Nuestro equipo está listo para atenderte y resolver todas tus dudas.</p>
 
+        <!-- imagen: técnico atendiendo cliente / call center friendly -->
+        <div style="width:100%;height:180px;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80" 
+               alt="Equipo Master Fumigaciones WD atendiendo" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+
         <div class="contact-channels">
           <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="channel channel--wa">
             <div class="channel__icon"><i class="fab fa-whatsapp"></i></div>
-            <div>
-              <strong>WhatsApp</strong>
-              <span>7162-6850 · Respuesta inmediata</span>
-            </div>
+            <div><strong>WhatsApp</strong><span>7162-6850 · Respuesta inmediata</span></div>
             <i class="fas fa-arrow-right channel__arrow"></i>
           </a>
           <a href="mailto:masterfumigacionesw.d@gmail.com" class="channel">
             <div class="channel__icon" style="background:rgba(200,21,43,.1);color:var(--red)"><i class="fas fa-envelope"></i></div>
-            <div>
-              <strong>Email</strong>
-              <span>masterfumigacionesw.d@gmail.com</span>
-            </div>
+            <div><strong>Email</strong><span>masterfumigacionesw.d@gmail.com</span></div>
             <i class="fas fa-arrow-right channel__arrow"></i>
           </a>
           <div class="channel channel--no-link">
             <div class="channel__icon" style="background:rgba(245,194,0,.1);color:var(--yellow-d)"><i class="fas fa-map-marker-alt"></i></div>
-            <div>
-              <strong>Ubicación</strong>
-              <span>Soyapango, El Salvador</span>
-            </div>
+            <div><strong>Ubicación</strong><span>Soyapango, El Salvador</span></div>
           </div>
           <div class="channel channel--no-link">
             <div class="channel__icon"><i class="fas fa-clock"></i></div>
-            <div>
-              <strong>Horario regular</strong>
-              <span>Lun–Vie 8am–6pm · Sáb 8am–12pm</span>
-            </div>
+            <div><strong>Horario regular</strong><span>Lun–Vie 8am–6pm · Sáb 8am–12pm</span></div>
           </div>
           <div class="channel channel--emergency">
             <div class="channel__icon" style="background:rgba(200,21,43,.15);color:var(--red)"><i class="fas fa-exclamation-triangle"></i></div>
-            <div>
-              <strong>Emergencias</strong>
-              <span>Disponible 24/7 · 365 días</span>
-            </div>
+            <div><strong>Emergencias</strong><span>Disponible 24/7 · 365 días</span></div>
             <span class="channel__live">EN VIVO</span>
           </div>
         </div>
@@ -103,8 +94,7 @@
               <p>Completa el formulario y te contactamos pronto</p>
             </div>
           </div>
-          <form id="mainForm" action="https://formspree.io/f/mojnljnz" method="POST"
-                class="contact-form">
+          <form id="mainForm" action="https://formspree.io/f/mojnljnz" method="POST" class="contact-form">
             <div class="form-row-2">
               <div class="form-field">
                 <label for="name">Nombre completo *</label>
@@ -112,8 +102,7 @@
               </div>
               <div class="form-field">
                 <label for="phone">Teléfono *</label>
-                <input type="tel" id="phone" name="phone" required placeholder="7XXX-XXXX"
-                       pattern="[0-9\s\-]{7,15}">
+                <input type="tel" id="phone" name="phone" required placeholder="7XXX-XXXX" pattern="[0-9\s\-]{7,15}">
               </div>
             </div>
             <div class="form-field">
@@ -228,7 +217,7 @@
   </div>
 </section>
 
-<script src="js/shared-html.js" type="module"></script>
-<script src="js/main.js"></script>
+<script src="shared-html.js" type="module"></script>
+<script src="main.js"></script>
 </body>
 </html>
