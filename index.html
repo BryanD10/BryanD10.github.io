@@ -79,56 +79,167 @@
           <p>Respuesta en menos de 24 horas</p>
         </div>
       </div>
-      <form class="quote-box__form" id="mainForm"
-            action="https://formspree.io/f/mojnljnz" method="POST">
+      <div class="quote-box__form" id="mainForm">
         <div class="form-field">
           <label for="name">Nombre completo</label>
-          <input type="text" id="name" name="name" required placeholder="Tu nombre">
+          <input type="text" id="name" placeholder="Tu nombre">
         </div>
         <div class="form-field">
           <label for="phone">Teléfono</label>
-          <input type="tel" id="phone" name="phone" required placeholder="7XXX-XXXX"
-                 pattern="[0-9\s\-]{7,15}">
+          <input type="tel" id="phone" placeholder="7XXX-XXXX">
         </div>
         <div class="form-field">
           <label for="zona">Municipio</label>
-          <select id="zona" name="zona" required>
+          <select id="zona">
             <option value="">¿Dónde estás?</option>
-            <option value="soyapango">Soyapango</option>
-            <option value="san-salvador">San Salvador</option>
-            <option value="mejicanos">Mejicanos</option>
-            <option value="apopa">Apopa</option>
-            <option value="ilopango">Ilopango</option>
-            <option value="san-marcos">San Marcos</option>
-            <option value="ciudad-delgado">Ciudad Delgado</option>
-            <option value="santa-tecla">Santa Tecla</option>
-            <option value="otro">Otro municipio</option>
+            <optgroup label="── San Salvador">
+              <option value="Soyapango">Soyapango</option>
+              <option value="San Salvador">San Salvador</option>
+              <option value="Mejicanos">Mejicanos</option>
+              <option value="Apopa">Apopa</option>
+              <option value="Ilopango">Ilopango</option>
+              <option value="Ciudad Delgado">Ciudad Delgado</option>
+              <option value="San Marcos">San Marcos</option>
+              <option value="Santa Tecla (Nueva San Salvador)">Santa Tecla</option>
+              <option value="Antiguo Cuscatlán">Antiguo Cuscatlán</option>
+              <option value="Cuscatancingo">Cuscatancingo</option>
+              <option value="San Martín">San Martín</option>
+              <option value="Panchimalco">Panchimalco</option>
+              <option value="Rosario de Mora">Rosario de Mora</option>
+              <option value="Santo Tomás">Santo Tomás</option>
+              <option value="Santiago Texacuangos">Santiago Texacuangos</option>
+              <option value="San Francisco Chinameca">San Francisco Chinameca</option>
+              <option value="Tonacatepeque">Tonacatepeque</option>
+              <option value="Guazapa">Guazapa</option>
+              <option value="Aguilares">Aguilares</option>
+            </optgroup>
+            <optgroup label="── La Libertad">
+              <option value="Santa Tecla">Santa Tecla</option>
+              <option value="Colón">Colón</option>
+              <option value="Ciudad Arce">Ciudad Arce</option>
+              <option value="Quezaltepeque">Quezaltepeque</option>
+              <option value="Zaragoza">Zaragoza</option>
+              <option value="San Juan Opico">San Juan Opico</option>
+              <option value="Lourdes">Lourdes</option>
+              <option value="La Libertad">La Libertad</option>
+            </optgroup>
+            <optgroup label="── La Paz">
+              <option value="Zacatecoluca">Zacatecoluca</option>
+              <option value="San Luis Talpa">San Luis Talpa</option>
+              <option value="El Rosario">El Rosario</option>
+              <option value="Olocuilta">Olocuilta</option>
+              <option value="San Pedro Masahuat">San Pedro Masahuat</option>
+            </optgroup>
+            <optgroup label="── Cuscatlán">
+              <option value="Cojutepeque">Cojutepeque</option>
+              <option value="Suchitoto">Suchitoto</option>
+              <option value="San Pedro Perulapán">San Pedro Perulapán</option>
+            </optgroup>
+            <optgroup label="── Santa Ana">
+              <option value="Santa Ana">Santa Ana</option>
+              <option value="Chalchuapa">Chalchuapa</option>
+              <option value="Metapán">Metapán</option>
+            </optgroup>
+            <optgroup label="── Sonsonate">
+              <option value="Sonsonate">Sonsonate</option>
+              <option value="Acajutla">Acajutla</option>
+              <option value="Izalco">Izalco</option>
+              <option value="Nahuizalco">Nahuizalco</option>
+            </optgroup>
+            <optgroup label="── San Miguel">
+              <option value="San Miguel">San Miguel</option>
+              <option value="Moncagua">Moncagua</option>
+              <option value="Chinameca">Chinameca</option>
+            </optgroup>
+            <optgroup label="── Usulután">
+              <option value="Usulután">Usulután</option>
+              <option value="Santiago de María">Santiago de María</option>
+              <option value="Jiquilisco">Jiquilisco</option>
+            </optgroup>
+            <optgroup label="── La Unión">
+              <option value="La Unión">La Unión</option>
+              <option value="Santa Rosa de Lima">Santa Rosa de Lima</option>
+            </optgroup>
+            <optgroup label="── Chalatenango">
+              <option value="Chalatenango">Chalatenango</option>
+              <option value="La Palma">La Palma</option>
+            </optgroup>
+            <optgroup label="── Cabañas">
+              <option value="Sensuntepeque">Sensuntepeque</option>
+              <option value="Ilobasco">Ilobasco</option>
+            </optgroup>
+            <optgroup label="── Morazán">
+              <option value="San Francisco Gotera">San Francisco Gotera</option>
+              <option value="Perquín">Perquín</option>
+            </optgroup>
+            <optgroup label="── Ahuachapán">
+              <option value="Ahuachapán">Ahuachapán</option>
+              <option value="Atiquizaya">Atiquizaya</option>
+            </optgroup>
+            <optgroup label="── San Vicente">
+              <option value="San Vicente">San Vicente</option>
+              <option value="Zacatecoluca">Zacatecoluca</option>
+            </optgroup>
+            <option value="Otro municipio">Otro municipio</option>
           </select>
         </div>
         <div class="form-field">
           <label for="service">Tipo de servicio</label>
-          <select id="service" name="service" required>
+          <select id="service">
             <option value="">Selecciona un servicio</option>
-            <option value="insectos">Control de Insectos</option>
-            <option value="roedores">Control de Roedores</option>
-            <option value="termitas">Control de Termitas</option>
-            <option value="fumigacion">Fumigación General</option>
-            <option value="desinfeccion">Desinfección</option>
-            <option value="industrial">Control Industrial</option>
+            <option value="Control de Insectos">Control de Insectos</option>
+            <option value="Control de Roedores">Control de Roedores</option>
+            <option value="Control de Termitas">Control de Termitas</option>
+            <option value="Fumigación General">Fumigación General</option>
+            <option value="Desinfección">Desinfección</option>
+            <option value="Control Industrial">Control Industrial</option>
           </select>
         </div>
         <div class="form-field">
           <label for="message">Describe tu problema (opcional)</label>
-          <textarea id="message" name="message" rows="2" placeholder="Ej: cucarachas en cocina…"></textarea>
+          <textarea id="message" rows="2" placeholder="Ej: cucarachas en cocina…"></textarea>
         </div>
-        <button type="submit" class="btn btn--primary btn--full btn--lg">
-          <i class="fas fa-paper-plane"></i> Solicitar Cotización
+        <div id="form-error" style="display:none;color:#e53935;font-size:.85rem;margin-bottom:.5rem;text-align:center;font-weight:600;"></div>
+        <button type="button" onclick="enviarWhatsApp()" class="btn btn--primary btn--full btn--lg">
+          <i class="fab fa-whatsapp"></i> Solicitar Cotización por WhatsApp
         </button>
-        <div id="form-status" style="margin-top:.7rem;text-align:center;font-size:.9rem;font-weight:600;display:none;"></div>
         <p style="text-align:center;font-size:.75rem;color:#aaa;margin-top:.6rem;">
-          <i class="fas fa-lock"></i> Tus datos están protegidos
+          <i class="fab fa-whatsapp" style="color:#25d366;"></i> Te responderemos en minutos
         </p>
-      </form>
+      </div>
+
+      <script>
+      function enviarWhatsApp() {
+        var nombre  = document.getElementById('name').value.trim();
+        var telefono = document.getElementById('phone').value.trim();
+        var zona    = document.getElementById('zona').value;
+        var servicio = document.getElementById('service').value;
+        var mensaje = document.getElementById('message').value.trim();
+        var errorBox = document.getElementById('form-error');
+
+        // Validación
+        if (!nombre) { errorBox.textContent = '⚠️ Por favor ingresa tu nombre.'; errorBox.style.display='block'; document.getElementById('name').focus(); return; }
+        if (!telefono) { errorBox.textContent = '⚠️ Por favor ingresa tu teléfono.'; errorBox.style.display='block'; document.getElementById('phone').focus(); return; }
+        if (!zona) { errorBox.textContent = '⚠️ Selecciona tu municipio.'; errorBox.style.display='block'; return; }
+        if (!servicio) { errorBox.textContent = '⚠️ Selecciona el tipo de servicio.'; errorBox.style.display='block'; return; }
+        errorBox.style.display = 'none';
+
+        // Armar mensaje estructurado
+        var texto =
+          '🐛 *SOLICITUD DE COTIZACIÓN*\n' +
+          '━━━━━━━━━━━━━━━━━━\n' +
+          '👤 *Nombre:* ' + nombre + '\n' +
+          '📞 *Teléfono:* ' + telefono + '\n' +
+          '📍 *Municipio:* ' + zona + '\n' +
+          '🔧 *Servicio:* ' + servicio + '\n' +
+          (mensaje ? '💬 *Detalle:* ' + mensaje + '\n' : '') +
+          '━━━━━━━━━━━━━━━━━━\n' +
+          '_Enviado desde masterfumigacioneswd.com_';
+
+        var url = 'https://wa.me/50371626850?text=' + encodeURIComponent(texto);
+        window.open(url, '_blank');
+      }
+      </script>
     </div>
   </div>
 </section>
@@ -243,21 +354,96 @@
       <span class="tag tag--yellow">Testimonios</span>
       <h2 class="sec-head__title sec-head__title--light">Lo que dicen nuestros <span>clientes</span></h2>
     </div>
+    <div class="testi-google-badge reveal">
+      <i class="fab fa-google"></i>
+      <span>Reseñas verificadas · Clientes reales</span>
+    </div>
     <div class="testi-grid">
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
         <blockquote>"Teníamos termitas en el techo. Master Fumigaciones llegó rápido, resolvió todo y nos dio garantía escrita. Excelente servicio."</blockquote>
-        <div class="testi-person"><div class="avatar">MR</div><div><strong>María Rodríguez</strong><span><i class="fas fa-map-marker-alt"></i> Soyapango</span></div></div>
+        <div class="testi-person"><div class="avatar avatar--purple">MR</div><div><strong>María Rodríguez</strong><span><i class="fas fa-map-marker-alt"></i> Soyapango</span></div></div>
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
         <blockquote>"En mi restaurante necesitaba cumplir con normas MINSAL. Hicieron el trabajo completo y nos dieron el certificado. Totalmente recomendados."</blockquote>
-        <div class="testi-person"><div class="avatar">JC</div><div><strong>Jorge Castillo</strong><span><i class="fas fa-map-marker-alt"></i> San Salvador</span></div></div>
+        <div class="testi-person"><div class="avatar avatar--blue">JC</div><div><strong>Jorge Castillo</strong><span><i class="fas fa-map-marker-alt"></i> San Salvador</span></div></div>
       </div>
       <div class="testi-card reveal">
         <div class="stars">★★★★★</div>
         <blockquote>"Llamé de emergencia un sábado y llegaron en menos de una hora. Muy profesionales y precio justo. Ya los tengo agendados cada 3 meses."</blockquote>
-        <div class="testi-person"><div class="avatar">AG</div><div><strong>Ana Gutiérrez</strong><span><i class="fas fa-map-marker-alt"></i> Mejicanos</span></div></div>
+        <div class="testi-person"><div class="avatar avatar--orange">AG</div><div><strong>Ana Gutiérrez</strong><span><i class="fas fa-map-marker-alt"></i> Mejicanos</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICACIONES Y CONFIANZA -->
+<section class="sec sec--white certif-sec">
+  <div class="container">
+    <div class="sec-head sec-head--center reveal">
+      <span class="tag tag--green">Respaldo Oficial</span>
+      <h2 class="sec-head__title">Certificados y <span>autorizados</span></h2>
+      <p class="sec-head__sub">Operamos bajo plena regulación del Ministerio de Salud y del Ministerio de Agricultura de El Salvador.</p>
+    </div>
+    <div class="certif-grid reveal">
+      <div class="certif-card">
+        <div class="certif-card__seal">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="certif-card__body">
+          <span class="certif-card__org">MINSAL</span>
+          <h4>Permiso Sanitario</h4>
+          <p>Empresa autorizada por el Ministerio de Salud de El Salvador para aplicación de plaguicidas y desinfectantes.</p>
+        </div>
+      </div>
+      <div class="certif-card">
+        <div class="certif-card__seal certif-card__seal--mag">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <div class="certif-card__body">
+          <span class="certif-card__org">MAG</span>
+          <h4>Certificación Técnica</h4>
+          <p>Certificados por el Ministerio de Agricultura y Ganadería. Técnica responsable I.A. Jaqueline Barahona Viches.</p>
+        </div>
+      </div>
+      <div class="certif-card">
+        <div class="certif-card__seal certif-card__seal--years">
+          <i class="fas fa-award"></i>
+        </div>
+        <div class="certif-card__body">
+          <span class="certif-card__org">GARANTÍA</span>
+          <h4>6 Meses por Escrito</h4>
+          <p>Garantía escrita incluida en cada servicio. Si la plaga regresa dentro del período, volvemos sin costo adicional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA DE COBERTURA -->
+<section class="sec sec--charcoal">
+  <div class="container">
+    <div class="sec-head sec-head--center reveal">
+      <span class="tag tag--green">Cobertura</span>
+      <h2 class="sec-head__title sec-head__title--light">¿Llegamos a tu <span>zona</span>?</h2>
+      <p class="sec-head__sub sec-head__sub--light">Atendemos Soyapango y toda el área metropolitana de San Salvador. Emergencias en menos de 2 horas.</p>
+    </div>
+    <div class="map-wrap reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d30780.74!2d-89.1373!3d13.7174!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63303b1b5df8e1%3A0x6b3c0b58d54e5b5d!2sSoyapango%2C%20El%20Salvador!5e0!3m2!1ses!2ssv!4v1700000000000"
+        width="100%" height="400" style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" title="Zona de cobertura Master Fumigaciones WD – Soyapango y área metropolitana">
+      </iframe>
+      <div class="map-badges">
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Soyapango</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> San Salvador</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Mejicanos</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Ilopango</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Ciudad Delgado</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Apopa</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> Santa Tecla</span>
+        <span class="map-badge"><i class="fas fa-map-marker-alt"></i> San Marcos</span>
       </div>
     </div>
   </div>
@@ -277,5 +463,412 @@
 </section>
 
 <script src="main.js"></script>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/50371626850?text=Hola%2C%20necesito%20información%20sobre%20fumigación" 
+   target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Contactar por WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-float__label">¿Necesitas ayuda?</span>
+</a>
+
+<!-- CHATBOT -->
+<div id="chatbot" class="cb-wrap" aria-live="polite">
+  <button class="cb-toggle" id="cbToggle" onclick="cbToggleOpen()" aria-label="Abrir asistente">
+    <i class="fas fa-comment-dots cb-toggle__icon--open"></i>
+    <i class="fas fa-times cb-toggle__icon--close" style="display:none"></i>
+    <span class="cb-badge" id="cbBadge">1</span>
+  </button>
+
+  <div class="cb-box" id="cbBox" style="display:none">
+    <div class="cb-header">
+      <div class="cb-header__avatar"><i class="fas fa-shield-alt"></i></div>
+      <div>
+        <strong>Asistente Master WD</strong>
+        <span class="cb-online"><span class="cb-dot"></span>En línea ahora</span>
+      </div>
+      <button class="cb-close" onclick="cbToggleOpen()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="cb-messages" id="cbMessages"></div>
+
+    <div class="cb-options" id="cbOptions"></div>
+  </div>
+</div>
+
+<script>
+// ─── CHATBOT DATA ───────────────────────────────────────────
+var CB = {
+  phone: '50371626850',
+  delay: 600,
+  state: { step: 0, data: {} },
+
+  flow: [
+    {
+      id: 'start',
+      msg: '👋 ¡Hola! Soy el asistente de <strong>Master Fumigaciones WD</strong>.<br>¿En qué te puedo ayudar hoy?',
+      opts: [
+        { label: '🐛 Tengo una plaga', next: 'tipo_plaga' },
+        { label: '💰 Quiero una cotización', next: 'tipo_plaga' },
+        { label: '🚨 Es una emergencia', next: 'emergencia' },
+        { label: 'ℹ️ Información general', next: 'info' }
+      ]
+    },
+    {
+      id: 'tipo_plaga',
+      msg: '¿Qué tipo de plaga tienes?',
+      opts: [
+        { label: '🪳 Cucarachas / Insectos', val: 'Control de Insectos', next: 'lugar' },
+        { label: '🐀 Ratas / Ratones', val: 'Control de Roedores', next: 'lugar' },
+        { label: '🪵 Termitas', val: 'Control de Termitas', next: 'lugar' },
+        { label: '🦟 Zancudos / Moscas', val: 'Fumigación General', next: 'lugar' },
+        { label: '🔬 No sé / Otra', val: 'Inspección General', next: 'lugar' }
+      ]
+    },
+    {
+      id: 'lugar',
+      msg: '¿Dónde tienes el problema?',
+      opts: [
+        { label: '🏠 Casa / Apartamento', val: 'Residencial', next: 'zona' },
+        { label: '🍽️ Restaurante / Negocio', val: 'Comercial', next: 'zona' },
+        { label: '🏭 Industria / Bodega', val: 'Industrial', next: 'zona' }
+      ]
+    },
+    {
+      id: 'zona',
+      msg: '¿En qué municipio o departamento estás?',
+      opts: [
+        { label: '📍 Soyapango', val: 'Soyapango', next: 'urgencia' },
+        { label: '📍 San Salvador', val: 'San Salvador', next: 'urgencia' },
+        { label: '📍 Mejicanos', val: 'Mejicanos', next: 'urgencia' },
+        { label: '📍 Ilopango', val: 'Ilopango', next: 'urgencia' },
+        { label: '📍 Ciudad Delgado', val: 'Ciudad Delgado', next: 'urgencia' },
+        { label: '📍 Apopa', val: 'Apopa', next: 'urgencia' },
+        { label: '📍 San Marcos', val: 'San Marcos', next: 'urgencia' },
+        { label: '📍 Antiguo Cuscatlán', val: 'Antiguo Cuscatlán', next: 'urgencia' },
+        { label: '📍 Santa Tecla', val: 'Santa Tecla', next: 'urgencia' },
+        { label: '📍 Cuscatancingo', val: 'Cuscatancingo', next: 'urgencia' },
+        { label: '📍 San Martín', val: 'San Martín', next: 'urgencia' },
+        { label: '📍 Tonacatepeque', val: 'Tonacatepeque', next: 'urgencia' },
+        { label: '📍 Colón (La Libertad)', val: 'Colón', next: 'urgencia' },
+        { label: '📍 Ciudad Arce', val: 'Ciudad Arce', next: 'urgencia' },
+        { label: '📍 Quezaltepeque', val: 'Quezaltepeque', next: 'urgencia' },
+        { label: '📍 Zaragoza', val: 'Zaragoza', next: 'urgencia' },
+        { label: '📍 San Juan Opico', val: 'San Juan Opico', next: 'urgencia' },
+        { label: '📍 La Libertad', val: 'La Libertad', next: 'urgencia' },
+        { label: '📍 Olocuilta', val: 'Olocuilta', next: 'urgencia' },
+        { label: '📍 Zacatecoluca', val: 'Zacatecoluca', next: 'urgencia' },
+        { label: '📍 Cojutepeque', val: 'Cojutepeque', next: 'urgencia' },
+        { label: '📍 Suchitoto', val: 'Suchitoto', next: 'urgencia' },
+        { label: '📍 Santa Ana', val: 'Santa Ana', next: 'urgencia' },
+        { label: '📍 Chalchuapa', val: 'Chalchuapa', next: 'urgencia' },
+        { label: '📍 Sonsonate', val: 'Sonsonate', next: 'urgencia' },
+        { label: '📍 Acajutla', val: 'Acajutla', next: 'urgencia' },
+        { label: '📍 San Miguel', val: 'San Miguel', next: 'urgencia' },
+        { label: '📍 Usulután', val: 'Usulután', next: 'urgencia' },
+        { label: '📍 La Unión', val: 'La Unión', next: 'urgencia' },
+        { label: '📍 Santa Rosa de Lima', val: 'Santa Rosa de Lima', next: 'urgencia' },
+        { label: '📍 Chalatenango', val: 'Chalatenango', next: 'urgencia' },
+        { label: '📍 Sensuntepeque', val: 'Sensuntepeque', next: 'urgencia' },
+        { label: '📍 Ilobasco', val: 'Ilobasco', next: 'urgencia' },
+        { label: '📍 San Francisco Gotera', val: 'San Francisco Gotera', next: 'urgencia' },
+        { label: '📍 Ahuachapán', val: 'Ahuachapán', next: 'urgencia' },
+        { label: '📍 San Vicente', val: 'San Vicente', next: 'urgencia' },
+        { label: '📍 Otro municipio', val: 'Otro municipio', next: 'urgencia' }
+      ]
+    },
+    {
+      id: 'urgencia',
+      msg: '¿Qué tan urgente es?',
+      opts: [
+        { label: '🚨 Urgente – hoy mismo', val: 'URGENTE – hoy mismo', next: 'datos' },
+        { label: '📅 Esta semana', val: 'Esta semana', next: 'datos' },
+        { label: '🗓️ Cuando puedan', val: 'Sin urgencia', next: 'datos' }
+      ]
+    },
+    {
+      id: 'emergencia',
+      msg: '⚡ ¡Entendido! Atendemos emergencias en <strong>menos de 2 horas</strong> en el área metropolitana.<br><br>Te voy a conectar de inmediato con un técnico.',
+      opts: [
+        { label: '📲 Llamar ahora: 7162-6850', action: 'call' },
+        { label: '💬 WhatsApp de emergencia', action: 'wa_emergency' }
+      ]
+    },
+    {
+      id: 'info',
+      msg: '¿Sobre qué quieres más información?',
+      opts: [
+        { label: '💰 Precios y cotizaciones', next: 'precio_info' },
+        { label: '📜 Certificaciones MINSAL/MAG', next: 'cert_info' },
+        { label: '🔒 Garantía del servicio', next: 'garantia_info' },
+        { label: '⏰ Horarios de atención', next: 'horario_info' }
+      ]
+    },
+    {
+      id: 'precio_info',
+      msg: '💰 Los precios varían según el tipo de plaga, tamaño del lugar y frecuencia del servicio.<br><br>La <strong>inspección inicial es gratuita</strong> y sin compromiso. ¿Quieres agendar una?',
+      opts: [
+        { label: '✅ Sí, quiero una inspección gratis', next: 'tipo_plaga' },
+        { label: '💬 Preguntar por WhatsApp', action: 'wa_info' }
+      ]
+    },
+    {
+      id: 'cert_info',
+      msg: '📜 Master Fumigaciones WD cuenta con:<br>• <strong>Permiso Sanitario MINSAL</strong><br>• <strong>Certificación técnica MAG</strong><br>• Técnica responsable: I.A. Jaqueline Barahona Viches<br><br>Operamos bajo plena regulación gubernamental.',
+      opts: [
+        { label: '🐛 Solicitar servicio certificado', next: 'tipo_plaga' },
+        { label: '💬 Más preguntas por WhatsApp', action: 'wa_info' }
+      ]
+    },
+    {
+      id: 'garantia_info',
+      msg: '🔒 Ofrecemos <strong>garantía escrita de 6 meses</strong>.<br><br>Si la plaga regresa dentro del período, volvemos sin costo adicional. Lo ponemos por escrito en el contrato.',
+      opts: [
+        { label: '✅ Quiero este servicio', next: 'tipo_plaga' },
+        { label: '💬 Hablar con un técnico', action: 'wa_info' }
+      ]
+    },
+    {
+      id: 'horario_info',
+      msg: '⏰ Nuestros horarios:<br>• <strong>Lun–Vie:</strong> 8am – 6pm<br>• <strong>Sábados:</strong> 8am – 12pm<br>• <strong>Emergencias:</strong> 24/7<br><br>Número: <strong>7162-6850</strong>',
+      opts: [
+        { label: '🐛 Solicitar servicio', next: 'tipo_plaga' },
+        { label: '💬 Escribir por WhatsApp', action: 'wa_info' }
+      ]
+    },
+    {
+      id: 'datos',
+      msg: '📝 Casi listo. ¿Puedes dejarnos tu nombre y teléfono para que el técnico te contacte?<br><small style="color:#888">(Opcional — puedes saltar si prefieres)</small>',
+      opts: [],
+      input: true
+    },
+    {
+      id: 'final',
+      msg: '✅ ¡Perfecto! Tengo toda la información.<br><br>📋 <strong>Resumen:</strong><br>🔧 Servicio: <strong>{servicio}</strong><br>🏠 Lugar: <strong>{lugar}</strong><br>📍 Municipio: <strong>{zona}</strong><br>⚡ Urgencia: <strong>{urgencia}</strong><br><br>Toca el botón para enviar todo por WhatsApp y confirmar tu cita.',
+      opts: [
+        { label: '💬 Enviar por WhatsApp', action: 'wa_final' },
+        { label: '🔄 Empezar de nuevo', action: 'restart' }
+      ]
+    }
+  ]
+};
+
+// ─── ENGINE ─────────────────────────────────────────────────
+var cbOpen = false;
+var cbStarted = false;
+
+function cbToggleOpen() {
+  cbOpen = !cbOpen;
+  var box   = document.getElementById('cbBox');
+  var badge = document.getElementById('cbBadge');
+  var iconO = document.querySelector('.cb-toggle__icon--open');
+  var iconC = document.querySelector('.cb-toggle__icon--close');
+  box.style.display   = cbOpen ? 'flex' : 'none';
+  iconO.style.display = cbOpen ? 'none' : 'block';
+  iconC.style.display = cbOpen ? 'block' : 'none';
+  badge.style.display = 'none';
+  if (cbOpen && !cbStarted) { cbStarted = true; setTimeout(cbShowStep.bind(null, 'start'), 400); }
+}
+
+function cbShowStep(id) {
+  var step = CB.flow.find(function(s){ return s.id === id; });
+  if (!step) return;
+  CB.state.step = id;
+  cbAddMessage('bot', step.msg);
+  setTimeout(function(){
+    if (step.input) {
+      cbShowInputForm();
+    } else {
+      cbShowOptions(step.opts);
+    }
+  }, CB.delay);
+}
+
+function cbShowInputForm() {
+  var container = document.getElementById('cbOptions');
+  container.innerHTML =
+    '<div class="cb-input-group">' +
+      '<input type="text" id="cbNombre" placeholder="Tu nombre" class="cb-input">' +
+      '<input type="tel" id="cbTelefono" placeholder="Teléfono: 7XXX-XXXX" class="cb-input">' +
+      '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
+        '<button class="cb-opt cb-opt--send" onclick="cbSubmitDatos()">✅ Continuar</button>' +
+        '<button class="cb-opt cb-opt--skip" onclick="cbSkipDatos()">⏭️ Saltar</button>' +
+      '</div>' +
+    '</div>';
+  setTimeout(function(){ var el = document.getElementById('cbNombre'); if(el) el.focus(); }, 100);
+}
+
+function cbSubmitDatos() {
+  var nombre   = (document.getElementById('cbNombre')   || {}).value || '';
+  var telefono = (document.getElementById('cbTelefono') || {}).value || '';
+  nombre   = nombre.trim();
+  telefono = telefono.trim();
+  if (nombre)   CB.state.data.nombre   = nombre;
+  if (telefono) CB.state.data.telefono = telefono;
+  var resumen = nombre || telefono
+    ? '👤 ' + (nombre || '–') + ' · 📞 ' + (telefono || '–')
+    : '(sin datos)';
+  cbAddMessage('user', resumen);
+  document.getElementById('cbOptions').innerHTML = '';
+  setTimeout(function(){ cbShowStep('final'); }, 400);
+}
+
+function cbSkipDatos() {
+  cbAddMessage('user', '⏭️ Prefiero no dejarlo');
+  document.getElementById('cbOptions').innerHTML = '';
+  setTimeout(function(){ cbShowStep('final'); }, 400);
+}
+
+function cbAddMessage(who, html) {
+  var msgs = document.getElementById('cbMessages');
+  var div = document.createElement('div');
+  div.className = 'cb-msg cb-msg--' + who;
+  div.innerHTML = '<div class="cb-bubble">' + html + '</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function cbShowOptions(opts) {
+  var container = document.getElementById('cbOptions');
+  container.innerHTML = '';
+
+  // Si hay más de 10 opciones, mostrar buscador
+  if (opts.length > 10) {
+    var searchWrap = document.createElement('div');
+    searchWrap.style.cssText = 'padding:.2rem 0 .4rem;';
+    var searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.placeholder = '🔍 Buscar municipio...';
+    searchInput.className = 'cb-input';
+    searchInput.style.marginBottom = '.4rem';
+    searchWrap.appendChild(searchInput);
+    container.appendChild(searchWrap);
+
+    var listWrap = document.createElement('div');
+    listWrap.className = 'cb-opts-list';
+    container.appendChild(listWrap);
+
+    function renderOpts(filter) {
+      listWrap.innerHTML = '';
+      var filtered = filter
+        ? opts.filter(function(o){ return o.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0; })
+        : opts;
+      filtered.forEach(function(opt) {
+        var btn = document.createElement('button');
+        btn.className = 'cb-opt';
+        btn.innerHTML = opt.label;
+        btn.onclick = function() { cbHandleOpt(opt); };
+        listWrap.appendChild(btn);
+      });
+    }
+    renderOpts('');
+    searchInput.addEventListener('input', function(){ renderOpts(this.value); });
+    setTimeout(function(){ searchInput.focus(); }, 100);
+    return;
+  }
+
+  opts.forEach(function(opt) {
+    var btn = document.createElement('button');
+    btn.className = 'cb-opt';
+    btn.innerHTML = opt.label;
+    btn.onclick = function() { cbHandleOpt(opt); };
+    container.appendChild(btn);
+  });
+}
+
+function cbHandleOpt(opt) {
+  // Show user selection as bubble
+  cbAddMessage('user', opt.label);
+  document.getElementById('cbOptions').innerHTML = '';
+
+  // Save data
+  if (opt.val) {
+    var step = CB.state.step;
+    if (step === 'tipo_plaga') CB.state.data.servicio = opt.val;
+    if (step === 'lugar')      CB.state.data.lugar    = opt.val;
+    if (step === 'zona')       CB.state.data.zona     = opt.val;
+    if (step === 'urgencia')   CB.state.data.urgencia = opt.val;
+  }
+
+  // Actions
+  if (opt.action) {
+    setTimeout(function(){ cbAction(opt.action); }, 300);
+    return;
+  }
+
+  setTimeout(function(){ cbShowStep(opt.next); }, 400);
+}
+
+function cbAction(action) {
+  if (action === 'call') {
+    window.location.href = 'tel:+50371626850';
+  } else if (action === 'wa_emergency') {
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('🚨 EMERGENCIA: Necesito atención urgente de fumigación. ¿Pueden venir hoy?'), '_blank');
+  } else if (action === 'wa_info') {
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('Hola, tengo una consulta sobre sus servicios de fumigación.'), '_blank');
+  } else if (action === 'wa_final') {
+    var d = CB.state.data;
+    var txt =
+      '🐛 *SOLICITUD DE SERVICIO*\n' +
+      '━━━━━━━━━━━━━━━━━━\n' +
+      (d.nombre   ? '👤 *Nombre:* '    + d.nombre   + '\n' : '') +
+      (d.telefono ? '📞 *Teléfono:* '  + d.telefono + '\n' : '') +
+      '🔧 *Servicio:* '     + (d.servicio || 'Por definir') + '\n' +
+      '🏠 *Tipo de lugar:* '+ (d.lugar    || 'Por definir') + '\n' +
+      '📍 *Municipio:* '    + (d.zona     || 'Por definir') + '\n' +
+      '⚡ *Urgencia:* '     + (d.urgencia || 'Por definir') + '\n' +
+      '━━━━━━━━━━━━━━━━━━\n' +
+      '_Enviado desde el asistente de masterfumigacioneswd.com_';
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent(txt), '_blank');
+  } else if (action === 'restart') {
+    CB.state = { step: 0, data: {} };
+    document.getElementById('cbMessages').innerHTML = '';
+    document.getElementById('cbOptions').innerHTML = '';
+    cbStarted = false;
+    setTimeout(cbShowStep.bind(null, 'start'), 300);
+  }
+}
+
+// Reemplaza placeholders en el mensaje final
+(function patchFinalMsg(){
+  var original = cbShowStep;
+  cbShowStep = function(id) {
+    var step = CB.flow.find(function(s){ return s.id === id; });
+    if (step && step.id === 'final') {
+      var d = CB.state.data;
+      step = JSON.parse(JSON.stringify(step));
+      step.msg = step.msg
+        .replace('{servicio}', d.servicio || '–')
+        .replace('{lugar}',   d.lugar    || '–')
+        .replace('{zona}',    d.zona     || '–')
+        .replace('{urgencia}',d.urgencia || '–');
+    }
+    original(id, step);
+  };
+  // Update original to accept pre-parsed step
+  var engine = cbShowStep;
+  cbShowStep = function(id) {
+    var step = CB.flow.find(function(s){ return s.id === id; });
+    if (step && step.id === 'final') {
+      var d = CB.state.data;
+      step = JSON.parse(JSON.stringify(step));
+      step.msg = step.msg
+        .replace('{servicio}', d.servicio || '–')
+        .replace('{lugar}',   d.lugar    || '–')
+        .replace('{zona}',    d.zona     || '–')
+        .replace('{urgencia}',d.urgencia || '–');
+      CB.state.step = id;
+      cbAddMessage('bot', step.msg);
+      setTimeout(function(){ cbShowOptions(step.opts); }, CB.delay);
+      return;
+    }
+    original(id);
+  };
+})();
+
+// Mostrar badge tras 4 seg
+setTimeout(function(){
+  if (!cbOpen) document.getElementById('cbBadge').style.display = 'flex';
+}, 4000);
+</script>
 </body>
 </html>
