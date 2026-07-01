@@ -39,9 +39,9 @@
 
   <header class="site-header">
     <nav class="nav">
-      <a href="index.html" class="nav__logo">
-        <span class="nav__logo-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></span>
-        MASTER FUMIGACIONES&nbsp;<em>WD</em>
+      <a href="index.html" class="nav__logo" style="gap:12px;align-items:center;">
+        <img src="LOGO_MASTER.png" alt="Master Fumigaciones WD" style="height:60px;width:60px;object-fit:contain;flex-shrink:0;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.08em;line-height:1;color:#fff;">MASTER FUMIGACIONES&nbsp;<em style="color:#f5c518;font-style:normal;">WD</em></span>
       </a>
       <ul class="nav__links" id="navLinks">
         <li><a href="index.html">Inicio</a></li>
@@ -70,10 +70,7 @@
   <footer class="site-footer">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a href="index.html" class="nav__logo" style="color:#fff">
-          <span class="nav__logo-icon"><i class="fas fa-shield-virus" aria-hidden="true"></i></span>
-          MASTER FUMIGACIONES&nbsp;<em style="color:var(--yellow)">WD</em>
-        </a>
+
         <p>Líderes en control de plagas en Soyapango y toda el área metropolitana de San Salvador. Protegemos familias y negocios salvadoreños desde 2016.</p>
         <div class="socials">
           <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
