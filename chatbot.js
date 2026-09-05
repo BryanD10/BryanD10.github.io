@@ -514,6 +514,12 @@ function cbRenderAIControls(suggestions) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('cbFreeText2Send').click(); }
   });
 
+  // Los botones/textarea que acabamos de agregar cambian la altura disponible
+  // del panel de mensajes, así que reforzamos el scroll al fondo una vez más.
+  var msgsEl = document.getElementById('cbMessages');
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+  setTimeout(function () { msgsEl.scrollTop = msgsEl.scrollHeight; }, 50);
+
   cbSaveState();
 }
 
