@@ -733,6 +733,29 @@ button { cursor:pointer; font-family:inherit; }
 .cb-opt--skip { background: #f5f5f5; color: #777; border-color: #ddd; flex:1; }
 .cb-opt--skip:hover { background: #eee; color: #333; }
 
+/* Botón fijo para escalar a un asesor humano por WhatsApp: siempre visible tras una respuesta de IA */
+.cb-opt--whatsapp {
+  background: var(--WA, #25d366);
+  border-color: var(--WA, #25d366);
+  color: #fff;
+  font-weight: 700;
+}
+.cb-opt--whatsapp:hover { background: #1ea952; border-color: #1ea952; color: #fff; transform: translateX(2px); }
+
+/* Indicador "escribiendo..." mientras la IA responde */
+.cb-typing { display: flex; gap: 4px; align-items: center; padding: .7rem .9rem !important; }
+.cb-typing span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #a5d6a7; display: inline-block;
+  animation: cbTypingBounce 1.2s infinite ease-in-out;
+}
+.cb-typing span:nth-child(2) { animation-delay: .15s; }
+.cb-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes cbTypingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: .5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
 /* Chatbot – lista scrolleable de opciones cuando hay buscador */
 .cb-opts-list {
   display: flex;

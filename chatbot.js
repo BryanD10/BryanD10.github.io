@@ -33,10 +33,12 @@
 // ─── CHATBOT DATA ───────────────────────────────────────────
 var CB = {
   phone: '50371626850',
+  // URL del backend con IA (mismo servicio que el bot de WhatsApp). Cambia esto por tu URL de Render.
+  apiUrl: 'https://master-fumigaciones-bot.onrender.com/webchat',
   delay: 600,
   storageKey: 'mfwd_cb_state_v1',
   maxAgeMs: 6 * 60 * 60 * 1000, // 6 horas: pasado eso, empieza de cero
-  state: { step: null, data: {}, history: [], messages: [] },
+  state: { step: null, data: {}, history: [], messages: [], aiHistory: [] },
 
   flow: [
     {
@@ -184,15 +186,8 @@ var CB = {
     },
     {
       id: 'free_text',
-      msg: '✍️ Cuéntame con tus palabras qué necesitas. Te conecto directo con un técnico real por WhatsApp con tu mensaje ya escrito.',
+      msg: '✍️ Cuéntame con tus palabras qué necesitas o qué duda tienes. Te respondo al instante.',
       freeText: true
-    },
-    {
-      id: 'free_text_sent',
-      msg: '✅ ¡Listo! Abrí WhatsApp con tu mensaje. Si no se abrió automáticamente, escríbenos al <strong>7162-6850</strong>.',
-      opts: [
-        { label: '🔄 Empezar de nuevo', action: 'restart' }
-      ]
     },
     {
       id: 'datos',
@@ -230,6 +225,7 @@ function cbSaveState() {
       data: CB.state.data,
       history: CB.state.history,
       messages: CB.state.messages,
+      aiHistory: CB.state.aiHistory,
       started: cbStarted,
       open: cbOpen,
       ts: Date.now()
@@ -403,7 +399,7 @@ function cbSubmitCapture(step) {
 }
 
 // Texto libre: cuando ninguna opción del menú encaja, el usuario escribe lo que necesita
-// y se abre WhatsApp con ese mensaje ya redactado.
+// y un asistente con IA le responde directamente en el chat (no solo lo manda a WhatsApp).
 function cbShowFreeTextForm() {
   var container = document.getElementById('cbOptions');
   var wrap = document.createElement('div');
@@ -411,11 +407,14 @@ function cbShowFreeTextForm() {
   wrap.innerHTML =
     '<textarea id="cbFreeText" class="cb-input cb-textarea" rows="3" placeholder="Escribe tu pregunta o lo que necesitas..."></textarea>' +
     '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
-      '<button class="cb-opt cb-opt--send" id="cbFreeTextSend">💬 Enviar por WhatsApp</button>' +
+      '<button class="cb-opt cb-opt--send" id="cbFreeTextSend">💬 Preguntar</button>' +
     '</div>';
   container.appendChild(wrap);
   document.getElementById('cbFreeTextSend').onclick = cbSubmitFreeText;
   var ta = document.getElementById('cbFreeText');
+  ta.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cbSubmitFreeText(); }
+  });
   setTimeout(function () { ta.focus(); }, 100);
 }
 
@@ -423,10 +422,99 @@ function cbSubmitFreeText() {
   var ta = document.getElementById('cbFreeText');
   var txt = ((ta && ta.value) || '').trim();
   if (!txt) { if (ta) ta.focus(); return; }
-  cbAddMessage('user', cbEscape(txt));
+  cbAskAI(txt);
+}
+
+// ─── CONVERSACIÓN CON IA (respuestas libres) ─────────────────
+function cbShowTyping() {
+  var msgs = document.getElementById('cbMessages');
+  var div = document.createElement('div');
+  div.className = 'cb-msg cb-msg--bot';
+  div.id = 'cbTyping';
+  div.innerHTML = '<div class="cb-bubble cb-typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function cbHideTyping() {
+  var el = document.getElementById('cbTyping');
+  if (el) el.remove();
+}
+
+function cbAskAI(texto) {
+  cbAddMessage('user', cbEscape(texto));
   document.getElementById('cbOptions').innerHTML = '';
-  window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent(txt), '_blank');
-  setTimeout(function () { cbShowStep('free_text_sent'); }, 400);
+  cbShowTyping();
+
+  fetch(CB.apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: texto, history: CB.state.aiHistory || [] })
+  })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      cbHideTyping();
+      var reply = data.reply || 'Disculpa, ¿puedes repetir tu pregunta? 🙏';
+      cbAddMessage('bot', reply);
+
+      CB.state.aiHistory = (CB.state.aiHistory || []).concat([
+        { role: 'user', content: texto },
+        { role: 'assistant', content: reply.replace(/<br\s*\/?>/g, '\n').replace(/<[^>]+>/g, '') }
+      ]).slice(-16);
+
+      cbRenderAIControls(Array.isArray(data.suggestions) ? data.suggestions : []);
+    })
+    .catch(function () {
+      cbHideTyping();
+      cbAddMessage('bot', 'Tuvimos un problema técnico para responderte 🙏 Mientras lo resolvemos, escríbenos directo por WhatsApp.');
+      cbRenderAIControls([]);
+    });
+}
+
+// Pinta: sugerencias de la IA (si hay) + botón fijo de WhatsApp + caja para seguir preguntando
+function cbRenderAIControls(suggestions) {
+  var container = document.getElementById('cbOptions');
+  container.innerHTML = '';
+
+  suggestions.forEach(function (s) {
+    var btn = document.createElement('button');
+    btn.className = 'cb-opt';
+    btn.innerHTML = '💡 ' + cbEscape(s);
+    btn.onclick = function () { cbAskAI(s); };
+    container.appendChild(btn);
+  });
+
+  var waBtn = document.createElement('button');
+  waBtn.className = 'cb-opt cb-opt--whatsapp';
+  waBtn.innerHTML = '💬 Hablar con un asesor por WhatsApp';
+  waBtn.onclick = function () { cbAction('wa_info'); };
+  container.appendChild(waBtn);
+
+  var wrap = document.createElement('div');
+  wrap.className = 'cb-input-group';
+  wrap.style.marginTop = '.5rem';
+  wrap.innerHTML =
+    '<textarea id="cbFreeText2" class="cb-input cb-textarea" rows="2" placeholder="Escribe otra pregunta..."></textarea>' +
+    '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
+      '<button class="cb-opt cb-opt--send" id="cbFreeText2Send">💬 Preguntar</button>' +
+      '<button class="cb-opt cb-opt--skip" id="cbFreeText2Menu">🏠 Menú</button>' +
+    '</div>';
+  container.appendChild(wrap);
+
+  document.getElementById('cbFreeText2Send').onclick = function () {
+    var ta = document.getElementById('cbFreeText2');
+    var txt = ((ta && ta.value) || '').trim();
+    if (!txt) { if (ta) ta.focus(); return; }
+    cbAskAI(txt);
+  };
+  document.getElementById('cbFreeText2Menu').onclick = function () { cbAction('restart'); };
+
+  var ta2 = document.getElementById('cbFreeText2');
+  ta2.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('cbFreeText2Send').click(); }
+  });
+
+  cbSaveState();
 }
 
 function cbAddMessage(who, html) {
@@ -601,10 +689,11 @@ function cbTryRestore() {
     return;
   }
 
-  CB.state.step     = saved.step || null;
-  CB.state.data     = saved.data || {};
-  CB.state.history  = saved.history || [];
-  CB.state.messages = saved.messages || [];
+  CB.state.step      = saved.step || null;
+  CB.state.data      = saved.data || {};
+  CB.state.history   = saved.history || [];
+  CB.state.messages  = saved.messages || [];
+  CB.state.aiHistory = saved.aiHistory || [];
   cbStarted = !!saved.started;
 
   var msgsEl = document.getElementById('cbMessages');
