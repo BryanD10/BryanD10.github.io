@@ -37,13 +37,13 @@ var CB = {
   apiUrl: 'https://master-fumigaciones-bot.onrender.com/webchat',
   delay: 600,
   storageKey: 'mfwd_cb_state_v1',
-  maxAgeMs: 6 * 60 * 60 * 1000, // 6 horas: pasado eso, empieza de cero
+  maxAgeMs: 30 * 60 * 1000, // 30 minutos sin interacción: al volver, empieza de cero
   state: { step: null, data: {}, history: [], messages: [], aiHistory: [] },
 
   flow: [
     {
       id: 'start',
-      msg: '👋 ¡Hola! Soy el asistente de <strong>Master Fumigaciones WD</strong>.<br>¿En qué te puedo ayudar hoy?',
+      msg: 'Bienvenido a <strong>Master Fumigaciones WD</strong>.<br>Soy el asistente virtual de la empresa. ¿En qué puedo ayudarte hoy?',
       opts: [
         { label: '🐛 Tengo una plaga', next: 'tipo_plaga' },
         { label: '💰 Quiero una cotización', next: 'tipo_plaga' },
@@ -718,6 +718,11 @@ function cbTryRestore() {
 
 // ─── INICIO ─────────────────────────────────────────────────
 cbTryRestore();
+
+// Al cerrar la pestaña o salir del sitio, se borra la conversación guardada:
+// la próxima vez que entren, el chat arranca cerrado y desde cero.
+window.addEventListener('pagehide', function () { cbClearState(); });
+window.addEventListener('beforeunload', function () { cbClearState(); });
 
 // Mostrar globo de atención tras 4 seg, solo si es una visita nueva
 setTimeout(function () {
