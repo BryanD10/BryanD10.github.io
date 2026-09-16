@@ -39,17 +39,17 @@
 
   <header class="site-header">
     <nav class="nav">
-      <a href="index.html" class="nav__logo" style="gap:12px;align-items:center;">
+      <a href="/" class="nav__logo" style="gap:12px;align-items:center;">
         <img src="LOGO_MASTER.png" alt="Master Fumigaciones WD" style="height:60px;width:60px;object-fit:contain;flex-shrink:0;">
         <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.08em;line-height:1;color:#fff;">MASTER FUMIGACIONES&nbsp;<em style="color:#f5c518;font-style:normal;">WD</em></span>
       </a>
       <ul class="nav__links" id="navLinks">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="servicios.html">Servicios</a></li>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="cobertura.html">Cobertura</a></li>
-        <li><a href="blog.html">Consejos</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="servicios">Servicios</a></li>
+        <li><a href="nosotros">Nosotros</a></li>
+        <li><a href="cobertura">Cobertura</a></li>
+        <li><a href="blog">Consejos</a></li>
+        <li><a href="contacto">Contacto</a></li>
         <li>
           <a href="https://wa.me/${WA}" target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--sm">
             <i class="fab fa-whatsapp" aria-hidden="true"></i> 7162-6850
@@ -82,22 +82,22 @@
       <div class="footer__col">
         <h4>Servicios</h4>
         <ul>
-          <li><a href="servicios.html#insectos">Control de Insectos</a></li>
-          <li><a href="servicios.html#roedores">Control de Roedores</a></li>
-          <li><a href="servicios.html#termitas">Control de Termitas</a></li>
-          <li><a href="servicios.html#fumigacion">Fumigación General</a></li>
-          <li><a href="servicios.html#desinfeccion">Desinfección</a></li>
-          <li><a href="servicios.html#industrial">Control Industrial</a></li>
+          <li><a href="servicios#insectos">Control de Insectos</a></li>
+          <li><a href="servicios#roedores">Control de Roedores</a></li>
+          <li><a href="servicios#termitas">Control de Termitas</a></li>
+          <li><a href="servicios#fumigacion">Fumigación General</a></li>
+          <li><a href="servicios#desinfeccion">Desinfección</a></li>
+          <li><a href="servicios#industrial">Control Industrial</a></li>
         </ul>
       </div>
       <div class="footer__col">
         <h4>Empresa</h4>
         <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="nosotros.html">Nosotros</a></li>
-          <li><a href="cobertura.html">Cobertura</a></li>
-          <li><a href="blog.html">Consejos</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="nosotros">Nosotros</a></li>
+          <li><a href="cobertura">Cobertura</a></li>
+          <li><a href="blog">Consejos</a></li>
+          <li><a href="contacto">Contacto</a></li>
         </ul>
       </div>
       <div class="footer__col">
