@@ -482,7 +482,7 @@ async function cbAskAI(texto) {
     var data=await response.json();
     if(version!==cbRequestVersion)return;
     if(!data||typeof data.reply!=='string'||!data.reply.trim())throw Error('Respuesta inválida');
-    var reply=data.reply.slice(0,6000);
+    var reply=data.reply.slice(0,6000).replace(/<br\s*\/?>/gi,'\n').replace(/<\/?(?:strong|b|em|i)>/gi,'');
     cbHideTyping();
     cbAddMessage('bot',cbEscape(reply).replace(/\n/g,'<br>'));
     CB.state.aiHistory=(CB.state.aiHistory||[]).concat([{role:'user',content:texto},{role:'assistant',content:reply}]).slice(-16);
