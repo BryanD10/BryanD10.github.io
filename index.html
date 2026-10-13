@@ -11,9 +11,9 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Master Fumigaciones WD | Control de Plagas Soyapango, El Salvador</title>
-  <meta name="description" content="Control profesional de plagas en Soyapango, San Salvador y área metropolitana. Termitas, cucarachas, roedores. Garantía 6 meses. ☎ 7162-6850">
+  <meta name="description" content="Control profesional de plagas en Soyapango, San Salvador y área metropolitana. Termitas, cucarachas, roedores. Un trabajo bien hecho. ☎ 7162-6850">
   <meta property="og:title" content="Master Fumigaciones WD – Control de Plagas Soyapango">
-  <meta property="og:description" content="Técnicos certificados, garantía escrita, servicio 24/7 para toda el área metropolitana de San Salvador.">
+  <meta property="og:description" content="Técnicos certificados, compromiso con un trabajo bien hecho, atención coordinada para toda el área metropolitana de San Salvador.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://masterfumigacioneswd.com/">
   <meta property="og:image" content="https://masterfumigacioneswd.com/icon-512.png">
@@ -22,10 +22,10 @@
   <meta property="og:image:alt" content="Master Fumigaciones WD – Control de Plagas Soyapango">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Master Fumigaciones WD – Control de Plagas Soyapango">
-  <meta name="twitter:description" content="Técnicos certificados, garantía escrita, servicio 24/7 para toda el área metropolitana de San Salvador.">
+  <meta name="twitter:description" content="Técnicos certificados, compromiso con un trabajo bien hecho, atención coordinada para toda el área metropolitana de San Salvador.">
   <meta name="twitter:image" content="https://masterfumigacioneswd.com/icon-512.png">
   <link rel="canonical" href="https://masterfumigacioneswd.com/">
-  <link rel="stylesheet" href="global.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap"><link rel="stylesheet" href="global.css">
   <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- IndexNow -->
@@ -51,7 +51,7 @@
       "latitude": 13.7170,
       "longitude": -89.1590
     },
-    "openingHours": "Mo-Su 07:00-18:00",
+    "openingHours": ["Mo-Fr 08:00-18:00", "Sa 08:00-12:00"],
     "priceRange": "$$",
     "description": "Control profesional de plagas en Soyapango y área metropolitana de San Salvador. Certificados MINSAL y MAG.",
     "areaServed": [
@@ -67,7 +67,7 @@
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Control de roedores"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Control de termitas"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desinfección general"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Control de mosquitos"}}
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Control de chinches de cama y mosquitos"}}
       ]
     },
     "sameAs": [
@@ -75,9 +75,32 @@
     ]
   }
   </script>
-</head>
+<link rel="preload" as="image" href="img/tecnico-hogar.webp"></head>
 <body>
-<script src="shared-html.js"></script>
+<header class="site-header">
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="index.html" class="nav__logo" style="gap:12px;align-items:center;">
+        <img width="60" height="60" src="LOGO_MASTER.png" alt="Master Fumigaciones WD" style="height:60px;width:60px;object-fit:contain;flex-shrink:0;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.08em;line-height:1;color:#fff;">MASTER FUMIGACIONES&nbsp;<em style="color:#f5c518;font-style:normal;">WD</em></span>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="cobertura.html">Cobertura</a></li>
+        <li><a href="blog.html">Consejos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li>
+          <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="btn btn--wa btn--sm">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i> 7162-6850
+          </a>
+        </li>
+      </ul>
+      <button class="nav__mobile-btn" id="mobileBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menú">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+    </nav>
+  </header><a class="skip-link" href="#contenido">Saltar al contenido</a><main id="contenido" tabindex="-1">
 
 <!-- HERO -->
 <section class="hero" id="inicio">
@@ -89,34 +112,21 @@
         <span class="eyebrow-text">Soyapango · El Salvador · Desde 2016</span>
       </div>
       <h1 class="hero__h1">
-        TUS PLAGAS<br>
-        <em>ELIMINADAS.</em>
-        GARANTIZADO.
+        CONTROL DE<br>
+        <em>PLAGAS.</em>
+        BIEN HECHO.
       </h1>
       <p class="hero__sub">Servicio profesional de fumigación y control de plagas para hogares, negocios e industrias. Técnicos certificados por el MINSAL.</p>
       <div class="hero__pills">
-        <span class="pill"><i class="fas fa-check-circle"></i> Garantía 6 meses</span>
-        <span class="pill"><i class="fas fa-leaf"></i> Productos seguros</span>
-        <span class="pill"><i class="fas fa-clock"></i> Emergencias 24/7</span>
+        <span class="pill"><i class="fas fa-check-circle"></i> Un trabajo bien hecho</span>
+        <span class="pill"><i class="fas fa-leaf"></i> Aplicación profesional</span>
+        <span class="pill"><i class="fas fa-clock"></i> Atención de urgencias</span>
       </div>
       <div class="hero__btns">
-        <a href="contacto" class="btn btn--yellow btn--lg"><i class="fas fa-calendar-check"></i> Agendar Inspección</a>
+        <a href="contacto.html" class="btn btn--yellow btn--lg"><i class="fas fa-calendar-check"></i> Agendar Inspección</a>
         <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--lg"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
-      <div class="hero__counters counters-trigger">
-        <div class="counter">
-          <span class="counter__n" data-target="9" data-suffix="+">0</span>
-          <span class="counter__l">Años experiencia</span>
-        </div>
-        <div class="counter">
-          <span class="counter__n" data-target="5000" data-suffix="+">0</span>
-          <span class="counter__l">Clientes satisfechos</span>
-        </div>
-        <div class="counter">
-          <span class="counter__n" data-target="100" data-suffix="%">0</span>
-          <span class="counter__l">Efectividad</span>
-        </div>
-      </div>
+      <div class="hero__counters"><div class="counter"><span class="counter__n">Hogar</span><span class="counter__l">Cuidado de tu espacio</span></div><div class="counter"><span class="counter__n">Negocio</span><span class="counter__l">Atención comercial</span></div><div class="counter"><span class="counter__n">Local</span><span class="counter__l">Soyapango y alrededores</span></div></div>
     </div>
 
     <!-- Quote form -->
@@ -125,21 +135,21 @@
         <i class="fas fa-clipboard-check"></i>
         <div>
           <h3>Cotización Gratis</h3>
-          <p>Respuesta en menos de 24 horas</p>
+          <p>Cuéntanos qué necesitas</p>
         </div>
       </div>
-      <div class="quote-box__form" id="mainForm">
+      <form class="quote-box__form" id="quoteForm" action="https://wa.me/50371626850" method="get">
         <div class="form-field">
           <label for="name">Nombre completo</label>
-          <input type="text" id="name" placeholder="Tu nombre">
+          <input type="text" id="name" autocomplete="name" maxlength="100" name="name" required placeholder="Tu nombre">
         </div>
         <div class="form-field">
           <label for="phone">Teléfono</label>
-          <input type="tel" id="phone" placeholder="7XXX-XXXX">
+          <input type="tel" id="phone" autocomplete="tel" inputmode="tel" name="phone" required placeholder="7XXX-XXXX">
         </div>
         <div class="form-field">
           <label for="zona">Municipio</label>
-          <select id="zona">
+          <select id="zona" name="zona" required>
             <option value="">¿Dónde estás?</option>
             <optgroup label="── San Salvador">
               <option value="Soyapango">Soyapango</option>
@@ -234,11 +244,11 @@
         </div>
         <div class="form-field">
           <label for="service">Tipo de servicio</label>
-          <select id="service">
+          <select id="service" name="service" required>
             <option value="">Selecciona un servicio</option>
             <option value="Control de Insectos">Control de Insectos</option>
             <option value="Control de Roedores">Control de Roedores</option>
-            <option value="Control de Termitas">Control de Termitas</option>
+            <option value="Chinches de cama">Chinches de cama / talajes</option><option value="Control de Termitas">Control de Termitas</option>
             <option value="Fumigación General">Fumigación General</option>
             <option value="Desinfección">Desinfección</option>
             <option value="Control Industrial">Control Industrial</option>
@@ -246,49 +256,18 @@
         </div>
         <div class="form-field">
           <label for="message">Describe tu problema (opcional)</label>
-          <textarea id="message" rows="2" placeholder="Ej: cucarachas en cocina…"></textarea>
+          <textarea id="message" name="message" maxlength="1500" rows="2" placeholder="Ej: cucarachas en cocina…"></textarea>
         </div>
-        <div id="form-error" style="display:none;color:#e53935;font-size:.85rem;margin-bottom:.5rem;text-align:center;font-weight:600;"></div>
-        <button type="button" onclick="enviarWhatsApp()" class="btn btn--primary btn--full btn--lg">
+        <div id="form-error" role="status" aria-live="polite" style="display:none;color:#e53935;font-size:.85rem;margin-bottom:.5rem;text-align:center;font-weight:600;"></div>
+        <button type="submit" class="btn btn--primary btn--full btn--lg">
           <i class="fab fa-whatsapp"></i> Solicitar Cotización por WhatsApp
         </button>
         <p style="text-align:center;font-size:.75rem;color:#aaa;margin-top:.6rem;">
-          <i class="fab fa-whatsapp" style="color:#25d366;"></i> Te responderemos en minutos
+          <i class="fab fa-whatsapp" style="color:#25d366;"></i> Te confirmaremos la disponibilidad por WhatsApp
         </p>
-      </div>
+<p class="privacy-note">Al continuar abrirás WhatsApp para revisar y enviar tu solicitud.</p></form>
 
-      <script>
-      function enviarWhatsApp() {
-        var nombre  = document.getElementById('name').value.trim();
-        var telefono = document.getElementById('phone').value.trim();
-        var zona    = document.getElementById('zona').value;
-        var servicio = document.getElementById('service').value;
-        var mensaje = document.getElementById('message').value.trim();
-        var errorBox = document.getElementById('form-error');
-
-        // Validación
-        if (!nombre) { errorBox.textContent = '⚠️ Por favor ingresa tu nombre.'; errorBox.style.display='block'; document.getElementById('name').focus(); return; }
-        if (!telefono) { errorBox.textContent = '⚠️ Por favor ingresa tu teléfono.'; errorBox.style.display='block'; document.getElementById('phone').focus(); return; }
-        if (!zona) { errorBox.textContent = '⚠️ Selecciona tu municipio.'; errorBox.style.display='block'; return; }
-        if (!servicio) { errorBox.textContent = '⚠️ Selecciona el tipo de servicio.'; errorBox.style.display='block'; return; }
-        errorBox.style.display = 'none';
-
-        // Armar mensaje estructurado
-        var texto =
-          '🐛 *SOLICITUD DE COTIZACIÓN*\n' +
-          '━━━━━━━━━━━━━━━━━━\n' +
-          '👤 *Nombre:* ' + nombre + '\n' +
-          '📞 *Teléfono:* ' + telefono + '\n' +
-          '📍 *Municipio:* ' + zona + '\n' +
-          '🔧 *Servicio:* ' + servicio + '\n' +
-          (mensaje ? '💬 *Detalle:* ' + mensaje + '\n' : '') +
-          '━━━━━━━━━━━━━━━━━━\n' +
-          '_Enviado desde masterfumigacioneswd.com_';
-
-        var url = 'https://wa.me/50371626850?text=' + encodeURIComponent(texto);
-        window.open(url, '_blank');
-      }
-      </script>
+      
     </div>
   </div>
 </section>
@@ -298,7 +277,7 @@
   <p><i class="fas fa-exclamation-triangle"></i> ¿Emergencia ahora?</p>
   <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer"
      class="btn btn--wa btn--sm"><i class="fab fa-whatsapp"></i> Escribir ahora · 7162-6850</a>
-  <p>Atendemos en menos de 2 horas en el área metropolitana</p>
+  <p>Consulta la disponibilidad para tu zona</p>
 </div>
 
 <!-- SERVICES PREVIEW -->
@@ -310,39 +289,39 @@
       <p class="sec-head__sub">Soluciones certificadas para hogares, negocios y plantas industriales de toda el área metropolitana.</p>
     </div>
     <div class="svc-grid">
-      <a href="servicios#insectos" class="svc-card reveal">
+      <a href="servicios.html#insectos" class="svc-card reveal">
         <span class="svc-card__badge popular">Popular</span>
         <div class="svc-card__icon"><i class="fas fa-bug"></i></div>
         <h3>Control de Insectos</h3>
         <p>Cucarachas, hormigas, chinches, zancudos y más con tratamientos de última generación.</p>
         <span class="svc-card__link">Ver servicio <i class="fas fa-arrow-right"></i></span>
       </a>
-      <a href="servicios#roedores" class="svc-card reveal">
+      <a href="servicios.html#roedores" class="svc-card reveal">
         <div class="svc-card__icon"><i class="fas fa-mouse"></i></div>
         <h3>Control de Roedores</h3>
         <p>Eliminación de ratas y ratones con sistema de cebo, trampas y sellado de accesos.</p>
         <span class="svc-card__link">Ver servicio <i class="fas fa-arrow-right"></i></span>
       </a>
-      <a href="servicios#termitas" class="svc-card reveal">
+      <a href="servicios.html#termitas" class="svc-card reveal">
         <span class="svc-card__badge urgent">Urgente</span>
         <div class="svc-card__icon"><i class="fas fa-home"></i></div>
         <h3>Control de Termitas</h3>
         <p>Barrera química y cebo para proteger tu propiedad del daño estructural.</p>
         <span class="svc-card__link">Ver servicio <i class="fas fa-arrow-right"></i></span>
       </a>
-      <a href="servicios#fumigacion" class="svc-card reveal">
+      <a href="servicios.html#fumigacion" class="svc-card reveal">
         <div class="svc-card__icon"><i class="fas fa-spray-can"></i></div>
         <h3>Fumigación General</h3>
         <p>Interiores, exteriores y jardines con cronograma de mantenimiento incluido.</p>
         <span class="svc-card__link">Ver servicio <i class="fas fa-arrow-right"></i></span>
       </a>
-      <a href="servicios#desinfeccion" class="svc-card reveal">
+      <a href="servicios.html#desinfeccion" class="svc-card reveal">
         <div class="svc-card__icon"><i class="fas fa-virus-slash"></i></div>
         <h3>Desinfección</h3>
         <p>Eliminación bacteriológica y virucida para negocios y restaurantes con certificado.</p>
         <span class="svc-card__link">Ver servicio <i class="fas fa-arrow-right"></i></span>
       </a>
-      <a href="servicios#industrial" class="svc-card reveal">
+      <a href="servicios.html#industrial" class="svc-card reveal">
         <div class="svc-card__icon"><i class="fas fa-industry"></i></div>
         <h3>Control Industrial</h3>
         <p>Plantas alimentarias y bodegas con normas BPM y documentación para auditorías.</p>
@@ -350,24 +329,25 @@
       </a>
     </div>
     <div style="text-align:center;margin-top:3rem;" class="reveal">
-      <a href="servicios" class="btn btn--outline-dark btn--lg">Ver todos los servicios <i class="fas fa-arrow-right"></i></a>
+      <a href="servicios.html" class="btn btn--outline-dark btn--lg">Ver todos los servicios <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
 
+<section class="sec bedbug-feature"><div class="container bedbug-feature__grid"><img width="1536" height="1024" loading="lazy" decoding="async" srcset="img/chinches-cama-768.webp 768w, img/chinches-cama.webp 1536w" sizes="(max-width: 760px) 100vw, 50vw" src="img/chinches-cama.webp" alt="Chinche de cama en la costura de un colchón"><div><span class="tag tag--yellow">También atendemos</span><h2>¿Chinches en la cama?</h2><p>Solicita una inspección de colchones, cabeceras y dormitorios. Identificamos la plaga y te orientamos sobre el servicio.</p><a class="btn btn--primary" href="servicios.html#chinches">Ver control de chinches</a></div></div></section>
 <!-- WHY US SPLIT -->
 <section class="why">
   <div class="why__left">
     <div class="reveal">
       <span class="tag tag--yellow">¿Por qué elegirnos?</span>
-      <h2 class="sec-head__title sec-head__title--light" style="margin:.6rem 0 1rem;">EXPERTOS CON<br><span>GARANTÍA REAL</span></h2>
+      <h2 class="sec-head__title sec-head__title--light" style="margin:.6rem 0 1rem;">NUESTRO COMPROMISO<br><span>UN TRABAJO BIEN HECHO</span></h2>
       <p style="color:rgba(255,255,255,.6);margin-bottom:2.5rem;line-height:1.75;">Más de 9 años protegiendo hogares y negocios en Soyapango y toda el área metropolitana con tecnología, experiencia y compromiso.</p>
       <div class="feat"><span class="feat__n">01</span><div><h4>Técnicos Certificados MINSAL</h4><p>Personal avalado y supervisado por el Ministerio de Salud de El Salvador.</p></div></div>
-      <div class="feat"><span class="feat__n">02</span><div><h4>Productos Premium y Seguros</h4><p>Insecticidas de última generación, sin riesgo para niños ni mascotas.</p></div></div>
-      <div class="feat"><span class="feat__n">03</span><div><h4>Garantía de servicio</h4><p>Garantizamos un excelente servicio con buenos productos.</p></div></div>
-      <div class="feat"><span class="feat__n">04</span><div><h4>Atención 24/7</h4><p>Emergencias atendidas en menos de 2 horas dentro del área metropolitana.</p></div></div>
+      <div class="feat"><span class="feat__n">02</span><div><h4>Tratamiento con orientación</h4><p>Insecticidas de última generación, con indicaciones de preparación y reingreso según el tratamiento.</p></div></div>
+      <div class="feat"><span class="feat__n">03</span><div><h4>Nuestro compromiso</h4><p>Nuestro compromiso es realizar un trabajo bien hecho, con atención a los detalles de cada servicio.</p></div></div>
+      <div class="feat"><span class="feat__n">04</span><div><h4>Atención por WhatsApp</h4><p>Consulta la disponibilidad para atención urgente en tu zona.</p></div></div>
       <div style="margin-top:2rem;">
-        <a href="nosotros" class="btn btn--yellow">Conoce más sobre nosotros <i class="fas fa-arrow-right"></i></a>
+        <a href="nosotros.html" class="btn btn--yellow">Conoce más sobre nosotros <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
@@ -392,37 +372,6 @@
       <div class="process-step reveal"><div class="process-step__circle">2<span class="ring"></span></div><h3>Diagnóstico</h3><p>Plan personalizado según tu propiedad y presupuesto.</p></div>
       <div class="process-step reveal"><div class="process-step__circle">3<span class="ring"></span></div><h3>Tratamiento</h3><p>Aplicación con equipos de alta tecnología y productos certificados.</p></div>
       <div class="process-step reveal"><div class="process-step__circle">4<span class="ring"></span></div><h3>Seguimiento</h3><p>Visitas de control post-servicio para resultados a largo plazo.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="sec sec--green">
-  <div class="container">
-    <div class="sec-head sec-head--center reveal">
-      <span class="tag tag--yellow">Testimonios</span>
-      <h2 class="sec-head__title sec-head__title--light">Lo que dicen nuestros <span>clientes</span></h2>
-    </div>
-    <div class="testi-google-badge reveal">
-      <i class="fab fa-google"></i>
-      <span>Reseñas verificadas · Clientes reales</span>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <blockquote>"Teníamos termitas en el techo. Master Fumigaciones llegó rápido, resolvió todo y nos dio garantía escrita. Excelente servicio."</blockquote>
-        <div class="testi-person"><div class="avatar avatar--purple">MR</div><div><strong>María Rodríguez</strong><span><i class="fas fa-map-marker-alt"></i> Soyapango</span></div></div>
-      </div>
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <blockquote>"En mi restaurante necesitaba cumplir con normas MINSAL. Hicieron el trabajo completo y nos dieron el certificado. Totalmente recomendados."</blockquote>
-        <div class="testi-person"><div class="avatar avatar--blue">JC</div><div><strong>Jorge Castillo</strong><span><i class="fas fa-map-marker-alt"></i> San Salvador</span></div></div>
-      </div>
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <blockquote>"Llamé de emergencia un sábado y llegaron en menos de una hora. Muy profesionales y precio justo. Ya los tengo agendados cada 3 meses."</blockquote>
-        <div class="testi-person"><div class="avatar avatar--orange">AG</div><div><strong>Ana Gutiérrez</strong><span><i class="fas fa-map-marker-alt"></i> Mejicanos</span></div></div>
-      </div>
     </div>
   </div>
 </section>
@@ -461,9 +410,9 @@
           <i class="fas fa-award"></i>
         </div>
         <div class="certif-card__body">
-          <span class="certif-card__org">GARANTÍA</span>
-          <h4>Garantia de servicio</h4>
-          <p>Garantizamos un excelente servicio con buenos productos.</p>
+          <span class="certif-card__org">COMPROMISO</span>
+          <h4>Nuestro compromiso</h4>
+          <p>Nuestro compromiso es realizar un trabajo bien hecho, con atención a los detalles de cada servicio.</p>
         </div>
       </div>
     </div>
@@ -476,11 +425,10 @@
     <div class="sec-head sec-head--center reveal">
       <span class="tag tag--green">Cobertura</span>
       <h2 class="sec-head__title sec-head__title--light">¿Llegamos a tu <span>zona</span>?</h2>
-      <p class="sec-head__sub sec-head__sub--light">Atendemos Soyapango y toda el área metropolitana de San Salvador. Emergencias en menos de 2 horas.</p>
+      <p class="sec-head__sub sec-head__sub--light">Atendemos Soyapango y toda el área metropolitana de San Salvador. Urgencias sujetas a disponibilidad.</p>
     </div>
     <div class="map-wrap reveal">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d30780.74!2d-89.1373!3d13.7174!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63303b1b5df8e1%3A0x6b3c0b58d54e5b5d!2sSoyapango%2C%20El%20Salvador!5e0!3m2!1ses!2ssv!4v1700000000000"
+      <iframe title="Mapa de la zona de Soyapango"         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d30780.74!2d-89.1373!3d13.7174!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63303b1b5df8e1%3A0x6b3c0b58d54e5b5d!2sSoyapango%2C%20El%20Salvador!5e0!3m2!1ses!2ssv!4v1700000000000"
         width="100%" height="400" style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade" title="Zona de cobertura Master Fumigaciones WD – Soyapango y área metropolitana">
       </iframe>
@@ -503,17 +451,64 @@
 <section class="cta-band">
   <div class="cta-band__inner reveal">
     <h2>¿PLAGA AHORA?</h2>
-    <p>Atendemos emergencias en menos de 2 horas en Soyapango y toda el área metropolitana.</p>
+    <p>Consulta disponibilidad para atención urgente en Soyapango y el área metropolitana.</p>
     <div class="cta-band__btns">
       <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer"
          class="btn btn--wa btn--lg"><i class="fab fa-whatsapp"></i> WhatsApp: 7162-6850</a>
-      <a href="contacto" class="btn btn--yellow btn--lg"><i class="fas fa-clipboard-check"></i> Cotización Gratis</a>
+      <a href="contacto.html" class="btn btn--yellow btn--lg"><i class="fas fa-clipboard-check"></i> Cotización Gratis</a>
     </div>
   </div>
 </section>
 
-<script src="main.js"></script>
+</main><footer class="site-footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
 
-<script src="chatbot.js"></script>
+        <p>Líderes en control de plagas en Soyapango y toda el área metropolitana de San Salvador. Protegemos familias y negocios salvadoreños desde 2016.</p>
+        <div class="socials">
+          <a href="https://wa.me/50371626850" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:masterfumigacionesw.d@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="servicios.html#insectos">Control de Insectos</a></li>
+          <li><a href="servicios.html#chinches">Chinches de cama</a></li><li><a href="servicios.html#roedores">Control de Roedores</a></li>
+          <li><a href="servicios.html#termitas">Control de Termitas</a></li>
+          <li><a href="servicios.html#fumigacion">Fumigación General</a></li>
+          <li><a href="servicios.html#desinfeccion">Desinfección</a></li>
+          <li><a href="servicios.html#industrial">Control Industrial</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="blog.html">Consejos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contacto</h4>
+        <div class="footer__contact-item"><i class="fas fa-map-marker-alt"></i><span>Soyapango, El Salvador</span></div>
+        <div class="footer__contact-item"><i class="fab fa-whatsapp"></i><span>7162-6850</span></div>
+        <div class="footer__contact-item"><i class="fas fa-envelope"></i><span>masterfumigacionesw.d@gmail.com</span></div>
+        <div class="footer__contact-item"><i class="fas fa-clock"></i><span>Lun–Vie: 8am–6pm<br>Sáb: 8am–12pm<br>Urgencias: consultar disponibilidad</span></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; <span id="footerYear">2026</span> Master Fumigaciones WD. Todos los derechos reservados.</p>
+      <div class="footer__certs">
+        <span class="footer__cert">MINSAL y MAG</span>
+        <span class="footer__cert">Atención profesional</span>
+        <span class="footer__cert">Un trabajo bien hecho</span>
+      </div>
+    </div>
+  <p class="footer-note"><a href="privacidad.html">Uso de tus datos</a></p></footer><a href="https://wa.me/50371626850" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a><script src="main.js" defer></script>
+
+<script src="chatbot.js" defer></script>
 </body>
 </html>

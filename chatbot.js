@@ -8,22 +8,22 @@
 (function cbInjectWidget() {
   if (document.getElementById('chatbot')) return; // evita duplicados
   var html =
-    '<div id="chatbot" class="cb-wrap" aria-live="polite">' +
-      '<button class="cb-toggle" id="cbToggle" onclick="cbToggleOpen()" aria-label="Abrir asistente">' +
+    '<div id="chatbot" class="cb-wrap" >' +
+      '<button class="cb-toggle" id="cbToggle" aria-controls="cbBox" aria-expanded="false" onclick="cbToggleOpen()" aria-label="Abrir asistente">' +
         '<i class="fas fa-comment-dots cb-toggle__icon--open"></i>' +
         '<i class="fas fa-times cb-toggle__icon--close" style="display:none"></i>' +
         '<span class="cb-badge" id="cbBadge">1</span>' +
       '</button>' +
-      '<div class="cb-box" id="cbBox" style="display:none">' +
+      '<div class="cb-box" id="cbBox" role="dialog" aria-label="Asistente virtual Master WD" style="display:none">' +
         '<div class="cb-header">' +
           '<div class="cb-header__avatar"><img src="LOGO_MASTER.png" alt="Master WD" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>' +
           '<div>' +
             '<strong>Asistente Master WD</strong>' +
-            '<span class="cb-online"><span class="cb-dot"></span>En línea ahora</span>' +
+            '<span class="cb-online"><span class="cb-dot"></span>Asistente virtual</span>' +
           '</div>' +
-          '<button class="cb-close" onclick="cbToggleOpen()" aria-label="Cerrar asistente"><i class="fas fa-times"></i></button>' +
+          '<button type="button" class="cb-clear" id="cbClear" aria-label="Borrar conversación">Borrar</button><button class="cb-close" onclick="cbToggleOpen()" aria-label="Cerrar asistente"><i class="fas fa-times"></i></button>' +
         '</div>' +
-        '<div class="cb-messages" id="cbMessages"></div>' +
+        '<div class="cb-messages" id="cbMessages" role="log" aria-live="polite" aria-relevant="additions"></div>' +
         '<div class="cb-options" id="cbOptions"></div>' +
       '</div>' +
     '</div>';
@@ -36,7 +36,7 @@ var CB = {
   // URL del backend con IA (mismo servicio que el bot de WhatsApp). Cambia esto por tu URL de Render.
   apiUrl: 'https://master-fumigaciones-bot.onrender.com/webchat',
   delay: 600,
-  storageKey: 'mfwd_cb_state_v1',
+  storageKey: 'mfwd_cb_state_v2',
   maxAgeMs: 30 * 60 * 1000, // 30 minutos sin interacción: al volver, empieza de cero
   state: { step: null, data: {}, history: [], messages: [], aiHistory: [] },
 
@@ -58,6 +58,7 @@ var CB = {
       opts: [
         { label: '🪳 Cucarachas / Insectos', val: 'Control de Insectos', next: 'lugar' },
         { label: '🐀 Ratas / Ratones', val: 'Control de Roedores', next: 'lugar' },
+        { label: '🛏️ Chinches de cama / talajes', val: 'Chinches de cama', next: 'lugar' },
         { label: '🪵 Termitas', val: 'Control de Termitas', next: 'lugar' },
         { label: '🦟 Zancudos / Moscas', val: 'Fumigación General', next: 'lugar' },
         { label: '🔬 No sé / Otra', val: 'Inspección General', next: 'lugar' }
@@ -133,7 +134,7 @@ var CB = {
     },
     {
       id: 'emergencia',
-      msg: '⚡ ¡Entendido! Atendemos emergencias en <strong>menos de 2 horas</strong> en el área metropolitana.<br><br>Te voy a conectar de inmediato con un técnico.',
+      msg: 'Entendido. Consulta por WhatsApp la disponibilidad para atención urgente en tu zona.',
       opts: [
         { label: '📲 Llamar ahora: 7162-6850', action: 'call' },
         { label: '💬 WhatsApp de emergencia', action: 'wa_emergency' }
@@ -168,7 +169,7 @@ var CB = {
     },
     {
       id: 'garantia_info',
-      msg: '🔒 Ofrecemos <strong>garantía escrita de 6 meses</strong>.<br><br>Si la plaga regresa dentro del período, volvemos sin costo adicional. Lo ponemos por escrito en el contrato.',
+      msg: 'Nuestro compromiso es <strong>un trabajo bien hecho</strong>. Antes de contratar, consulta el alcance y las condiciones del servicio.',
       opts: [
         { label: '✅ Quiero este servicio', next: 'tipo_plaga' },
         { label: '💬 Hablar con un técnico', action: 'wa_info' },
@@ -177,7 +178,7 @@ var CB = {
     },
     {
       id: 'horario_info',
-      msg: '⏰ Nuestros horarios:<br>• <strong>Lun–Vie:</strong> 8am – 6pm<br>• <strong>Sábados:</strong> 8am – 12pm<br>• <strong>Emergencias:</strong> 24/7<br><br>Número: <strong>7162-6850</strong>',
+      msg: '⏰ Nuestros horarios:<br>• <strong>Lun–Vie:</strong> 8am – 6pm<br>• <strong>Sábados:</strong> 8am – 12pm<br>• <strong>Urgencias:</strong> consultar disponibilidad<br><br>Número: <strong>7162-6850</strong>',
       opts: [
         { label: '🐛 Solicitar servicio', next: 'tipo_plaga' },
         { label: '💬 Escribir por WhatsApp', action: 'wa_info' },
@@ -210,6 +211,25 @@ var CB = {
 var cbOpen = false;
 var cbStarted = false;
 
+
+// Only local formatting tags are rebuilt. Attributes, links and active content are discarded.
+function cbSafeHtml(value) {
+  var template=document.createElement('template');
+  template.innerHTML=String(value == null ? '' : value);
+  var output=document.createElement('div');
+  function copy(node,parent){
+    if(node.nodeType===3){parent.appendChild(document.createTextNode(node.textContent));return;}
+    if(node.nodeType!==1)return;
+    var tag=node.tagName.toLowerCase();
+    if(['script','style','iframe','object','svg','math','img','video','audio'].includes(tag))return;
+    var target=parent;
+    if(['strong','b','em','i','br'].includes(tag)){target=document.createElement(tag);parent.appendChild(target);}
+    Array.from(node.childNodes).forEach(function(child){copy(child,target);});
+  }
+  Array.from(template.content.childNodes).forEach(function(node){copy(node,output);});
+  return output.innerHTML;
+}
+
 function cbEscape(str) {
   return String(str == null ? '' : str)
     .replace(/&/g, '&amp;')
@@ -220,7 +240,7 @@ function cbEscape(str) {
 
 function cbSaveState() {
   try {
-    localStorage.setItem(CB.storageKey, JSON.stringify({
+    sessionStorage.setItem(CB.storageKey, JSON.stringify({
       step: CB.state.step,
       data: CB.state.data,
       history: CB.state.history,
@@ -231,12 +251,12 @@ function cbSaveState() {
       ts: Date.now()
     }));
   } catch (e) {
-    // localStorage no disponible (modo privado, cuota llena, etc.) — no es crítico
+    // sessionStorage no disponible (modo privado, cuota llena, etc.) — no es crítico
   }
 }
 
 function cbClearState() {
-  try { localStorage.removeItem(CB.storageKey); } catch (e) {}
+  try { sessionStorage.removeItem(CB.storageKey); } catch (e) {}
 }
 
 function cbToggleOpen() {
@@ -245,7 +265,9 @@ function cbToggleOpen() {
   var badge = document.getElementById('cbBadge');
   var iconO = document.querySelector('.cb-toggle__icon--open');
   var iconC = document.querySelector('.cb-toggle__icon--close');
-  box.style.display   = cbOpen ? 'flex' : 'none';
+  box.style.display = cbOpen ? 'flex' : 'none';
+  document.getElementById('cbToggle').setAttribute('aria-expanded',String(cbOpen));
+  if(cbOpen){setTimeout(function(){box.querySelector('button')?.focus();},0);}else{document.getElementById('cbToggle').focus();}
   iconO.style.display = cbOpen ? 'none' : 'block';
   iconC.style.display = cbOpen ? 'block' : 'none';
   badge.style.display = 'none';
@@ -268,10 +290,10 @@ function cbResolveStep(step) {
   var d = CB.state.data;
   var copy = JSON.parse(JSON.stringify(step));
   copy.msg = copy.msg
-    .replace('{servicio}', d.servicio || '–')
-    .replace('{lugar}', d.lugar || '–')
-    .replace('{zona}', d.zona || '–')
-    .replace('{urgencia}', d.urgencia || '–');
+    .replace('{servicio}', cbEscape(d.servicio || '–'))
+    .replace('{lugar}', cbEscape(d.lugar || '–'))
+    .replace('{zona}', cbEscape(d.zona || '–'))
+    .replace('{urgencia}', cbEscape(d.urgencia || '–'));
   return copy;
 }
 
@@ -336,8 +358,8 @@ function cbShowInputForm() {
   var wrap = document.createElement('div');
   wrap.className = 'cb-input-group';
   wrap.innerHTML =
-    '<input type="text" id="cbNombre" placeholder="Tu nombre" class="cb-input">' +
-    '<input type="tel" id="cbTelefono" placeholder="Teléfono: 7XXX-XXXX" class="cb-input">' +
+    '<input type="text" id="cbNombre" aria-label="Tu nombre" maxlength="1500" placeholder="Tu nombre" class="cb-input">' +
+    '<input type="tel" id="cbTelefono" aria-label="Tu teléfono" maxlength="1500" placeholder="Teléfono: 7XXX-XXXX" class="cb-input">' +
     '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
       '<button class="cb-opt cb-opt--send" id="cbDatosSend">✅ Continuar</button>' +
       '<button class="cb-opt cb-opt--skip" id="cbDatosSkip">⏭️ Saltar</button>' +
@@ -375,7 +397,7 @@ function cbShowCaptureField(step) {
   var wrap = document.createElement('div');
   wrap.className = 'cb-input-group';
   wrap.innerHTML =
-    '<input type="text" id="cbCaptureInput" placeholder="Escribe aquí..." class="cb-input">' +
+    '<input type="text" id="cbCaptureInput" aria-label="Municipio o departamento" maxlength="1500" placeholder="Escribe aquí..." class="cb-input">' +
     '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
       '<button class="cb-opt cb-opt--send" id="cbCaptureSend">✅ Continuar</button>' +
     '</div>';
@@ -405,7 +427,7 @@ function cbShowFreeTextForm() {
   var wrap = document.createElement('div');
   wrap.className = 'cb-input-group';
   wrap.innerHTML =
-    '<textarea id="cbFreeText" class="cb-input cb-textarea" rows="3" placeholder="Escribe tu pregunta o lo que necesitas..."></textarea>' +
+    '<textarea id="cbFreeText" aria-label="Tu pregunta" maxlength="1500" class="cb-input cb-textarea" rows="3" placeholder="Escribe tu pregunta o lo que necesitas..."></textarea>' +
     '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
       '<button class="cb-opt cb-opt--send" id="cbFreeTextSend">💬 Preguntar</button>' +
     '</div>';
@@ -441,34 +463,39 @@ function cbHideTyping() {
   if (el) el.remove();
 }
 
-function cbAskAI(texto) {
-  cbAddMessage('user', cbEscape(texto));
-  document.getElementById('cbOptions').innerHTML = '';
+
+var cbRequest=null;
+var cbRequestVersion=0;
+async function cbAskAI(texto) {
+  if(cbRequest)return;
+  texto=String(texto||'').trim().slice(0,1500);
+  if(!texto)return;
+  cbAddMessage('user',cbEscape(texto));
+  document.getElementById('cbOptions').innerHTML='';
   cbShowTyping();
-
-  fetch(CB.apiUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: texto, history: CB.state.aiHistory || [] })
-  })
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      cbHideTyping();
-      var reply = data.reply || 'Disculpa, ¿puedes repetir tu pregunta? 🙏';
-      cbAddMessage('bot', reply);
-
-      CB.state.aiHistory = (CB.state.aiHistory || []).concat([
-        { role: 'user', content: texto },
-        { role: 'assistant', content: reply.replace(/<br\s*\/?>/g, '\n').replace(/<[^>]+>/g, '') }
-      ]).slice(-16);
-
-      cbRenderAIControls(Array.isArray(data.suggestions) ? data.suggestions : []);
-    })
-    .catch(function () {
-      cbHideTyping();
-      cbAddMessage('bot', 'Tuvimos un problema técnico para responderte 🙏 Mientras lo resolvemos, escríbenos directo por WhatsApp.');
-      cbRenderAIControls([]);
-    });
+  var controller=new AbortController(),version=++cbRequestVersion;
+  cbRequest=controller;
+  var timer=setTimeout(function(){controller.abort();},20000);
+  try{
+    var response=await fetch(CB.apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:texto,history:CB.state.aiHistory||[]}),signal:controller.signal});
+    if(!response.ok)throw Error('Servicio no disponible');
+    var data=await response.json();
+    if(version!==cbRequestVersion)return;
+    if(!data||typeof data.reply!=='string'||!data.reply.trim())throw Error('Respuesta inválida');
+    var reply=data.reply.slice(0,6000);
+    cbHideTyping();
+    cbAddMessage('bot',cbEscape(reply).replace(/\n/g,'<br>'));
+    CB.state.aiHistory=(CB.state.aiHistory||[]).concat([{role:'user',content:texto},{role:'assistant',content:reply}]).slice(-16);
+    cbRenderAIControls(Array.isArray(data.suggestions)?data.suggestions.filter(function(s){return typeof s==='string';}).slice(0,4):[]);
+  }catch(error){
+    if(version!==cbRequestVersion)return;
+    cbHideTyping();
+    cbAddMessage('bot','No pudimos obtener una respuesta. Puedes volver a intentarlo o contactar por WhatsApp.');
+    cbRenderAIControls([]);
+  }finally{
+    clearTimeout(timer);
+    if(version===cbRequestVersion)cbRequest=null;
+  }
 }
 
 // Pinta: sugerencias de la IA (si hay) + botón fijo de WhatsApp + caja para seguir preguntando
@@ -479,7 +506,7 @@ function cbRenderAIControls(suggestions) {
   suggestions.forEach(function (s) {
     var btn = document.createElement('button');
     btn.className = 'cb-opt';
-    btn.innerHTML = '💡 ' + cbEscape(s);
+    btn.textContent = '💡 ' + s;
     btn.onclick = function () { cbAskAI(s); };
     container.appendChild(btn);
   });
@@ -494,7 +521,7 @@ function cbRenderAIControls(suggestions) {
   wrap.className = 'cb-input-group';
   wrap.style.marginTop = '.5rem';
   wrap.innerHTML =
-    '<textarea id="cbFreeText2" class="cb-input cb-textarea" rows="2" placeholder="Escribe otra pregunta..."></textarea>' +
+    '<textarea id="cbFreeText2" aria-label="Tu siguiente pregunta" maxlength="1500" class="cb-input cb-textarea" rows="2" placeholder="Escribe otra pregunta..."></textarea>' +
     '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
       '<button class="cb-opt cb-opt--send" id="cbFreeText2Send">💬 Preguntar</button>' +
       '<button class="cb-opt cb-opt--skip" id="cbFreeText2Menu">🏠 Menú</button>' +
@@ -527,12 +554,13 @@ function cbAddMessage(who, html) {
   var msgs = document.getElementById('cbMessages');
   var div = document.createElement('div');
   div.className = 'cb-msg cb-msg--' + who;
-  div.innerHTML = '<div class="cb-bubble">' + html + '</div>';
+  div.innerHTML = '<div class="cb-bubble">' + cbSafeHtml(html) + '</div>';
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
 
   CB.state.messages = CB.state.messages || [];
-  CB.state.messages.push({ who: who, html: html });
+  CB.state.messages.push({ who: who, html: cbSafeHtml(html) });
+  CB.state.messages=CB.state.messages.slice(-80);
   cbSaveState();
 }
 
@@ -563,7 +591,7 @@ function cbShowOptions(opts) {
       filtered.forEach(function (opt) {
         var btn = document.createElement('button');
         btn.className = 'cb-opt';
-        btn.innerHTML = opt.label;
+        btn.textContent = opt.label;
         btn.onclick = function () { cbHandleOpt(opt); };
         listWrap.appendChild(btn);
       });
@@ -577,7 +605,7 @@ function cbShowOptions(opts) {
   opts.forEach(function (opt) {
     var btn = document.createElement('button');
     btn.className = 'cb-opt';
-    btn.innerHTML = opt.label;
+    btn.textContent = opt.label;
     btn.onclick = function () { cbHandleOpt(opt); };
     container.appendChild(btn);
   });
@@ -623,7 +651,7 @@ function cbAction(action) {
       }, 400);
     }, 500);
   } else if (action === 'wa_emergency') {
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('🚨 EMERGENCIA: Necesito atención urgente de fumigación. ¿Pueden venir hoy?'), '_blank');
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('🚨 EMERGENCIA: Necesito atención urgente de fumigación. ¿Pueden venir hoy?'), '_blank', 'noopener,noreferrer');
     setTimeout(function () {
       cbAddMessage('bot', '✅ WhatsApp abierto con mensaje de emergencia.<br>¡Respondemos en minutos!');
       setTimeout(function () {
@@ -635,7 +663,7 @@ function cbAction(action) {
       }, 400);
     }, 500);
   } else if (action === 'wa_info') {
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('Hola, tengo una consulta sobre sus servicios de fumigación.'), '_blank');
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('Hola, tengo una consulta sobre sus servicios de fumigación.'), '_blank', 'noopener,noreferrer');
     setTimeout(function () {
       cbAddMessage('bot', '✅ WhatsApp abierto. Un asesor te atenderá pronto.<br>También puedes llamar al <strong>7162-6850</strong>.');
       setTimeout(function () {
@@ -659,7 +687,7 @@ function cbAction(action) {
       '⚡ *Urgencia:* '     + (d.urgencia || 'Por definir') + '\n' +
       '━━━━━━━━━━━━━━━━━━\n' +
       '_Enviado desde el asistente de masterfumigacioneswd.com_';
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent(txt), '_blank');
+    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent(txt), '_blank', 'noopener,noreferrer');
     setTimeout(function () {
       cbAddMessage('bot', '✅ <strong>¡Listo!</strong> Tu solicitud fue enviada por WhatsApp.<br>Un técnico te contactará pronto al número que indicaste.<br><br>Si WhatsApp no abrió, llámanos al <strong>7162-6850</strong>.');
       setTimeout(function () {
@@ -673,6 +701,7 @@ function cbAction(action) {
       }, 400);
     }, 500);
   } else if (action === 'restart') {
+    ++cbRequestVersion; if(cbRequest){cbRequest.abort();cbRequest=null;} cbHideTyping();
     CB.state = { step: null, data: {}, history: [], messages: [] };
     document.getElementById('cbMessages').innerHTML = '';
     document.getElementById('cbOptions').innerHTML = '';
@@ -685,7 +714,7 @@ function cbAction(action) {
 // ─── RESTAURAR CONVERSACIÓN GUARDADA (si la hay y no expiró) ────
 function cbTryRestore() {
   var raw;
-  try { raw = localStorage.getItem(CB.storageKey); } catch (e) { raw = null; }
+  try { raw = sessionStorage.getItem(CB.storageKey); } catch (e) { raw = null; }
   if (!raw) return;
 
   var saved;
@@ -696,17 +725,17 @@ function cbTryRestore() {
   }
 
   CB.state.step      = saved.step || null;
-  CB.state.data      = saved.data || {};
-  CB.state.history   = saved.history || [];
-  CB.state.messages  = saved.messages || [];
-  CB.state.aiHistory = saved.aiHistory || [];
+  CB.state.data = saved.data && typeof saved.data==='object' ? saved.data : {};
+  CB.state.history = Array.isArray(saved.history) ? saved.history.slice(-80) : [];
+  CB.state.messages = Array.isArray(saved.messages) ? saved.messages.slice(-80).filter(function(m){return m && typeof m.html==='string' && ['user','bot'].includes(m.who);}) : [];
+  CB.state.aiHistory = Array.isArray(saved.aiHistory) ? saved.aiHistory.slice(-16).filter(function(m){return m && ['user','assistant'].includes(m.role) && typeof m.content==='string';}) : [];
   cbStarted = !!saved.started;
 
   var msgsEl = document.getElementById('cbMessages');
   CB.state.messages.forEach(function (m) {
     var div = document.createElement('div');
     div.className = 'cb-msg cb-msg--' + m.who;
-    div.innerHTML = '<div class="cb-bubble">' + m.html + '</div>';
+    div.innerHTML = '<div class="cb-bubble">' + cbSafeHtml(m.html) + '</div>';
     msgsEl.appendChild(div);
   });
   if (msgsEl.children.length) msgsEl.scrollTop = msgsEl.scrollHeight;
@@ -727,8 +756,8 @@ cbTryRestore();
 
 // Al cerrar la pestaña o salir del sitio, se borra la conversación guardada:
 // la próxima vez que entren, el chat arranca cerrado y desde cero.
-window.addEventListener('pagehide', function () { cbClearState(); });
-window.addEventListener('beforeunload', function () { cbClearState(); });
+
+
 
 // Mostrar globo de atención tras 4 seg, solo si es una visita nueva
 setTimeout(function () {
@@ -737,3 +766,7 @@ setTimeout(function () {
     if (badge) badge.style.display = 'flex';
   }
 }, 4000);
+
+try{localStorage.removeItem("mfwd_cb_state_v1");}catch(e){}
+document.getElementById("cbClear").addEventListener("click",function(){cbAction("restart");});
+document.addEventListener("keydown",function(e){if(e.key==="Escape" && cbOpen){cbToggleOpen();}});

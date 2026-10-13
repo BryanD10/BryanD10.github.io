@@ -1,137 +1,63 @@
-/* ============================================================
-   MASTER FUMIGACIONES WD — SHARED JS
-============================================================ */
-
-const WA_NUMBER = "50371626850";
-const CURRENT_PAGE = window.location.pathname.split('/').pop() || 'index.html';
-
-/* ---- Active nav link ---- */
-document.querySelectorAll('.nav__links a').forEach(a => {
-  const href = a.getAttribute('href');
-  if (href && (CURRENT_PAGE === href || (CURRENT_PAGE === '' && href === 'index.html'))) {
-    a.classList.add('active');
-  }
+'use strict';
+const navButton=document.getElementById('mobileBtn');
+const navLinks=document.getElementById('navLinks');
+const mobile=window.matchMedia('(max-width:1060px)');
+function setMenu(open,focusBack=false){
+ if(!navButton||!navLinks)return;
+ navLinks.classList.toggle('open',open);
+ navButton.setAttribute('aria-expanded',String(open));
+ navButton.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
+ navButton.innerHTML='<i class="fas '+(open?'fa-times':'fa-bars')+'" aria-hidden="true"></i>';
+ navLinks.inert=mobile.matches&&!open;
+ if(focusBack)navButton.focus();
+}
+navButton?.addEventListener('click',()=>setMenu(navButton.getAttribute('aria-expanded')!=='true'));
+mobile.addEventListener('change',()=>setMenu(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&navLinks?.classList.contains('open'))setMenu(false,true);});
+document.addEventListener('click',e=>{if(navLinks?.classList.contains('open')&&!e.composedPath().includes(document.querySelector('.nav')))setMenu(false);});
+navLinks?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+setMenu(false);
+const current=location.pathname.split('/').pop()||'index.html';
+navLinks?.querySelectorAll('a').forEach(a=>{if(a.getAttribute('href')===current){a.classList.add('active');a.setAttribute('aria-current','page');}});
+document.querySelectorAll('[data-target]').forEach(el=>{el.textContent=Number(el.dataset.target).toLocaleString('es-SV')+(el.dataset.suffix||'');});
+document.querySelectorAll('.faq-q').forEach((button,i)=>{
+ const answer=button.parentElement.querySelector('.faq-a');
+ if(!answer)return;
+ answer.id='faq-answer-'+i;button.setAttribute('aria-controls',answer.id);answer.hidden=true;
+ button.addEventListener('click',()=>{
+ const open=button.getAttribute('aria-expanded')!=='true';
+ button.setAttribute('aria-expanded',String(open));button.parentElement.classList.toggle('open',open);answer.hidden=!open;
+ });
 });
-
-/* ---- Mobile menu ---- */
-const mBtn   = document.getElementById('mobileBtn');
-const nLinks = document.getElementById('navLinks');
-if (mBtn && nLinks) {
-  mBtn.addEventListener('click', () => {
-    const open = nLinks.classList.toggle('open');
-    mBtn.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-  });
-  nLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    nLinks.classList.remove('open');
-    mBtn.innerHTML = '<i class="fas fa-bars"></i>';
-  }));
-}
-
-/* ---- Scroll reveal ---- */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-/* ---- Counter animation ---- */
-function animateCounter(el) {
-  const target = +el.dataset.target;
-  const suffix = el.dataset.suffix || '';
-  const duration = 1800;
-  let start = null;
-  function step(ts) {
-    if (!start) start = ts;
-    const progress = Math.min((ts - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const val = Math.floor(eased * target);
-    el.textContent = val.toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('[data-target]').forEach(animateCounter);
-      counterObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.counters-trigger').forEach(el => counterObserver.observe(el));
-
-/* ---- FAQ Accordion ---- */
-document.querySelectorAll('.faq-q').forEach(q => {
-  q.addEventListener('click', () => {
-    const item = q.parentElement;
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  });
+document.getElementById('footerYear')?.replaceChildren(String(new Date().getFullYear()));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+ const id=a.getAttribute('href').slice(1);if(!id)return;
+ const target=document.getElementById(decodeURIComponent(id));if(!target)return;
+ e.preventDefault();target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ if(a.classList.contains('skip-link'))target.focus({preventScroll:true});
+ history.replaceState(null,'','#'+encodeURIComponent(id));
+}));
+const quote=document.getElementById('quoteForm');
+quote?.addEventListener('submit',e=>{
+ e.preventDefault();if(!quote.reportValidity())return;
+ const data=new FormData(quote);
+ const text=['SOLICITUD DE COTIZACIÓN','Nombre: '+data.get('name'),'Teléfono: '+data.get('phone'),'Municipio: '+data.get('zona'),'Servicio: '+data.get('service'),data.get('message')?'Detalle: '+data.get('message'):''].filter(Boolean).join('\n');
+ window.open('https://wa.me/50371626850?text='+encodeURIComponent(text),'_blank','noopener,noreferrer');
+ const status=document.getElementById('form-error');status.textContent='Revisa y envía tu solicitud en WhatsApp.';status.style.display='block';status.style.color='#245a35';
 });
-
-/* ---- Form submission (Formspree) ---- */
-const form    = document.getElementById('mainForm');
-const fStatus = document.getElementById('form-status');
-if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn  = form.querySelector('[type=submit]');
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando…';
-    btn.disabled  = true;
-    try {
-      const res = await fetch(form.action, {
-        method:'POST',
-        body: new FormData(form),
-        headers:{ 'Accept':'application/json' }
-      });
-      if (res.ok) {
-        if (fStatus) {
-          fStatus.textContent = '✅ ¡Mensaje recibido! Te contactamos pronto.';
-          fStatus.style.color = 'var(--green)';
-          fStatus.style.display = 'block';
-        }
-        form.reset();
-        btn.innerHTML = '<i class="fas fa-check"></i> ¡Enviado!';
-        btn.style.background = 'var(--green-l)';
-      } else { throw new Error(); }
-    } catch {
-      if (fStatus) {
-        fStatus.textContent = '❌ Error al enviar. Escríbenos por WhatsApp.';
-        fStatus.style.color = 'var(--red)';
-        fStatus.style.display = 'block';
-      }
-      btn.innerHTML = orig;
-    } finally {
-      btn.disabled = false;
-      setTimeout(() => {
-        btn.innerHTML = orig;
-        btn.style.background = '';
-        if (fStatus) fStatus.style.display = 'none';
-      }, 5500);
-    }
-  });
-}
-
-/* ---- Footer year ---- */
-const yearEl = document.getElementById('footerYear');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-/* ---- Smooth anchor scroll ---- */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior:'smooth', block:'start' });
-    }
-  });
+const form=document.querySelector('form#mainForm');
+form?.addEventListener('submit',async e=>{
+ e.preventDefault();if(!form.reportValidity())return;
+ const btn=form.querySelector('[type=submit]'),status=document.getElementById('form-status'),label=btn.textContent;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+ btn.disabled=true;btn.textContent='Enviando…';form.setAttribute('aria-busy','true');
+ status.style.display='block';status.textContent='Enviando tu solicitud…';status.style.color='#334155';
+ try{
+ const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'},signal:controller.signal});
+ if(!res.ok)throw Error('No se pudo confirmar el envío');
+ status.textContent='Solicitud enviada. Te contactaremos para confirmar disponibilidad.';status.style.color='#245a35';form.reset();
+ }catch{
+ status.textContent='No pudimos confirmar el envío. Tus datos siguen en el formulario. ';
+ const link=document.createElement('a');link.href='https://wa.me/50371626850';link.target='_blank';link.rel='noopener noreferrer';link.textContent='Contactar por WhatsApp';status.append(link);status.style.color='#a52222';
+ }finally{clearTimeout(timer);btn.disabled=false;btn.textContent=label;form.removeAttribute('aria-busy');}
 });
