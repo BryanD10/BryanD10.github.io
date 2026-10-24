@@ -1,772 +1,89 @@
-/* ============================================================
-   MASTER FUMIGACIONES WD — CHATBOT (compartido en todas las páginas)
-   Se inyecta a sí mismo en el DOM, así que basta con incluir
-   <script src="chatbot.js"></script> en cualquier página.
-============================================================ */
+/* Approved navigation, chatbot and shared presentation. */
+(()=>{
+const css="\n.preview-note{background:#e8eee7;color:#244d35;text-align:center;padding:7px;font:12px Arial}\n.site-header{display:none!important}main .hero,main .page-hero{margin-top:0!important}\n#newnav{position:sticky;top:0;z-index:1000;background:#080e0c;color:white;font:14px Arial;padding:17px 4%;display:flex;gap:22px;align-items:center}\n#newnav .brand{display:flex;align-items:center;gap:12px;font-weight:bold;color:white;text-decoration:none;white-space:nowrap}#newnav img{width:46px;height:46px;object-fit:contain}\n#newnav .links{display:flex;gap:22px;margin-left:auto;align-items:center}#newnav a{color:inherit;text-decoration:none}#newnav button{font:inherit;cursor:pointer}\n#newnav .services-button{background:none;color:white;border:0}#newnav .book{background:#ffd000;color:#151b0f;border-radius:9px;padding:13px;font-weight:bold}\n#newnav .mega{position:absolute;left:4%;right:4%;top:100%;background:#142039;border-radius:0 0 16px 16px;padding:28px;display:grid;grid-template-columns:1fr 2fr;gap:30px;box-shadow:0 20px 30px #0003}\n#newnav h2{font:700 23px Arial;color:white;margin:8px 0}#newnav .mega small{color:#acb9ca}#newnav .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}#newnav .service-grid a{padding:14px;background:#ffffff05;border-radius:9px;font-size:13px}#newnav .service-grid a:hover{background:#ffffff13}\n#newnav .menu-toggle{display:none;margin-left:auto;background:none;border:1px solid #ffffff30;color:white;border-radius:9px;padding:10px}\n#drawer{position:fixed;right:0;top:0;height:100dvh;width:min(320px,88vw);padding:22px 18px;background:#080e0c;z-index:1201;color:white;font:14px Arial;display:flex;flex-direction:column}#drawer .drawer-links{display:grid;gap:8px;margin-top:28px}#drawer a{padding:15px;color:white;text-decoration:none;border-radius:10px}#drawer a:hover{background:#ffd00022;color:#ffd000}#drawer .close-menu{align-self:end;background:none;color:white;border:1px solid #ffffff30;border-radius:9px;width:38px;height:38px}#drawer .contact{margin-top:auto;display:grid;gap:8px}#drawer .contact a:first-child{background:#20cd67;color:#062c16;text-align:center}#shade{position:fixed;inset:0;background:#0009;z-index:1200}\n#newchat{position:fixed;right:22px;bottom:94px;width:390px;height:min(650px,calc(100dvh - 115px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#f4f7f3;box-shadow:0 15px 60px #0005;z-index:1150;color:#244232;font:14px Arial}\n#newchat *{box-sizing:border-box}#newchat header{background:#154e34;color:white;padding:15px;display:flex;align-items:center;gap:10px}#newchat header img{width:42px;height:42px;object-fit:contain;border-radius:50%;background:white}#newchat header strong{font-size:13px}#newchat header small{display:block;font-size:11px;margin-top:4px}#newchat button{cursor:pointer;font:inherit}#newchat header button{border:0;background:#ffffff18;border-radius:8px;color:white;width:30px;height:32px}#newchat .conversation{flex:1;overflow:auto;padding:16px}\n#newchat .bubble{background:white;padding:12px;border:1px solid #e3ebe3;border-radius:4px 15px 15px 15px;line-height:1.55;margin-bottom:10px;font-size:13px;white-space:pre-line}#newchat .cards{display:grid;grid-template-columns:1fr 1fr;gap:9px}#newchat .card{background:white;border:1px solid #e0e8e0;border-radius:12px;padding:15px;text-align:left;color:#234b32;min-height:87px;font-size:13px}#newchat .card i{display:block;color:#4c895c;margin-bottom:12px;font-size:18px}#newchat .emergency{grid-column:1/-1;background:#fff0ef;color:#a12c27;min-height:56px}#newchat .emergency i{display:inline;margin-right:8px;color:#a12c27}\n#newchat .choice{display:block;width:100%;padding:12px;margin:8px 0;border:1px solid #d7e3d9;border-radius:22px;background:white;text-align:left;color:#245638;font-size:13px}#newchat .back{background:none;border:0;color:#647c6a;font-size:12px;padding:12px}#newchat .progress{padding:12px 16px;background:white;color:#2b6e43;font-size:11px;border-bottom:1px solid #e0e8e0}#newchat form{display:flex;gap:8px;padding:11px;background:white;border-top:1px solid #e1e8e1}#newchat input{width:0;flex:1;border:1px solid #dfe7df;border-radius:25px;padding:11px;font:16px Arial;background:#f5f8f4}#newchat .send{border:0;border-radius:50%;width:42px;background:#175436;color:white}#newchat .summary-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #e2e9e2}#newchat .summary-row small{display:block;color:#617665;margin-bottom:5px}#newchat .edit{border:0;border-radius:8px;background:#e3efe5;color:#28603c;padding:8px;font-size:12px}\n#launch{position:fixed;right:22px;bottom:24px;border:0;border-radius:50%;width:56px;height:56px;background:#175436;color:white;z-index:1150;cursor:pointer;font-size:22px}.wa-float{right:94px!important;bottom:24px!important}\n[hidden]{display:none!important}\n@media(max-width:1050px){#newnav .links,#newnav>.book{display:none}#newnav .menu-toggle{display:block}#newnav .mega{display:none!important}#newnav{padding:14px 18px}#newnav .brand{font-size:13px}}\n@media(max-width:500px){#newchat{right:12px;width:calc(100vw - 24px);bottom:90px}#newnav img{width:40px;height:40px}}\n#preloader {\n  position:fixed; inset:0; background:var(--green-d);\n  display:flex; flex-direction:column; align-items:center; justify-content:center;\n  z-index:9999; transition:opacity .6s ease, visibility .6s;\n  overflow:hidden;\n}\n#preloader.gone { opacity:0; visibility:hidden; pointer-events:none; }\n\n/* Mouse scene container */\n.pl__scene {\n  position:relative;\n  width:320px;\n  height:100px;\n  margin-bottom:1.5rem;\n}\n\n/* The mouse runs from left to right across the screen */\n.pl__mouse-wrap {\n  position:absolute;\n  bottom:12px;\n  left:-140px;\n  animation: mouseRun 1.4s linear infinite;\n}\n\n.pl__mouse {\n  width:120px;\n  height:70px;\n  filter:drop-shadow(2px 4px 6px rgba(0,0,0,0.35));\n}\n\n/* Body bobbing while running */\n.pl__mouse {\n  animation: mouseBob 0.2s ease-in-out infinite alternate;\n}\n\n/* Leg animations — alternating pairs */\n.pl__leg--1, .pl__leg--3 {\n  transform-origin: top;\n  animation: legSwingA 0.2s ease-in-out infinite alternate;\n}\n.pl__leg--2, .pl__leg--4 {\n  transform-origin: top;\n  animation: legSwingB 0.2s ease-in-out infinite alternate;\n}\n\n/* Tail wag */\n.pl__tail {\n  transform-origin: right center;\n  animation: tailWag 0.3s ease-in-out infinite alternate;\n}\n\n/* Ground line */\n.pl__ground {\n  position:absolute;\n  bottom:0; left:0; right:0;\n  height:2px;\n  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);\n}\n\n/* Dust puffs behind the mouse */\n.pl__dust {\n  position:absolute;\n  bottom:10px;\n  border-radius:50%;\n  background:rgba(255,255,255,0.12);\n  animation: dustPuff 0.4s ease-out infinite;\n}\n.pl__dust--1 { width:12px; height:12px; left:60px; animation-delay:0s; }\n.pl__dust--2 { width:8px;  height:8px;  left:40px; bottom:14px; animation-delay:0.13s; }\n.pl__dust--3 { width:6px;  height:6px;  left:75px; bottom:16px; animation-delay:0.26s; }\n\n/* Logo text below the scene */\n.pl__logo {\n  font-family:var(--ff-display);\n  font-size:2.2rem; color:#fff; letter-spacing:.08em;\n  text-align:center; line-height:1.1;\n  animation:plFade .7s forwards;\n}\n.pl__logo span { color:var(--yellow); display:block; font-size:1rem; letter-spacing:.2em; font-family:var(--ff-cond); font-weight:700; margin-top:.2rem; }\n\n.pl__tagline {\n  font-family:var(--ff-cond);\n  font-size:.85rem;\n  color:rgba(255,255,255,0.45);\n  letter-spacing:.2em;\n  text-transform:uppercase;\n  margin-top:.4rem;\n  animation:plFade 1s .2s both;\n}\n\n.pl__bar { width:0; height:3px; background:var(--yellow); margin:.6rem auto 0; border-radius:2px; animation:plBar 1.1s .3s forwards ease-out; }\n\n/* ---- Keyframes ---- */\n@keyframes mouseRun {\n  0%   { left:-140px; }\n  45%  { left: 320px; }\n  46%  { left: 320px; opacity:0; }\n  47%  { left:-140px; opacity:0; }\n  48%  { left:-140px; opacity:1; }\n  100% { left: 320px; }\n}\n@keyframes mouseBob {\n  from { transform:translateY(0px); }\n  to   { transform:translateY(-3px); }\n}\n@keyframes legSwingA {\n  from { transform:rotate(-18deg); }\n  to   { transform:rotate(18deg); }\n}\n@keyframes legSwingB {\n  from { transform:rotate(18deg); }\n  to   { transform:rotate(-18deg); }\n}\n@keyframes tailWag {\n  from { transform:rotate(-12deg); }\n  to   { transform:rotate(12deg); }\n}\n@keyframes dustPuff {\n  0%   { transform:scale(1);   opacity:.7; }\n  100% { transform:scale(2.5); opacity:0; }\n}\n@keyframes plFade { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }\n@keyframes plBar  { to{width:180px} }\n\n\n\n\n/* Scroll reveal */\n.reveal {\n  opacity:0; transform:translateY(32px);\n  transition:opacity .65s ease, transform .65s ease;\n}\n\n.reveal.visible { opacity:1; transform:translateY(0); }\n\n.reveal--left  { transform:translateX(-32px); }\n\n.reveal--right { transform:translateX(32px); }\n\n.reveal--left.visible,\n.reveal--right.visible { transform:translateX(0); }\n#drawer{width:min(300px,86vw);padding:18px 16px 20px;background:#090d0c;border-left:1px solid #ffffff0d;box-shadow:-18px 0 50px #0004;font-family:Arial,sans-serif}\n#drawer .drawer-heading{display:flex;align-items:center;justify-content:space-between;padding:0 2px 10px}\n#drawer .drawer-heading>span{font-size:10px;letter-spacing:2px;color:#a7b7c9;font-weight:700}\n#drawer .close-menu{align-self:auto;width:34px;height:34px;display:grid;place-items:center;font-size:21px;font-weight:400}\n#drawer .drawer-links{margin-top:6px;gap:4px}\n#drawer .drawer-links a{display:flex;align-items:center;gap:13px;min-height:47px;padding:12px 14px;font-size:13px;font-weight:600;line-height:1.3;color:#c8d5e5;border-radius:11px}\n#drawer .drawer-links a i{width:18px;text-align:center;font-size:14px;color:#afbdca}\n#drawer .drawer-links a[aria-current=\"page\"]{background:#ffd00024;color:#ffce00}\n#drawer .drawer-links a[aria-current=\"page\"] i{color:#ffce00}\n#drawer .drawer-links a:hover{background:#ffffff0c}\n#drawer .drawer-links a[aria-current=\"page\"]:hover{background:#ffd00030}\n#drawer .contact{gap:8px;border-top:1px solid #ffffff0e;padding-top:14px}\n#drawer .contact a{display:flex;align-items:center;justify-content:center;gap:9px;font-size:12px;line-height:1.3;font-weight:600;min-height:43px;padding:12px;border-radius:10px}\n#drawer .contact a:last-child{border:1px solid #ffffff1a;background:transparent;color:#dae3ec}\nbody.menu-open .wa-float,body.menu-open #launch,body.menu-open #newchat{visibility:hidden!important;pointer-events:none!important}\n#drawer a:focus-visible,#drawer button:focus-visible{outline:2px solid #ffce00;outline-offset:2px}\n\n/* Preview: readable navigation and interface type */\n#newnav{font-family:var(--ff-body),'Segoe UI',sans-serif;font-size:16px;min-height:96px;padding:20px 4%;gap:24px}\n#newnav .brand{font-size:19px;gap:10px;letter-spacing:-.35px}\n#newnav img{width:56px;height:56px}\n#newnav .links{gap:24px;font-weight:500}\n#newnav .book{font-size:16px;padding:16px 20px;white-space:nowrap}\n#newnav h2{font-family:var(--ff-body),sans-serif;font-size:26px;line-height:1.25;letter-spacing:-.5px}\n#newnav .mega small{font-size:14px;line-height:1.6}\n#newnav .service-grid a{font-size:16px;padding:18px;line-height:1.4}\n#drawer{font-family:var(--ff-body),sans-serif;width:min(330px,88vw);overflow:auto}\n#drawer .drawer-links a{font-size:16px;min-height:52px}\n#drawer .contact a{font-size:14px}\n.btn,.btn--wa,.btn--yellow,.cta-band a,footer h4{font-family:var(--ff-body),sans-serif;font-weight:700;letter-spacing:0;text-transform:none}\n.cta-band h2{font-family:var(--ff-body),sans-serif;font-weight:700;letter-spacing:-.5px}\n@media(max-width:1200px){#newnav .links,#newnav>.book{display:none}#newnav .menu-toggle{display:block}#newnav .mega{display:none!important}}\n@media(max-width:600px){#newnav{min-height:80px;padding:14px 18px;gap:10px}#newnav .brand{font-size:15px;gap:7px}#newnav img{width:48px;height:48px}#newnav .menu-toggle{min-width:44px;min-height:44px;font-size:20px}}\n\n#newnav .links>a,#newnav .services-button{position:relative;padding:12px 2px;white-space:nowrap}#newnav .links [aria-current=\"page\"]{color:#ffd000;font-weight:700}#newnav .links [aria-current=\"page\"]::after{content:\"\";position:absolute;left:2px;right:2px;bottom:3px;height:3px;border-radius:3px;background:#ffd000}\n\n/* Shared contact block and readable secondary typography */\n.cta-band{padding:64px 24px;background:var(--green-d);color:#fff;text-align:center;position:relative;overflow:hidden}\n.cta-band__inner{position:relative;z-index:1;max-width:900px;margin:0 auto}\n.cta-band h2{font-family:var(--ff-body),sans-serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;line-height:1.2;letter-spacing:-.5px;margin:0 0 16px}\n.cta-band p{font-size:17px;line-height:1.7;color:#ffffffe0;max-width:650px;margin:0 auto 28px}\n.cta-band__btns{display:flex;justify-content:center;align-items:stretch;gap:14px;flex-wrap:wrap}\n.cta-band .btn{min-height:52px;justify-content:center;white-space:normal;line-height:1.4}\n.btn,.tag,.method strong,.footer__title,.site-footer h4,main label,main input,main select,main textarea{font-family:var(--ff-body),sans-serif}\n.btn{font-weight:700;letter-spacing:0;text-transform:none}\n.tag,main label,.method strong,.site-footer h4{letter-spacing:.035em}\nmain input,main select,main textarea{font-size:16px;max-width:100%}\n.site-footer a{overflow-wrap:anywhere}\n@media(max-width:600px){\n.cta-band{padding:44px 20px}\n.cta-band p{font-size:16px;margin-bottom:24px}\n.cta-band__btns{flex-direction:column;gap:12px}\n.cta-band .btn{width:100%;padding:15px 16px;font-size:16px}\nmain .btn{white-space:normal;text-align:center;justify-content:center}\n.site-footer{padding-bottom:100px}\n}\n\n#newchat a.choice{text-decoration:none;display:block;background:#175436;color:white;text-align:center;font-weight:700}",nav="<div id=\"preloader\">\n    <div class=\"pl__scene\">\n      <div class=\"pl__mouse-wrap\">\n        <svg class=\"pl__mouse\" viewBox=\"0 0 120 70\" xmlns=\"http://www.w3.org/2000/svg\">\n          <ellipse cx=\"60\" cy=\"38\" rx=\"32\" ry=\"20\" fill=\"#c8c0b8\"/>\n          <ellipse cx=\"88\" cy=\"32\" rx=\"16\" ry=\"13\" fill=\"#c8c0b8\"/>\n          <ellipse cx=\"102\" cy=\"36\" rx=\"7\" ry=\"5\" fill=\"#b8a8a0\"/>\n          <ellipse cx=\"108\" cy=\"35\" rx=\"3\" ry=\"2.5\" fill=\"#e87a7a\"/>\n          <circle cx=\"98\" cy=\"28\" r=\"3\" fill=\"#1a1a1a\"/>\n          <circle cx=\"99\" cy=\"27\" r=\"1\" fill=\"white\"/>\n          <ellipse cx=\"84\" cy=\"20\" rx=\"5\" ry=\"7\" fill=\"#c8c0b8\"/>\n          <ellipse cx=\"84\" cy=\"20\" rx=\"3\" ry=\"5\" fill=\"#f0a0a8\"/>\n          <ellipse cx=\"94\" cy=\"19\" rx=\"5\" ry=\"7\" fill=\"#c8c0b8\"/>\n          <ellipse cx=\"94\" cy=\"19\" rx=\"3\" ry=\"5\" fill=\"#f0a0a8\"/>\n          <path class=\"pl__tail\" d=\"M 30 40 Q 10 20 5 35 Q 0 50 15 45\" stroke=\"#a89888\" stroke-width=\"3.5\" fill=\"none\" stroke-linecap=\"round\"/>\n          <line class=\"pl__leg pl__leg--1\" x1=\"75\" y1=\"54\" x2=\"68\" y2=\"66\" stroke=\"#a89888\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n          <line class=\"pl__leg pl__leg--2\" x1=\"62\" y1=\"57\" x2=\"55\" y2=\"68\" stroke=\"#a89888\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n          <line class=\"pl__leg pl__leg--3\" x1=\"50\" y1=\"55\" x2=\"44\" y2=\"67\" stroke=\"#a89888\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n          <line class=\"pl__leg pl__leg--4\" x1=\"38\" y1=\"53\" x2=\"32\" y2=\"65\" stroke=\"#a89888\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n          <line x1=\"103\" y1=\"32\" x2=\"118\" y2=\"28\" stroke=\"#888\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n          <line x1=\"103\" y1=\"35\" x2=\"119\" y2=\"34\" stroke=\"#888\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n          <line x1=\"103\" y1=\"38\" x2=\"118\" y2=\"41\" stroke=\"#888\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n        </svg>\n      </div>\n      <div class=\"pl__ground\"></div>\n      <div class=\"pl__dust pl__dust--1\"></div>\n      <div class=\"pl__dust pl__dust--2\"></div>\n      <div class=\"pl__dust pl__dust--3\"></div>\n    </div>\n    <div class=\"pl__logo\">MASTER<span>FUMIGACIONES WD</span></div>\n    <div class=\"pl__bar\"></div>\n    <p class=\"pl__tagline\">Cargando...</p>\n  </div>\n\n  <header id=\"newnav\"><a class=\"brand\" href=\"index.html\"><img src=\"LOGO_MASTER.png\" alt=\"Master Fumigaciones WD\">Master Fumigaciones <span style=\"color:#ffd000\">WD</span></a><nav class=\"links\"><a href=\"index.html\">Inicio</a><button class=\"services-button\" aria-expanded=\"false\" aria-controls=\"mega\">Servicios ⌄</button><a href=\"nosotros.html\">Nosotros</a><a href=\"cobertura.html\">Cobertura</a><a href=\"blog.html\">Consejos</a><a href=\"contacto.html\">Contacto</a></nav><a class=\"book\" href=\"contacto.html\">Agendar inspección</a><button class=\"menu-toggle\" aria-label=\"Abrir menú\" aria-expanded=\"false\">☰</button><div class=\"mega\" id=\"mega\" hidden><div><small>NUESTROS SERVICIOS</small><h2>Protegemos tu hogar.<br>Cuidamos tu negocio.</h2><small>Encuentra el servicio para tu espacio.</small></div><div class=\"service-grid\"><a href=\"servicios.html#fumigacion\">Fumigación →</a><a href=\"servicios.html#insectos\">Cucarachas →</a><a href=\"servicios.html#chinches\">Chinches de cama →</a><a href=\"servicios.html#roedores\">Roedores →</a><a href=\"servicios.html#termitas\">Termitas →</a><a href=\"servicios.html#desinfeccion\">Desinfección →</a><a href=\"servicios.html\">Ver todos los servicios →</a></div></div></header><div id=\"shade\" hidden></div><aside id=\"drawer\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Menú principal\" hidden><div class=\"drawer-heading\"><span>MENÚ</span><button class=\"close-menu\" aria-label=\"Cerrar menú\">×</button></div><nav class=\"drawer-links\"><a href=\"index.html\"><i class=\"fas fa-house\" aria-hidden=\"true\"></i><span>Inicio</span></a><a href=\"servicios.html\"><i class=\"fas fa-shield-alt\" aria-hidden=\"true\"></i><span>Servicios</span></a><a href=\"nosotros.html\"><i class=\"fas fa-users\" aria-hidden=\"true\"></i><span>Nosotros</span></a><a href=\"cobertura.html\"><i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\"></i><span>Cobertura</span></a><a href=\"blog.html\"><i class=\"fas fa-lightbulb\" aria-hidden=\"true\"></i><span>Consejos</span></a><a href=\"contacto.html\"><i class=\"fas fa-envelope\" aria-hidden=\"true\"></i><span>Contacto</span></a></nav><div class=\"contact\"><a href=\"https://wa.me/50371626850\" target=\"_blank\" rel=\"noopener\"><i class=\"fab fa-whatsapp\" aria-hidden=\"true\"></i> WhatsApp · 7162-6850</a><a href=\"tel:+50371626850\"><i class=\"fas fa-phone\" aria-hidden=\"true\"></i> Llamar ahora</a></div></aside>",chat="<section id=\"newchat\" role=\"dialog\" aria-label=\"Asistente virtual\" hidden><header><img src=\"LOGO_MASTER.png\" alt=\"Logo original\"><div style=\"flex:1\"><strong>Master Fumigaciones WD</strong><small>Asistente virtual</small></div><button id=\"restart\" aria-label=\"Borrar conversación\">↻</button><button id=\"chatclose\" aria-label=\"Cerrar asistente\">×</button></header><div class=\"progress\" hidden></div><div class=\"conversation\" role=\"log\" aria-live=\"polite\"></div><form id=\"chatinput\"><input aria-label=\"Escribe tu mensaje\" placeholder=\"Escribe tu mensaje…\" maxlength=\"500\"><button class=\"send\" aria-label=\"Enviar mensaje\">➤</button></form></section><button id=\"launch\" aria-label=\"Abrir asistente\" aria-expanded=\"false\"><i class=\"fas fa-comment-dots\" aria-hidden=\"true\"></i></button>";
+const style=document.createElement('style');style.textContent=css;document.head.append(style);
+const old=document.querySelector('.site-header');if(old)old.insertAdjacentHTML('beforebegin',nav);else document.body.insertAdjacentHTML('afterbegin',nav);
+document.body.insertAdjacentHTML('beforeend',chat);
+(()=>{
+const $=s=>document.querySelector(s),mega=$('#mega'),toggle=$('.services-button'),drawer=$('#drawer'),shade=$('#shade'),hamb=$('.menu-toggle');
+toggle.onclick=()=>{mega.hidden=!mega.hidden;toggle.setAttribute('aria-expanded',!mega.hidden)};
+function menu(open){document.body.classList.toggle('menu-open',open);drawer.hidden=shade.hidden=!open;hamb.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';$('#newnav').inert=open;$('main').inert=open;if(open)drawer.querySelector('button').focus();else hamb.focus()}
+const activePage=location.pathname.split('/').pop()||'index.html';drawer.querySelectorAll('.drawer-links a').forEach(a=>{if(a.getAttribute('href')===activePage)a.setAttribute('aria-current','page')});document.querySelectorAll('#newnav .links a').forEach(a=>{if(a.getAttribute('href')===activePage)a.setAttribute('aria-current','page')});if(activePage==='servicios.html')toggle.setAttribute('aria-current','page');hamb.onclick=()=>menu(true);$('.close-menu').onclick=()=>menu(false);shade.onclick=()=>menu(false);
+document.addEventListener('click',e=>{if(!e.target.closest('#newnav')){mega.hidden=true;toggle.setAttribute('aria-expanded','false')}});
+const chat=$('#newchat'),launch=$('#launch'),body=$('.conversation'),prog=$('#newchat .progress'),input=$('#chatinput input');let step=-1,data=['','','',''],edit=false,wait=0,request=null,version=0,aiHistory=[];
+function openChat(open){chat.hidden=!open;launch.setAttribute('aria-expanded',open);if(open)input.focus();else launch.focus()}
+launch.onclick=()=>openChat(chat.hidden);$('#chatclose').onclick=()=>openChat(false);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!drawer.hidden)menu(false);else if(!chat.hidden)openChat(false);mega.hidden=true;toggle.setAttribute('aria-expanded','false')}if(e.key==='Tab'&&!drawer.hidden){const nodes=[...drawer.querySelectorAll('a,button')];if(e.shiftKey&&document.activeElement===nodes[0]){e.preventDefault();nodes.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===nodes.at(-1)){e.preventDefault();nodes[0].focus()}}});
+function clear(){++version;if(request){request.abort();request=null;}clearTimeout(wait);body.innerHTML='';input.disabled=false;$('.send').disabled=false}
+function say(t){const b=document.createElement('div');b.className='bubble';b.textContent=t;body.append(b);body.scrollTop=body.scrollHeight;return b}
+function btn(t,f,c='choice',parent=body){const b=document.createElement('button');b.className=c;b.textContent=t;b.onclick=f;parent.append(b);return b}
+function home(){clear();aiHistory=[];data=['','','',''];try{sessionStorage.removeItem('mfwd_cb_state_v2')}catch(e){}step=-1;edit=false;prog.hidden=true;say('Hola, soy el asistente de Master Fumigaciones WD. Te ayudo con plagas, cotizaciones y dudas del servicio.');say('¿En qué te puedo ayudar hoy?');const cards=document.createElement('div');cards.className='cards';body.append(cards);[['Es una emergencia','phone',()=>{clear();say('Consulta la disponibilidad para tu zona usando el botón de WhatsApp de la página.');back()}],['Tengo una plaga','bug',()=>{data=['','','',''];step=1;render()}],['Quiero una cotización','file-alt',()=>{data=['','','',''];step=0;render()}],['Información general','info-circle',()=>{clear();['Horarios','Cobertura','Garantía','Servicios'].forEach(t=>btn(t,()=>ask(t)));back()}],['Otra pregunta','comment',()=>{clear();say('Escribe tu pregunta abajo. Puedes consultar horarios, cobertura, garantía o servicios.');back();input.focus()}]].forEach(([t,i,f],n)=>{const b=btn('',f,'card'+(!n?' emergency':''),cards);b.innerHTML='<i class="fas fa-'+i+'" aria-hidden="true"></i>'+t})}
+const names=['Inmueble','Plaga','Municipio','Teléfono'],questions=['¿Qué tipo de lugar vamos a tratar?','¿Qué plaga necesitas controlar?','¿En qué municipio necesitas el servicio?','¿A qué teléfono puede contactarte el equipo?'],options=[['Casa o apartamento','Negocio o local','Restaurante o bodega','Empresa o institución'],['Cucarachas','Chinches de cama / talajes','Roedores','Termitas'],['Soyapango','San Salvador','Santa Tecla'],[]];
+function back(){btn('Volver al menú',home,'back')}
+function render(){clear();prog.hidden=false;prog.textContent='Cotización · Paso '+(step+1)+' de 4';say(questions[step]);if(data[step])say('Respuesta actual: '+data[step]);options[step].forEach(v=>btn(v+' ›',()=>accept(v)));if(step===3)say('Usaremos este número para responder a tu solicitud por WhatsApp.');input.placeholder=step===3?'Escribe el teléfono…':'Escribe tu respuesta…';input.inputMode=step===3?'tel':'text';if(step>0)btn('← Atrás',()=>{step--;render()},'back');if(edit)btn('Volver al resumen',summary,'back');back()}
+function accept(v){if(step===3&&!/^(?:\+?503[ -]?)?[267]\d{3}[ -]?\d{4}$/.test(v)){say('Ingresa un teléfono de 8 dígitos, por ejemplo 7000-0000.');return}data[step]=v.slice(0,120);if(edit){summary();return}const missing=data.findIndex(x=>!x);if(missing>=0){step=missing;render()}else summary()}
+function summary(){clear();step=4;edit=false;prog.hidden=false;prog.textContent='Cotización · Revisa tus datos';say('Puedes cambiar cualquier dato antes de continuar.');names.forEach((n,i)=>{const row=document.createElement('div');row.className='summary-row';const d=document.createElement('div'),small=document.createElement('small'),strong=document.createElement('strong');small.textContent=n;strong.textContent=data[i]||'Pendiente';d.append(small,strong);row.append(d);btn('Editar',()=>{step=i;edit=true;render()},'edit',row);body.append(row)});const send=document.createElement('a');send.className='choice';send.textContent='Continuar por WhatsApp';send.target='_blank';send.rel='noopener noreferrer';send.href='https://wa.me/50371626850?text='+encodeURIComponent('SOLICITUD DE COTIZACIÓN\n'+names.map((n,i)=>n+': '+data[i]).join('\n'));body.append(send);say('WhatsApp se abrirá con el resumen. Revisa el mensaje y envíalo para solicitar tu cotización.');btn('← Atrás',()=>{step=3;render()},'back');back()}
+function answer(q){q=q.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();if(/horario|hora|sabado/.test(q))return 'Lunes a viernes: 8 a. m. a 6 p. m. Sábados: 8 a. m. a 12 p. m. Urgencias sujetas a disponibilidad.';if(/garantia/.test(q))return 'Nuestro compromiso es un trabajo bien hecho. Un asesor revisa cualquier inquietud después del servicio.';if(/cobertura|zona|donde|municipio/.test(q))return 'Atendemos Soyapango y el área metropolitana de San Salvador. Consulta disponibilidad para otros municipios.';if(/precio|costo|cuanto/.test(q))return 'El precio depende de la plaga y el inmueble. Completa la cotización para que un asesor evalúe tu caso.';if(/plaga|chinche|servicio|termita|cucaracha|roedor/.test(q))return 'Atendemos insectos, roedores, termitas y chinches de cama, en hogares y negocios. La evaluación permite definir el tratamiento.';return 'No tengo una respuesta confirmada para esa consulta. Puedes revisar los servicios o preparar una cotización para recibir orientación del equipo.'}
+async function ask(q){
+ clear();step=-1;prog.hidden=true;q=q.slice(0,1500);say(q);
+ const pending=say('Estamos preparando tu respuesta…');
+ input.disabled=true;$('.send').disabled=true;
+ const current=version,controller=new AbortController();request=controller;
+ const timer=setTimeout(()=>controller.abort(),65000);
+ try{
+  const response=await fetch('https://master-fumigaciones-bot.onrender.com/webchat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,history:aiHistory}),signal:controller.signal});
+  if(!response.ok)throw Error('Servidor no disponible');
+  const result=await response.json();
+  if(current!==version)return;
+  if(typeof result.reply!=='string'||!result.reply.trim())throw Error('Respuesta vacía');
+  pending.remove();const reply=result.reply.slice(0,6000).replace(/<br\s*\/?>/gi,'\n').replace(/<\/?(?:strong|b|em|i)>/gi,'');say(reply);
+  aiHistory=aiHistory.concat([{role:'user',content:q},{role:'assistant',content:reply}]).slice(-16);
+ }catch(e){if(current!==version)return;pending.textContent='El asistente no está disponible en este momento. Información de respaldo:';say(answer(q));}
+ finally{clearTimeout(timer);if(current===version){request=null;input.disabled=false;$('.send').disabled=false;back();}}
+}
+$('#restart').onclick=home;$('#chatinput').onsubmit=e=>{e.preventDefault();const q=input.value.trim();if(!q)return;input.value='';if(step>=0&&step<4)accept(q);else ask(q)};home();
 
-// ─── WIDGET HTML (se inyecta al final del <body>) ────────────
-(function cbInjectWidget() {
-  if (document.getElementById('chatbot')) return; // evita duplicados
-  var html =
-    '<div id="chatbot" class="cb-wrap" >' +
-      '<button class="cb-toggle" id="cbToggle" aria-controls="cbBox" aria-expanded="false" onclick="cbToggleOpen()" aria-label="Abrir asistente">' +
-        '<i class="fas fa-comment-dots cb-toggle__icon--open"></i>' +
-        '<i class="fas fa-times cb-toggle__icon--close" style="display:none"></i>' +
-        '<span class="cb-badge" id="cbBadge">1</span>' +
-      '</button>' +
-      '<div class="cb-box" id="cbBox" role="dialog" aria-label="Asistente virtual Master WD" style="display:none">' +
-        '<div class="cb-header">' +
-          '<div class="cb-header__avatar"><img src="LOGO_MASTER.png" alt="Master WD" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>' +
-          '<div>' +
-            '<strong>Asistente Master WD</strong>' +
-            '<span class="cb-online"><span class="cb-dot"></span>Asistente virtual</span>' +
-          '</div>' +
-          '<button type="button" class="cb-clear" id="cbClear" aria-label="Borrar conversación">Borrar</button><button class="cb-close" onclick="cbToggleOpen()" aria-label="Cerrar asistente"><i class="fas fa-times"></i></button>' +
-        '</div>' +
-        '<div class="cb-messages" id="cbMessages" role="log" aria-live="polite" aria-relevant="additions"></div>' +
-        '<div class="cb-options" id="cbOptions"></div>' +
-      '</div>' +
-    '</div>';
-  document.body.insertAdjacentHTML('beforeend', html);
 })();
-
-// ─── CHATBOT DATA ───────────────────────────────────────────
-var CB = {
-  phone: '50371626850',
-  // URL del backend con IA (mismo servicio que el bot de WhatsApp). Cambia esto por tu URL de Render.
-  apiUrl: 'https://master-fumigaciones-bot.onrender.com/webchat',
-  delay: 600,
-  storageKey: 'mfwd_cb_state_v2',
-  maxAgeMs: 30 * 60 * 1000, // 30 minutos sin interacción: al volver, empieza de cero
-  state: { step: null, data: {}, history: [], messages: [], aiHistory: [] },
-
-  flow: [
-    {
-      id: 'start',
-      msg: 'Bienvenido a <strong>Master Fumigaciones WD</strong>.<br>Soy el asistente virtual de la empresa. ¿En qué puedo ayudarte hoy?',
-      opts: [
-        { label: '🐛 Tengo una plaga', next: 'tipo_plaga' },
-        { label: '💰 Quiero una cotización', next: 'tipo_plaga' },
-        { label: '🚨 Es una emergencia', next: 'emergencia' },
-        { label: 'ℹ️ Información general', next: 'info' },
-        { label: '✍️ Otra pregunta', next: 'free_text' }
-      ]
-    },
-    {
-      id: 'tipo_plaga',
-      msg: '¿Qué tipo de plaga tienes?',
-      opts: [
-        { label: '🪳 Cucarachas / Insectos', val: 'Control de Insectos', next: 'lugar' },
-        { label: '🐀 Ratas / Ratones', val: 'Control de Roedores', next: 'lugar' },
-        { label: '🛏️ Chinches de cama / talajes', val: 'Chinches de cama', next: 'lugar' },
-        { label: '🪵 Termitas', val: 'Control de Termitas', next: 'lugar' },
-        { label: '🦟 Zancudos / Moscas', val: 'Fumigación General', next: 'lugar' },
-        { label: '🔬 No sé / Otra', val: 'Inspección General', next: 'lugar' }
-      ]
-    },
-    {
-      id: 'lugar',
-      msg: '¿Dónde tienes el problema?',
-      opts: [
-        { label: '🏠 Casa / Apartamento', val: 'Residencial', next: 'zona' },
-        { label: '🍽️ Restaurante / Negocio', val: 'Comercial', next: 'zona' },
-        { label: '🏭 Industria / Bodega', val: 'Industrial', next: 'zona' }
-      ]
-    },
-    {
-      id: 'zona',
-      msg: '¿En qué municipio o departamento estás?',
-      opts: [
-        { label: '📍 Soyapango', val: 'Soyapango', next: 'urgencia' },
-        { label: '📍 San Salvador', val: 'San Salvador', next: 'urgencia' },
-        { label: '📍 Mejicanos', val: 'Mejicanos', next: 'urgencia' },
-        { label: '📍 Ilopango', val: 'Ilopango', next: 'urgencia' },
-        { label: '📍 Ciudad Delgado', val: 'Ciudad Delgado', next: 'urgencia' },
-        { label: '📍 Apopa', val: 'Apopa', next: 'urgencia' },
-        { label: '📍 San Marcos', val: 'San Marcos', next: 'urgencia' },
-        { label: '📍 Antiguo Cuscatlán', val: 'Antiguo Cuscatlán', next: 'urgencia' },
-        { label: '📍 Santa Tecla', val: 'Santa Tecla', next: 'urgencia' },
-        { label: '📍 Cuscatancingo', val: 'Cuscatancingo', next: 'urgencia' },
-        { label: '📍 San Martín', val: 'San Martín', next: 'urgencia' },
-        { label: '📍 Tonacatepeque', val: 'Tonacatepeque', next: 'urgencia' },
-        { label: '📍 Colón (La Libertad)', val: 'Colón', next: 'urgencia' },
-        { label: '📍 Ciudad Arce', val: 'Ciudad Arce', next: 'urgencia' },
-        { label: '📍 Quezaltepeque', val: 'Quezaltepeque', next: 'urgencia' },
-        { label: '📍 Zaragoza', val: 'Zaragoza', next: 'urgencia' },
-        { label: '📍 San Juan Opico', val: 'San Juan Opico', next: 'urgencia' },
-        { label: '📍 La Libertad', val: 'La Libertad', next: 'urgencia' },
-        { label: '📍 Olocuilta', val: 'Olocuilta', next: 'urgencia' },
-        { label: '📍 Zacatecoluca', val: 'Zacatecoluca', next: 'urgencia' },
-        { label: '📍 Cojutepeque', val: 'Cojutepeque', next: 'urgencia' },
-        { label: '📍 Suchitoto', val: 'Suchitoto', next: 'urgencia' },
-        { label: '📍 Santa Ana', val: 'Santa Ana', next: 'urgencia' },
-        { label: '📍 Chalchuapa', val: 'Chalchuapa', next: 'urgencia' },
-        { label: '📍 Sonsonate', val: 'Sonsonate', next: 'urgencia' },
-        { label: '📍 Acajutla', val: 'Acajutla', next: 'urgencia' },
-        { label: '📍 San Miguel', val: 'San Miguel', next: 'urgencia' },
-        { label: '📍 Usulután', val: 'Usulután', next: 'urgencia' },
-        { label: '📍 La Unión', val: 'La Unión', next: 'urgencia' },
-        { label: '📍 Santa Rosa de Lima', val: 'Santa Rosa de Lima', next: 'urgencia' },
-        { label: '📍 Chalatenango', val: 'Chalatenango', next: 'urgencia' },
-        { label: '📍 Sensuntepeque', val: 'Sensuntepeque', next: 'urgencia' },
-        { label: '📍 Ilobasco', val: 'Ilobasco', next: 'urgencia' },
-        { label: '📍 San Francisco Gotera', val: 'San Francisco Gotera', next: 'urgencia' },
-        { label: '📍 Ahuachapán', val: 'Ahuachapán', next: 'urgencia' },
-        { label: '📍 San Vicente', val: 'San Vicente', next: 'urgencia' },
-        // "Otro municipio" ya NO fija un valor genérico: ahora pide el nombre real.
-        { label: '📍 Otro municipio', next: 'zona_otro' }
-      ]
-    },
-    {
-      id: 'zona_otro',
-      msg: '📍 Escríbeme el nombre de tu municipio, cantón o colonia:',
-      captureField: 'zona',
-      nextAfter: 'urgencia'
-    },
-    {
-      id: 'urgencia',
-      msg: '¿Qué tan urgente es?',
-      opts: [
-        { label: '🚨 Urgente – hoy mismo', val: 'URGENTE – hoy mismo', next: 'datos' },
-        { label: '📅 Esta semana', val: 'Esta semana', next: 'datos' },
-        { label: '🗓️ Cuando puedan', val: 'Sin urgencia', next: 'datos' }
-      ]
-    },
-    {
-      id: 'emergencia',
-      msg: 'Entendido. Consulta por WhatsApp la disponibilidad para atención urgente en tu zona.',
-      opts: [
-        { label: '📲 Llamar ahora: 7162-6850', action: 'call' },
-        { label: '💬 WhatsApp de emergencia', action: 'wa_emergency' }
-      ]
-    },
-    {
-      id: 'info',
-      msg: '¿Sobre qué quieres más información?',
-      opts: [
-        { label: '💰 Precios y cotizaciones', next: 'precio_info' },
-        { label: '📜 Certificaciones MINSAL/MAG', next: 'cert_info' },
-        { label: '🔒 Garantía del servicio', next: 'garantia_info' },
-        { label: '⏰ Horarios de atención', next: 'horario_info' }
-      ]
-    },
-    {
-      id: 'precio_info',
-      msg: '💰 Los precios varían según el tipo de plaga, tamaño del lugar y frecuencia del servicio.<br><br>La <strong>inspección inicial es gratuita</strong> y sin compromiso. ¿Quieres agendar una?',
-      opts: [
-        { label: '✅ Sí, quiero una inspección gratis', next: 'tipo_plaga' },
-        { label: '💬 Preguntar por WhatsApp', action: 'wa_info' },
-        { label: '🏠 Volver al menú', action: 'restart' }
-      ]
-    },
-    {
-      id: 'cert_info',
-      msg: '📜 Master Fumigaciones WD cuenta con:<br>• <strong>Permiso Sanitario MINSAL</strong><br>• <strong>Certificación técnica MAG</strong><br>Operamos bajo plena regulación gubernamental.',
-      opts: [
-        { label: '🐛 Solicitar servicio certificado', next: 'tipo_plaga' },
-        { label: '💬 Más preguntas por WhatsApp', action: 'wa_info' }
-      ]
-    },
-    {
-      id: 'garantia_info',
-      msg: 'Nuestro compromiso es <strong>un trabajo bien hecho</strong>. Antes de contratar, consulta el alcance y las condiciones del servicio.',
-      opts: [
-        { label: '✅ Quiero este servicio', next: 'tipo_plaga' },
-        { label: '💬 Hablar con un técnico', action: 'wa_info' },
-        { label: '🏠 Volver al menú', action: 'restart' }
-      ]
-    },
-    {
-      id: 'horario_info',
-      msg: '⏰ Nuestros horarios:<br>• <strong>Lun–Vie:</strong> 8am – 6pm<br>• <strong>Sábados:</strong> 8am – 12pm<br>• <strong>Urgencias:</strong> consultar disponibilidad<br><br>Número: <strong>7162-6850</strong>',
-      opts: [
-        { label: '🐛 Solicitar servicio', next: 'tipo_plaga' },
-        { label: '💬 Escribir por WhatsApp', action: 'wa_info' },
-        { label: '🏠 Volver al menú', action: 'restart' }
-      ]
-    },
-    {
-      id: 'free_text',
-      msg: '✍️ Cuéntame con tus palabras qué necesitas o qué duda tienes. Te respondo al instante.',
-      freeText: true
-    },
-    {
-      id: 'datos',
-      msg: '📝 Casi listo. ¿Puedes dejarnos tu nombre y teléfono para que el técnico te contacte?<br><small style="color:#888">(Opcional — puedes saltar si prefieres)</small>',
-      opts: [],
-      input: true
-    },
-    {
-      id: 'final',
-      msg: '✅ ¡Perfecto! Tengo toda la información.<br><br>📋 <strong>Resumen:</strong><br>🔧 Servicio: <strong>{servicio}</strong><br>🏠 Lugar: <strong>{lugar}</strong><br>📍 Municipio: <strong>{zona}</strong><br>⚡ Urgencia: <strong>{urgencia}</strong><br><br>Toca el botón para enviar todo por WhatsApp y confirmar tu cita.',
-      opts: [
-        { label: '💬 Enviar por WhatsApp', action: 'wa_final' },
-        { label: '🔄 Empezar de nuevo', action: 'restart' }
-      ]
+(()=>{function hidePreloader(){const pl=document.getElementById('preloader');if(pl)pl.classList.add('gone')}if(document.readyState==='complete')setTimeout(hidePreloader,600);else{window.addEventListener('load',()=>setTimeout(hidePreloader,600));setTimeout(hidePreloader,2500)}})();
+/* ---- Scroll reveal ---- */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
     }
-  ]
-};
-
-// ─── ENGINE ─────────────────────────────────────────────────
-var cbOpen = false;
-var cbStarted = false;
-
-
-// Only local formatting tags are rebuilt. Attributes, links and active content are discarded.
-function cbSafeHtml(value) {
-  var template=document.createElement('template');
-  template.innerHTML=String(value == null ? '' : value);
-  var output=document.createElement('div');
-  function copy(node,parent){
-    if(node.nodeType===3){parent.appendChild(document.createTextNode(node.textContent));return;}
-    if(node.nodeType!==1)return;
-    var tag=node.tagName.toLowerCase();
-    if(['script','style','iframe','object','svg','math','img','video','audio'].includes(tag))return;
-    var target=parent;
-    if(['strong','b','em','i','br'].includes(tag)){target=document.createElement(tag);parent.appendChild(target);}
-    Array.from(node.childNodes).forEach(function(child){copy(child,target);});
-  }
-  Array.from(template.content.childNodes).forEach(function(node){copy(node,output);});
-  return output.innerHTML;
-}
-
-function cbEscape(str) {
-  return String(str == null ? '' : str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function cbSaveState() {
-  try {
-    sessionStorage.setItem(CB.storageKey, JSON.stringify({
-      step: CB.state.step,
-      data: CB.state.data,
-      history: CB.state.history,
-      messages: CB.state.messages,
-      aiHistory: CB.state.aiHistory,
-      started: cbStarted,
-      open: cbOpen,
-      ts: Date.now()
-    }));
-  } catch (e) {
-    // sessionStorage no disponible (modo privado, cuota llena, etc.) — no es crítico
-  }
-}
-
-function cbClearState() {
-  try { sessionStorage.removeItem(CB.storageKey); } catch (e) {}
-}
-
-function cbToggleOpen() {
-  cbOpen = !cbOpen;
-  var box   = document.getElementById('cbBox');
-  var badge = document.getElementById('cbBadge');
-  var iconO = document.querySelector('.cb-toggle__icon--open');
-  var iconC = document.querySelector('.cb-toggle__icon--close');
-  box.style.display = cbOpen ? 'flex' : 'none';
-  document.getElementById('cbToggle').setAttribute('aria-expanded',String(cbOpen));
-  if(cbOpen){setTimeout(function(){box.querySelector('button')?.focus();},0);}else{document.getElementById('cbToggle').focus();}
-  iconO.style.display = cbOpen ? 'none' : 'block';
-  iconC.style.display = cbOpen ? 'block' : 'none';
-  badge.style.display = 'none';
-  // Oculta el botón flotante de WhatsApp mientras el chat está abierto
-  // en pantallas chicas, para que no se asome detrás del widget.
-  var waFloat = document.querySelector('.wa-float');
-  if (waFloat && window.innerWidth <= 600) {
-    waFloat.style.display = cbOpen ? 'none' : 'flex';
-  }
-  if (cbOpen && !cbStarted) {
-    cbStarted = true;
-    setTimeout(function () { cbShowStep('start'); }, 400);
-  }
-  cbSaveState();
-}
-
-// Reemplaza los {placeholders} del mensaje final con los datos recopilados
-function cbResolveStep(step) {
-  if (step.id !== 'final') return step;
-  var d = CB.state.data;
-  var copy = JSON.parse(JSON.stringify(step));
-  copy.msg = copy.msg
-    .replace('{servicio}', cbEscape(d.servicio || '–'))
-    .replace('{lugar}', cbEscape(d.lugar || '–'))
-    .replace('{zona}', cbEscape(d.zona || '–'))
-    .replace('{urgencia}', cbEscape(d.urgencia || '–'));
-  return copy;
-}
-
-function cbShowStep(id) {
-  var raw = CB.flow.find(function (s) { return s.id === id; });
-  if (!raw) return;
-  var step = cbResolveStep(raw);
-  CB.state.step = id;
-  cbAddMessage('bot', step.msg);
-  setTimeout(function () {
-    cbRenderControls(step);
-  }, CB.delay);
-}
-
-// Avanza guardando el paso actual en el historial, para poder volver con "Atrás"
-function cbNavigateForward(nextId) {
-  CB.state.history = CB.state.history || [];
-  if (CB.state.step) CB.state.history.push(CB.state.step);
-  cbShowStep(nextId);
-}
-
-function cbGoBack() {
-  if (!CB.state.history || !CB.state.history.length) return;
-  var prevId = CB.state.history.pop();
-  var raw = CB.flow.find(function (s) { return s.id === prevId; });
-  if (!raw) return;
-  var step = cbResolveStep(raw);
-  CB.state.step = prevId;
-  cbRenderControls(step);
-  cbSaveState();
-}
-
-function cbAppendBackButton() {
-  if (!CB.state.history || !CB.state.history.length) return;
-  var container = document.getElementById('cbOptions');
-  var btn = document.createElement('button');
-  btn.className = 'cb-opt cb-opt--back';
-  btn.innerHTML = '⬅️ Atrás';
-  btn.onclick = cbGoBack;
-  container.appendChild(btn);
-}
-
-// Decide qué tipo de control mostrar (opciones, formulario, texto libre o captura) + botón Atrás
-function cbRenderControls(step) {
-  var container = document.getElementById('cbOptions');
-  container.innerHTML = '';
-  if (step.freeText) {
-    cbShowFreeTextForm();
-  } else if (step.captureField) {
-    cbShowCaptureField(step);
-  } else if (step.input) {
-    cbShowInputForm();
-  } else {
-    cbShowOptions(step.opts || []);
-  }
-  cbAppendBackButton();
-  cbSaveState();
-}
-
-function cbShowInputForm() {
-  var container = document.getElementById('cbOptions');
-  var wrap = document.createElement('div');
-  wrap.className = 'cb-input-group';
-  wrap.innerHTML =
-    '<input type="text" id="cbNombre" aria-label="Tu nombre" maxlength="1500" placeholder="Tu nombre" class="cb-input">' +
-    '<input type="tel" id="cbTelefono" aria-label="Tu teléfono" maxlength="1500" placeholder="Teléfono: 7XXX-XXXX" class="cb-input">' +
-    '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
-      '<button class="cb-opt cb-opt--send" id="cbDatosSend">✅ Continuar</button>' +
-      '<button class="cb-opt cb-opt--skip" id="cbDatosSkip">⏭️ Saltar</button>' +
-    '</div>';
-  container.appendChild(wrap);
-  document.getElementById('cbDatosSend').onclick = cbSubmitDatos;
-  document.getElementById('cbDatosSkip').onclick = cbSkipDatos;
-  setTimeout(function () { var el = document.getElementById('cbNombre'); if (el) el.focus(); }, 100);
-}
-
-function cbSubmitDatos() {
-  var nombre   = (document.getElementById('cbNombre')   || {}).value || '';
-  var telefono = (document.getElementById('cbTelefono') || {}).value || '';
-  nombre   = nombre.trim();
-  telefono = telefono.trim();
-  if (nombre)   CB.state.data.nombre   = nombre;
-  if (telefono) CB.state.data.telefono = telefono;
-  var resumen = nombre || telefono
-    ? '👤 ' + cbEscape(nombre || '–') + ' · 📞 ' + cbEscape(telefono || '–')
-    : '(sin datos)';
-  cbAddMessage('user', resumen);
-  document.getElementById('cbOptions').innerHTML = '';
-  setTimeout(function () { cbShowStep('final'); }, 400);
-}
-
-function cbSkipDatos() {
-  cbAddMessage('user', '⏭️ Prefiero no dejarlo');
-  document.getElementById('cbOptions').innerHTML = '';
-  setTimeout(function () { cbShowStep('final'); }, 400);
-}
-
-// Campo de texto libre genérico (ej. nombre de municipio) que continúa el flujo normal
-function cbShowCaptureField(step) {
-  var container = document.getElementById('cbOptions');
-  var wrap = document.createElement('div');
-  wrap.className = 'cb-input-group';
-  wrap.innerHTML =
-    '<input type="text" id="cbCaptureInput" aria-label="Municipio o departamento" maxlength="1500" placeholder="Escribe aquí..." class="cb-input">' +
-    '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
-      '<button class="cb-opt cb-opt--send" id="cbCaptureSend">✅ Continuar</button>' +
-    '</div>';
-  container.appendChild(wrap);
-  document.getElementById('cbCaptureSend').onclick = function () { cbSubmitCapture(step); };
-  var input = document.getElementById('cbCaptureInput');
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') cbSubmitCapture(step);
   });
-  setTimeout(function () { input.focus(); }, 100);
-}
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-function cbSubmitCapture(step) {
-  var input = document.getElementById('cbCaptureInput');
-  var val = ((input && input.value) || '').trim();
-  if (!val) { if (input) input.focus(); return; }
-  CB.state.data[step.captureField] = val;
-  cbAddMessage('user', cbEscape(val));
-  document.getElementById('cbOptions').innerHTML = '';
-  setTimeout(function () { cbNavigateForward(step.nextAfter); }, 400);
-}
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Texto libre: cuando ninguna opción del menú encaja, el usuario escribe lo que necesita
-// y un asistente con IA le responde directamente en el chat (no solo lo manda a WhatsApp).
-function cbShowFreeTextForm() {
-  var container = document.getElementById('cbOptions');
-  var wrap = document.createElement('div');
-  wrap.className = 'cb-input-group';
-  wrap.innerHTML =
-    '<textarea id="cbFreeText" aria-label="Tu pregunta" maxlength="1500" class="cb-input cb-textarea" rows="3" placeholder="Escribe tu pregunta o lo que necesitas..."></textarea>' +
-    '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
-      '<button class="cb-opt cb-opt--send" id="cbFreeTextSend">💬 Preguntar</button>' +
-    '</div>';
-  container.appendChild(wrap);
-  document.getElementById('cbFreeTextSend').onclick = cbSubmitFreeText;
-  var ta = document.getElementById('cbFreeText');
-  ta.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); cbSubmitFreeText(); }
-  });
-  setTimeout(function () { ta.focus(); }, 100);
-}
-
-function cbSubmitFreeText() {
-  var ta = document.getElementById('cbFreeText');
-  var txt = ((ta && ta.value) || '').trim();
-  if (!txt) { if (ta) ta.focus(); return; }
-  cbAskAI(txt);
-}
-
-// ─── CONVERSACIÓN CON IA (respuestas libres) ─────────────────
-function cbShowTyping() {
-  var msgs = document.getElementById('cbMessages');
-  var div = document.createElement('div');
-  div.className = 'cb-msg cb-msg--bot';
-  div.id = 'cbTyping';
-  div.innerHTML = '<div class="cb-bubble cb-typing"><span></span><span></span><span></span></div>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function cbHideTyping() {
-  var el = document.getElementById('cbTyping');
-  if (el) el.remove();
-}
-
-
-var cbRequest=null;
-var cbRequestVersion=0;
-async function cbAskAI(texto) {
-  if(cbRequest)return;
-  texto=String(texto||'').trim().slice(0,1500);
-  if(!texto)return;
-  cbAddMessage('user',cbEscape(texto));
-  document.getElementById('cbOptions').innerHTML='';
-  cbShowTyping();
-  var controller=new AbortController(),version=++cbRequestVersion;
-  cbRequest=controller;
-  var timer=setTimeout(function(){controller.abort();},20000);
-  try{
-    var response=await fetch(CB.apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:texto,history:CB.state.aiHistory||[]}),signal:controller.signal});
-    if(!response.ok)throw Error('Servicio no disponible');
-    var data=await response.json();
-    if(version!==cbRequestVersion)return;
-    if(!data||typeof data.reply!=='string'||!data.reply.trim())throw Error('Respuesta inválida');
-    var reply=data.reply.slice(0,6000).replace(/<br\s*\/?>/gi,'\n').replace(/<\/?(?:strong|b|em|i)>/gi,'');
-    cbHideTyping();
-    cbAddMessage('bot',cbEscape(reply).replace(/\n/g,'<br>'));
-    CB.state.aiHistory=(CB.state.aiHistory||[]).concat([{role:'user',content:texto},{role:'assistant',content:reply}]).slice(-16);
-    cbRenderAIControls(Array.isArray(data.suggestions)?data.suggestions.filter(function(s){return typeof s==='string';}).slice(0,4):[]);
-  }catch(error){
-    if(version!==cbRequestVersion)return;
-    cbHideTyping();
-    cbAddMessage('bot','No pudimos obtener una respuesta. Puedes volver a intentarlo o contactar por WhatsApp.');
-    cbRenderAIControls([]);
-  }finally{
-    clearTimeout(timer);
-    if(version===cbRequestVersion)cbRequest=null;
+/* ---- Counter animation ---- */
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  let start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = Math.floor(eased * target);
+    el.textContent = val.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
 }
 
-// Pinta: sugerencias de la IA (si hay) + botón fijo de WhatsApp + caja para seguir preguntando
-function cbRenderAIControls(suggestions) {
-  var container = document.getElementById('cbOptions');
-  container.innerHTML = '';
-
-  suggestions.forEach(function (s) {
-    var btn = document.createElement('button');
-    btn.className = 'cb-opt';
-    btn.textContent = '💡 ' + s;
-    btn.onclick = function () { cbAskAI(s); };
-    container.appendChild(btn);
-  });
-
-  var waBtn = document.createElement('button');
-  waBtn.className = 'cb-opt cb-opt--whatsapp';
-  waBtn.innerHTML = '💬 Hablar con un asesor por WhatsApp';
-  waBtn.onclick = function () { cbAction('wa_info'); };
-  container.appendChild(waBtn);
-
-  var wrap = document.createElement('div');
-  wrap.className = 'cb-input-group';
-  wrap.style.marginTop = '.5rem';
-  wrap.innerHTML =
-    '<textarea id="cbFreeText2" aria-label="Tu siguiente pregunta" maxlength="1500" class="cb-input cb-textarea" rows="2" placeholder="Escribe otra pregunta..."></textarea>' +
-    '<div style="display:flex;gap:.4rem;margin-top:.2rem;">' +
-      '<button class="cb-opt cb-opt--send" id="cbFreeText2Send">💬 Preguntar</button>' +
-      '<button class="cb-opt cb-opt--skip" id="cbFreeText2Menu">🏠 Menú</button>' +
-    '</div>';
-  container.appendChild(wrap);
-
-  document.getElementById('cbFreeText2Send').onclick = function () {
-    var ta = document.getElementById('cbFreeText2');
-    var txt = ((ta && ta.value) || '').trim();
-    if (!txt) { if (ta) ta.focus(); return; }
-    cbAskAI(txt);
-  };
-  document.getElementById('cbFreeText2Menu').onclick = function () { cbAction('restart'); };
-
-  var ta2 = document.getElementById('cbFreeText2');
-  ta2.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('cbFreeText2Send').click(); }
-  });
-
-  // Los botones/textarea que acabamos de agregar cambian la altura disponible
-  // del panel de mensajes, así que reforzamos el scroll al fondo una vez más.
-  var msgsEl = document.getElementById('cbMessages');
-  msgsEl.scrollTop = msgsEl.scrollHeight;
-  setTimeout(function () { msgsEl.scrollTop = msgsEl.scrollHeight; }, 50);
-
-  cbSaveState();
-}
-
-function cbAddMessage(who, html) {
-  var msgs = document.getElementById('cbMessages');
-  var div = document.createElement('div');
-  div.className = 'cb-msg cb-msg--' + who;
-  div.innerHTML = '<div class="cb-bubble">' + cbSafeHtml(html) + '</div>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-
-  CB.state.messages = CB.state.messages || [];
-  CB.state.messages.push({ who: who, html: cbSafeHtml(html) });
-  CB.state.messages=CB.state.messages.slice(-80);
-  cbSaveState();
-}
-
-function cbShowOptions(opts) {
-  var container = document.getElementById('cbOptions');
-
-  // Si hay más de 10 opciones, mostrar buscador
-  if (opts.length > 10) {
-    var searchWrap = document.createElement('div');
-    searchWrap.style.cssText = 'padding:.2rem 0 .4rem;';
-    var searchInput = document.createElement('input');
-    searchInput.type = 'text';
-    searchInput.placeholder = '🔍 Buscar municipio...';
-    searchInput.className = 'cb-input';
-    searchInput.style.marginBottom = '.4rem';
-    searchWrap.appendChild(searchInput);
-    container.appendChild(searchWrap);
-
-    var listWrap = document.createElement('div');
-    listWrap.className = 'cb-opts-list';
-    container.appendChild(listWrap);
-
-    function renderOpts(filter) {
-      listWrap.innerHTML = '';
-      var filtered = filter
-        ? opts.filter(function (o) { return o.label.toLowerCase().indexOf(filter.toLowerCase()) >= 0; })
-        : opts;
-      filtered.forEach(function (opt) {
-        var btn = document.createElement('button');
-        btn.className = 'cb-opt';
-        btn.textContent = opt.label;
-        btn.onclick = function () { cbHandleOpt(opt); };
-        listWrap.appendChild(btn);
-      });
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-target]').forEach(animateCounter);
+      counterObserver.unobserve(e.target);
     }
-    renderOpts('');
-    searchInput.addEventListener('input', function () { renderOpts(this.value); });
-    setTimeout(function () { searchInput.focus(); }, 100);
-    return;
-  }
-
-  opts.forEach(function (opt) {
-    var btn = document.createElement('button');
-    btn.className = 'cb-opt';
-    btn.textContent = opt.label;
-    btn.onclick = function () { cbHandleOpt(opt); };
-    container.appendChild(btn);
   });
-}
+}, { threshold: 0.3 });
 
-function cbHandleOpt(opt) {
-  // Mostrar la selección del usuario como burbuja
-  cbAddMessage('user', opt.label);
-  document.getElementById('cbOptions').innerHTML = '';
-
-  // Guardar dato
-  if (opt.val) {
-    var step = CB.state.step;
-    if (step === 'tipo_plaga') CB.state.data.servicio = opt.val;
-    if (step === 'lugar')      CB.state.data.lugar    = opt.val;
-    if (step === 'zona')       CB.state.data.zona     = opt.val;
-    if (step === 'urgencia')   CB.state.data.urgencia = opt.val;
-  }
-
-  // Acciones especiales (llamar, abrir WhatsApp, reiniciar...)
-  if (opt.action) {
-    setTimeout(function () { cbAction(opt.action); }, 300);
-    return;
-  }
-
-  setTimeout(function () { cbNavigateForward(opt.next); }, 400);
-}
-
-function cbAction(action) {
-  if (action === 'call') {
-    window.location.href = 'tel:+50371626850';
-    setTimeout(function () {
-      cbAddMessage('bot', '📲 Marcando al <strong>7162-6850</strong>...<br>Si no conecta, también puede escribirnos por WhatsApp.');
-      setTimeout(function () {
-        var container = document.getElementById('cbOptions');
-        container.innerHTML = '';
-        var btn = document.createElement('button'); btn.className = 'cb-opt';
-        btn.innerHTML = '💬 WhatsApp de emergencia'; btn.onclick = function () { cbAction('wa_emergency'); };
-        container.appendChild(btn);
-        var btn2 = document.createElement('button'); btn2.className = 'cb-opt';
-        btn2.innerHTML = '🔄 Volver al menú'; btn2.onclick = function () { cbAction('restart'); };
-        container.appendChild(btn2);
-      }, 400);
-    }, 500);
-  } else if (action === 'wa_emergency') {
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('🚨 EMERGENCIA: Necesito atención urgente de fumigación. ¿Pueden venir hoy?'), '_blank', 'noopener,noreferrer');
-    setTimeout(function () {
-      cbAddMessage('bot', '✅ WhatsApp abierto con mensaje de emergencia.<br>¡Respondemos en minutos!');
-      setTimeout(function () {
-        var container = document.getElementById('cbOptions');
-        container.innerHTML = '';
-        var btn = document.createElement('button'); btn.className = 'cb-opt';
-        btn.innerHTML = '🔄 Volver al menú'; btn.onclick = function () { cbAction('restart'); };
-        container.appendChild(btn);
-      }, 400);
-    }, 500);
-  } else if (action === 'wa_info') {
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent('Hola, tengo una consulta sobre sus servicios de fumigación.'), '_blank', 'noopener,noreferrer');
-    setTimeout(function () {
-      cbAddMessage('bot', '✅ WhatsApp abierto. Un asesor te atenderá pronto.<br>También puedes llamar al <strong>7162-6850</strong>.');
-      setTimeout(function () {
-        var container = document.getElementById('cbOptions');
-        container.innerHTML = '';
-        var btn = document.createElement('button'); btn.className = 'cb-opt';
-        btn.innerHTML = '🔄 Volver al menú'; btn.onclick = function () { cbAction('restart'); };
-        container.appendChild(btn);
-      }, 400);
-    }, 500);
-  } else if (action === 'wa_final') {
-    var d = CB.state.data;
-    var txt =
-      '🐛 *SOLICITUD DE SERVICIO*\n' +
-      '━━━━━━━━━━━━━━━━━━\n' +
-      (d.nombre   ? '👤 *Nombre:* '    + d.nombre   + '\n' : '') +
-      (d.telefono ? '📞 *Teléfono:* '  + d.telefono + '\n' : '') +
-      '🔧 *Servicio:* '     + (d.servicio || 'Por definir') + '\n' +
-      '🏠 *Tipo de lugar:* '+ (d.lugar    || 'Por definir') + '\n' +
-      '📍 *Municipio:* '    + (d.zona     || 'Por definir') + '\n' +
-      '⚡ *Urgencia:* '     + (d.urgencia || 'Por definir') + '\n' +
-      '━━━━━━━━━━━━━━━━━━\n' +
-      '_Enviado desde el asistente de masterfumigacioneswd.com_';
-    window.open('https://wa.me/' + CB.phone + '?text=' + encodeURIComponent(txt), '_blank', 'noopener,noreferrer');
-    setTimeout(function () {
-      cbAddMessage('bot', '✅ <strong>¡Listo!</strong> Tu solicitud fue enviada por WhatsApp.<br>Un técnico te contactará pronto al número que indicaste.<br><br>Si WhatsApp no abrió, llámanos al <strong>7162-6850</strong>.');
-      setTimeout(function () {
-        var container = document.getElementById('cbOptions');
-        container.innerHTML = '';
-        var btn = document.createElement('button');
-        btn.className = 'cb-opt';
-        btn.innerHTML = '🔄 Nueva consulta';
-        btn.onclick = function () { cbAction('restart'); };
-        container.appendChild(btn);
-      }, 400);
-    }, 500);
-  } else if (action === 'restart') {
-    ++cbRequestVersion; if(cbRequest){cbRequest.abort();cbRequest=null;} cbHideTyping();
-    CB.state = { step: null, data: {}, history: [], messages: [] };
-    document.getElementById('cbMessages').innerHTML = '';
-    document.getElementById('cbOptions').innerHTML = '';
-    cbClearState();
-    cbStarted = true; // ya estamos reiniciando, evita que se duplique el saludo al reabrir
-    setTimeout(function () { cbShowStep('start'); }, 300);
-  }
-}
-
-// ─── RESTAURAR CONVERSACIÓN GUARDADA (si la hay y no expiró) ────
-function cbTryRestore() {
-  var raw;
-  try { raw = sessionStorage.getItem(CB.storageKey); } catch (e) { raw = null; }
-  if (!raw) return;
-
-  var saved;
-  try { saved = JSON.parse(raw); } catch (e) { return; }
-  if (!saved || !saved.ts || (Date.now() - saved.ts) > CB.maxAgeMs) {
-    cbClearState();
-    return;
-  }
-
-  CB.state.step      = saved.step || null;
-  CB.state.data = saved.data && typeof saved.data==='object' ? saved.data : {};
-  CB.state.history = Array.isArray(saved.history) ? saved.history.slice(-80) : [];
-  CB.state.messages = Array.isArray(saved.messages) ? saved.messages.slice(-80).filter(function(m){return m && typeof m.html==='string' && ['user','bot'].includes(m.who);}) : [];
-  CB.state.aiHistory = Array.isArray(saved.aiHistory) ? saved.aiHistory.slice(-16).filter(function(m){return m && ['user','assistant'].includes(m.role) && typeof m.content==='string';}) : [];
-  cbStarted = !!saved.started;
-
-  var msgsEl = document.getElementById('cbMessages');
-  CB.state.messages.forEach(function (m) {
-    var div = document.createElement('div');
-    div.className = 'cb-msg cb-msg--' + m.who;
-    div.innerHTML = '<div class="cb-bubble">' + cbSafeHtml(m.html) + '</div>';
-    msgsEl.appendChild(div);
-  });
-  if (msgsEl.children.length) msgsEl.scrollTop = msgsEl.scrollHeight;
-
-  if (CB.state.step) {
-    var raw2 = CB.flow.find(function (s) { return s.id === CB.state.step; });
-    if (raw2) cbRenderControls(cbResolveStep(raw2));
-  }
-
-  if (saved.open) {
-    cbOpen = false; // para que cbToggleOpen() lo invierta a true correctamente
-    cbToggleOpen();
-  }
-}
-
-// ─── INICIO ─────────────────────────────────────────────────
-cbTryRestore();
-
-// Al cerrar la pestaña o salir del sitio, se borra la conversación guardada:
-// la próxima vez que entren, el chat arranca cerrado y desde cero.
+document.querySelectorAll('.counters-trigger').forEach(el => counterObserver.observe(el));
 
 
-
-// Mostrar globo de atención tras 4 seg, solo si es una visita nueva
-setTimeout(function () {
-  if (!cbOpen && !cbStarted) {
-    var badge = document.getElementById('cbBadge');
-    if (badge) badge.style.display = 'flex';
-  }
-}, 4000);
-
-try{localStorage.removeItem("mfwd_cb_state_v1");}catch(e){}
-document.getElementById("cbClear").addEventListener("click",function(){cbAction("restart");});
-document.addEventListener("keydown",function(e){if(e.key==="Escape" && cbOpen){cbToggleOpen();}});
+})();
